@@ -1,0 +1,850 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C93C9AC62BCF1F0A003EBB41 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = C93C9AC52BCF1F0A003EBB41 /* RealityKitContent */; };
+		C93C9AC82BCF1F0A003EBB41 /* CatCatCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9AC72BCF1F0A003EBB41 /* CatCatCatApp.swift */; };
+		C93C9ACA2BCF1F0A003EBB41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9AC92BCF1F0A003EBB41 /* ContentView.swift */; };
+		C93C9ACC2BCF1F0A003EBB41 /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9ACB2BCF1F0A003EBB41 /* ImmersiveView.swift */; };
+		C93C9ACE2BCF1F0B003EBB41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C93C9ACD2BCF1F0B003EBB41 /* Assets.xcassets */; };
+		C93C9AD12BCF1F0B003EBB41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C93C9AD02BCF1F0B003EBB41 /* Preview Assets.xcassets */; };
+		C93C9ADC2BCF1F0B003EBB41 /* CatCatCatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9ADB2BCF1F0B003EBB41 /* CatCatCatTests.swift */; };
+		C93C9AEB2BCFD0BF003EBB41 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9AEA2BCFD0BF003EBB41 /* Character.swift */; };
+		C93C9AED2BCFD186003EBB41 /* ContentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9AEC2BCFD186003EBB41 /* ContentsModel.swift */; };
+		C93C9B162BD27959003EBB41 /* tiger.png in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B102BD27945003EBB41 /* tiger.png */; };
+		C93C9B172BD27959003EBB41 /* grey.png in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B112BD27949003EBB41 /* grey.png */; };
+		C93C9B182BD27959003EBB41 /* white_black.png in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B122BD2794D003EBB41 /* white_black.png */; };
+		C93C9B1A2BD27959003EBB41 /* orange.png in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B142BD27955003EBB41 /* orange.png */; };
+		C93C9B1B2BD27959003EBB41 /* black.png in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B152BD27959003EBB41 /* black.png */; };
+		C93C9B5E2BD27ABA003EBB41 /* Kitten_Hit_M.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B1C2BD27995003EBB41 /* Kitten_Hit_M.usdz */; };
+		C93C9B5F2BD27ABA003EBB41 /* Kitten_Die_L.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B1D2BD27998003EBB41 /* Kitten_Die_L.usdz */; };
+		C93C9B602BD27ABA003EBB41 /* Kitten_Idle_8.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B1E2BD2799B003EBB41 /* Kitten_Idle_8.usdz */; };
+		C93C9B612BD27ABA003EBB41 /* Kitten_Lie_side_loop_2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B1F2BD2799E003EBB41 /* Kitten_Lie_side_loop_2.usdz */; };
+		C93C9B622BD27ABA003EBB41 /* Kitten_Attack_L.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B202BD279A2003EBB41 /* Kitten_Attack_L.usdz */; };
+		C93C9B632BD27ABA003EBB41 /* Kitten_Idle_7.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B212BD279A7003EBB41 /* Kitten_Idle_7.usdz */; };
+		C93C9B642BD27ABA003EBB41 /* Kitten_Sit_loop_3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B222BD279AF003EBB41 /* Kitten_Sit_loop_3.usdz */; };
+		C93C9B652BD27ABA003EBB41 /* Kitten_Walk_end.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B232BD279B3003EBB41 /* Kitten_Walk_end.usdz */; };
+		C93C9B662BD27ABA003EBB41 /* Kitten_Lie_belly_end.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B242BD279B8003EBB41 /* Kitten_Lie_belly_end.usdz */; };
+		C93C9B672BD27ABA003EBB41 /* Kitten_Turn_180_R.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B252BD279BC003EBB41 /* Kitten_Turn_180_R.usdz */; };
+		C93C9B682BD27ABA003EBB41 /* Kitten_Idle_5.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B262BD279C1003EBB41 /* Kitten_Idle_5.usdz */; };
+		C93C9B692BD27ABA003EBB41 /* Kitten_Walk_start.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B272BD279C5003EBB41 /* Kitten_Walk_start.usdz */; };
+		C93C9B6A2BD27ABA003EBB41 /* Kitten_Sit_start.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B282BD279CA003EBB41 /* Kitten_Sit_start.usdz */; };
+		C93C9B6B2BD27ABA003EBB41 /* Kitten_Trans_LieSide_Sit.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B292BD279CF003EBB41 /* Kitten_Trans_LieSide_Sit.usdz */; };
+		C93C9B6C2BD27ABA003EBB41 /* Kitten_Lie_side_loop_1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2A2BD279D3003EBB41 /* Kitten_Lie_side_loop_1.usdz */; };
+		C93C9B6D2BD27ABA003EBB41 /* Kitten_Scratching.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2B2BD279D8003EBB41 /* Kitten_Scratching.usdz */; };
+		C93C9B6E2BD27ABA003EBB41 /* Kitten_Idle_4.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2C2BD279DC003EBB41 /* Kitten_Idle_4.usdz */; };
+		C93C9B6F2BD27ABA003EBB41 /* Kitten_JumpRun_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2D2BD279E0003EBB41 /* Kitten_JumpRun_RM.usdz */; };
+		C93C9B702BD27ABA003EBB41 /* Kitten_Turn_90_R.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2E2BD279E5003EBB41 /* Kitten_Turn_90_R.usdz */; };
+		C93C9B712BD27ABA003EBB41 /* Kitten_JumpPlace_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2F2BD279EA003EBB41 /* Kitten_JumpPlace_RM.usdz */; };
+		C93C9B722BD27ABA003EBB41 /* Kitten_Attack_Series.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B302BD279EE003EBB41 /* Kitten_Attack_Series.usdz */; };
+		C93C9B732BD27ABA003EBB41 /* Kitten_Lie_belly_loop_3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B312BD279F2003EBB41 /* Kitten_Lie_belly_loop_3.usdz */; };
+		C93C9B742BD27ABA003EBB41 /* Kitten_Drinking.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B322BD279F7003EBB41 /* Kitten_Drinking.usdz */; };
+		C93C9B752BD27ABA003EBB41 /* Kitten_Lie_belly_start.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B332BD279FC003EBB41 /* Kitten_Lie_belly_start.usdz */; };
+		C93C9B762BD27ABA003EBB41 /* Kitten_Trans_Sit_LieSide.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B342BD27A00003EBB41 /* Kitten_Trans_Sit_LieSide.usdz */; };
+		C93C9B772BD27ABA003EBB41 /* Kitten_Hit_B.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B352BD27A05003EBB41 /* Kitten_Hit_B.usdz */; };
+		C93C9B782BD27ABA003EBB41 /* Kitten_Caress_lie.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B362BD27A09003EBB41 /* Kitten_Caress_lie.usdz */; };
+		C93C9B792BD27ABA003EBB41 /* Kitten_Sit_loop_1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B372BD27A0E003EBB41 /* Kitten_Sit_loop_1.usdz */; };
+		C93C9B7A2BD27ABA003EBB41 /* Kitten_Trot_F_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B382BD27A12003EBB41 /* Kitten_Trot_F_RM.usdz */; };
+		C93C9B7B2BD27ABA003EBB41 /* Kitten_Trans_LieBelly_Sit.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B392BD27A16003EBB41 /* Kitten_Trans_LieBelly_Sit.usdz */; };
+		C93C9B7C2BD27ABA003EBB41 /* Kitten_Lie_belly_sleep_end.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B3A2BD27A1B003EBB41 /* Kitten_Lie_belly_sleep_end.usdz */; };
+		C93C9B7D2BD27ABA003EBB41 /* Kitten_Sit_end.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B3B2BD27A1F003EBB41 /* Kitten_Sit_end.usdz */; };
+		C93C9B7E2BD27ABA003EBB41 /* Kitten_Lie_belly_sleep_start.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B3C2BD27A24003EBB41 /* Kitten_Lie_belly_sleep_start.usdz */; };
+		C93C9B7F2BD27ABA003EBB41 /* Kitten_Idle_2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B3D2BD27A29003EBB41 /* Kitten_Idle_2.usdz */; };
+		C93C9B802BD27ABA003EBB41 /* Kitten_Run_F_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B3E2BD27A2E003EBB41 /* Kitten_Run_F_RM.usdz */; };
+		C93C9B812BD27ABA003EBB41 /* Kitten_Idle_6.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B3F2BD27A32003EBB41 /* Kitten_Idle_6.usdz */; };
+		C93C9B822BD27ABA003EBB41 /* Kitten_SharpenClaws_Horiz.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B402BD27A37003EBB41 /* Kitten_SharpenClaws_Horiz.usdz */; };
+		C93C9B832BD27ABA003EBB41 /* Kitten_Caress_sit.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B412BD27A3B003EBB41 /* Kitten_Caress_sit.usdz */; };
+		C93C9B842BD27ABA003EBB41 /* Kitten_Turn_90_L.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B422BD27A3F003EBB41 /* Kitten_Turn_90_L.usdz */; };
+		C93C9B852BD27ABA003EBB41 /* Kitten_Turn_180_L.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B432BD27A44003EBB41 /* Kitten_Turn_180_L.usdz */; };
+		C93C9B862BD27ABA003EBB41 /* Kitten_Sit_loop_2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B442BD27A48003EBB41 /* Kitten_Sit_loop_2.usdz */; };
+		C93C9B872BD27ABA003EBB41 /* Kitten_Lick.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B452BD27A4E003EBB41 /* Kitten_Lick.usdz */; };
+		C93C9B882BD27ABA003EBB41 /* Kitten_Hit_F.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B462BD27A52003EBB41 /* Kitten_Hit_F.usdz */; };
+		C93C9B892BD27ABA003EBB41 /* Kitten_Idle_1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B472BD27A57003EBB41 /* Kitten_Idle_1.usdz */; };
+		C93C9B8A2BD27ABA003EBB41 /* Kitten_EatDrink_start.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B482BD27A5B003EBB41 /* Kitten_EatDrink_start.usdz */; };
+		C93C9B8B2BD27ABA003EBB41 /* Kitten_Lie_side_sleep.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B492BD27A60003EBB41 /* Kitten_Lie_side_sleep.usdz */; };
+		C93C9B8C2BD27ABA003EBB41 /* Kitten_Eating.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4A2BD27A64003EBB41 /* Kitten_Eating.usdz */; };
+		C93C9B8D2BD27ABA003EBB41 /* Kitten_Sit_loop_4.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4B2BD27A68003EBB41 /* Kitten_Sit_loop_4.usdz */; };
+		C93C9B8E2BD27ABA003EBB41 /* Kitten_Idle_3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4C2BD27A6D003EBB41 /* Kitten_Idle_3.usdz */; };
+		C93C9B8F2BD27ABA003EBB41 /* Kitten_RunFast_F_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4D2BD27A72003EBB41 /* Kitten_RunFast_F_RM.usdz */; };
+		C93C9B902BD27ABA003EBB41 /* Kitten_EatDrink_end.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4E2BD27A76003EBB41 /* Kitten_EatDrink_end.usdz */; };
+		C93C9B912BD27ABA003EBB41 /* Kitten_Caress_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4F2BD27A7B003EBB41 /* Kitten_Caress_idle.usdz */; };
+		C93C9B922BD27ABA003EBB41 /* Kitten_Attack_F.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B502BD27A7F003EBB41 /* Kitten_Attack_F.usdz */; };
+		C93C9B932BD27ABA003EBB41 /* Kitten_Lie_belly_loop_1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B512BD27A84003EBB41 /* Kitten_Lie_belly_loop_1.usdz */; };
+		C93C9B942BD27ABA003EBB41 /* Kitten_Trans_Sit_LieBelly.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B522BD27A89003EBB41 /* Kitten_Trans_Sit_LieBelly.usdz */; };
+		C93C9B952BD27ABA003EBB41 /* Kitten_Walk_F_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B532BD27A8D003EBB41 /* Kitten_Walk_F_RM.usdz */; };
+		C93C9B962BD27ABA003EBB41 /* Kitten_Die_R.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B542BD27A91003EBB41 /* Kitten_Die_R.usdz */; };
+		C93C9B972BD27ABA003EBB41 /* Kitten_Lie_side_sleep_end.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B552BD27A96003EBB41 /* Kitten_Lie_side_sleep_end.usdz */; };
+		C93C9B982BD27ABA003EBB41 /* Kitten_JumpFw_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B562BD27A9B003EBB41 /* Kitten_JumpFw_RM.usdz */; };
+		C93C9B992BD27ABA003EBB41 /* Kitten_SharpenClaws_Vert.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B572BD27A9F003EBB41 /* Kitten_SharpenClaws_Vert.usdz */; };
+		C93C9B9A2BD27ABA003EBB41 /* Kitten_Lie_belly_loop_2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B582BD27AA3003EBB41 /* Kitten_Lie_belly_loop_2.usdz */; };
+		C93C9B9B2BD27ABA003EBB41 /* Kitten_Lie_belly_sleep.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B592BD27AA7003EBB41 /* Kitten_Lie_belly_sleep.usdz */; };
+		C93C9B9C2BD27ABA003EBB41 /* Kitten_Lie_side_sleep_start.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B5A2BD27AAC003EBB41 /* Kitten_Lie_side_sleep_start.usdz */; };
+		C93C9B9D2BD27ABA003EBB41 /* Kitten_Attack_R.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B5B2BD27AB1003EBB41 /* Kitten_Attack_R.usdz */; };
+		C93C9B9E2BD27ABA003EBB41 /* Kitten_Lie_side_end.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B5C2BD27AB5003EBB41 /* Kitten_Lie_side_end.usdz */; };
+		C93C9B9F2BD27ABA003EBB41 /* Kitten_Lie_side_start.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B5D2BD27ABA003EBB41 /* Kitten_Lie_side_start.usdz */; };
+		C93C9BA12BD27B0A003EBB41 /* ModelList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9BA02BD27B0A003EBB41 /* ModelList.swift */; };
+		C93C9BA32BD27BEB003EBB41 /* Kitten_Attack_Down.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BA22BD27BEB003EBB41 /* Kitten_Attack_Down.usdz */; };
+		C93C9BB42BDA11BB003EBB41 /* tiger_sample.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BAF2BDA11AA003EBB41 /* tiger_sample.usdz */; };
+		C93C9BB52BDA11BB003EBB41 /* black_sample.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BB02BDA11AE003EBB41 /* black_sample.usdz */; };
+		C93C9BB62BDA11BB003EBB41 /* white_black_sample.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BB12BDA11B2003EBB41 /* white_black_sample.usdz */; };
+		C93C9BB72BDA11BB003EBB41 /* grey_sample.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BB22BDA11B7003EBB41 /* grey_sample.usdz */; };
+		C93C9BB82BDA11BB003EBB41 /* orange_sample.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BB32BDA11BB003EBB41 /* orange_sample.usdz */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C93C9AD82BCF1F0B003EBB41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C93C9AB82BCF1F0A003EBB41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C93C9ABF2BCF1F0A003EBB41;
+			remoteInfo = CatCatCat;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C93C9AC02BCF1F0A003EBB41 /* CatCatCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatCatCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C93C9AC42BCF1F0A003EBB41 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
+		C93C9AC72BCF1F0A003EBB41 /* CatCatCatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatCatCatApp.swift; sourceTree = "<group>"; };
+		C93C9AC92BCF1F0A003EBB41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C93C9ACB2BCF1F0A003EBB41 /* ImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveView.swift; sourceTree = "<group>"; };
+		C93C9ACD2BCF1F0B003EBB41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C93C9AD02BCF1F0B003EBB41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C93C9AD22BCF1F0B003EBB41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C93C9AD72BCF1F0B003EBB41 /* CatCatCatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatCatCatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C93C9ADB2BCF1F0B003EBB41 /* CatCatCatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatCatCatTests.swift; sourceTree = "<group>"; };
+		C93C9AEA2BCFD0BF003EBB41 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		C93C9AEC2BCFD186003EBB41 /* ContentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsModel.swift; sourceTree = "<group>"; };
+		C93C9B102BD27945003EBB41 /* tiger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiger.png; sourceTree = "<group>"; };
+		C93C9B112BD27949003EBB41 /* grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grey.png; sourceTree = "<group>"; };
+		C93C9B122BD2794D003EBB41 /* white_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_black.png; sourceTree = "<group>"; };
+		C93C9B142BD27955003EBB41 /* orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orange.png; sourceTree = "<group>"; };
+		C93C9B152BD27959003EBB41 /* black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black.png; sourceTree = "<group>"; };
+		C93C9B1C2BD27995003EBB41 /* Kitten_Hit_M.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Hit_M.usdz; sourceTree = "<group>"; };
+		C93C9B1D2BD27998003EBB41 /* Kitten_Die_L.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Die_L.usdz; sourceTree = "<group>"; };
+		C93C9B1E2BD2799B003EBB41 /* Kitten_Idle_8.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_8.usdz; sourceTree = "<group>"; };
+		C93C9B1F2BD2799E003EBB41 /* Kitten_Lie_side_loop_2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_side_loop_2.usdz; sourceTree = "<group>"; };
+		C93C9B202BD279A2003EBB41 /* Kitten_Attack_L.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Attack_L.usdz; sourceTree = "<group>"; };
+		C93C9B212BD279A7003EBB41 /* Kitten_Idle_7.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_7.usdz; sourceTree = "<group>"; };
+		C93C9B222BD279AF003EBB41 /* Kitten_Sit_loop_3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Sit_loop_3.usdz; sourceTree = "<group>"; };
+		C93C9B232BD279B3003EBB41 /* Kitten_Walk_end.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Walk_end.usdz; sourceTree = "<group>"; };
+		C93C9B242BD279B8003EBB41 /* Kitten_Lie_belly_end.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_end.usdz; sourceTree = "<group>"; };
+		C93C9B252BD279BC003EBB41 /* Kitten_Turn_180_R.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Turn_180_R.usdz; sourceTree = "<group>"; };
+		C93C9B262BD279C1003EBB41 /* Kitten_Idle_5.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_5.usdz; sourceTree = "<group>"; };
+		C93C9B272BD279C5003EBB41 /* Kitten_Walk_start.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Walk_start.usdz; sourceTree = "<group>"; };
+		C93C9B282BD279CA003EBB41 /* Kitten_Sit_start.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Sit_start.usdz; sourceTree = "<group>"; };
+		C93C9B292BD279CF003EBB41 /* Kitten_Trans_LieSide_Sit.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Trans_LieSide_Sit.usdz; sourceTree = "<group>"; };
+		C93C9B2A2BD279D3003EBB41 /* Kitten_Lie_side_loop_1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_side_loop_1.usdz; sourceTree = "<group>"; };
+		C93C9B2B2BD279D8003EBB41 /* Kitten_Scratching.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Scratching.usdz; sourceTree = "<group>"; };
+		C93C9B2C2BD279DC003EBB41 /* Kitten_Idle_4.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_4.usdz; sourceTree = "<group>"; };
+		C93C9B2D2BD279E0003EBB41 /* Kitten_JumpRun_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_JumpRun_RM.usdz; sourceTree = "<group>"; };
+		C93C9B2E2BD279E5003EBB41 /* Kitten_Turn_90_R.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Turn_90_R.usdz; sourceTree = "<group>"; };
+		C93C9B2F2BD279EA003EBB41 /* Kitten_JumpPlace_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_JumpPlace_RM.usdz; sourceTree = "<group>"; };
+		C93C9B302BD279EE003EBB41 /* Kitten_Attack_Series.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Attack_Series.usdz; sourceTree = "<group>"; };
+		C93C9B312BD279F2003EBB41 /* Kitten_Lie_belly_loop_3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_loop_3.usdz; sourceTree = "<group>"; };
+		C93C9B322BD279F7003EBB41 /* Kitten_Drinking.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Drinking.usdz; sourceTree = "<group>"; };
+		C93C9B332BD279FC003EBB41 /* Kitten_Lie_belly_start.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_start.usdz; sourceTree = "<group>"; };
+		C93C9B342BD27A00003EBB41 /* Kitten_Trans_Sit_LieSide.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Trans_Sit_LieSide.usdz; sourceTree = "<group>"; };
+		C93C9B352BD27A05003EBB41 /* Kitten_Hit_B.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Hit_B.usdz; sourceTree = "<group>"; };
+		C93C9B362BD27A09003EBB41 /* Kitten_Caress_lie.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Caress_lie.usdz; sourceTree = "<group>"; };
+		C93C9B372BD27A0E003EBB41 /* Kitten_Sit_loop_1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Sit_loop_1.usdz; sourceTree = "<group>"; };
+		C93C9B382BD27A12003EBB41 /* Kitten_Trot_F_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Trot_F_RM.usdz; sourceTree = "<group>"; };
+		C93C9B392BD27A16003EBB41 /* Kitten_Trans_LieBelly_Sit.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Trans_LieBelly_Sit.usdz; sourceTree = "<group>"; };
+		C93C9B3A2BD27A1B003EBB41 /* Kitten_Lie_belly_sleep_end.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_sleep_end.usdz; sourceTree = "<group>"; };
+		C93C9B3B2BD27A1F003EBB41 /* Kitten_Sit_end.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Sit_end.usdz; sourceTree = "<group>"; };
+		C93C9B3C2BD27A24003EBB41 /* Kitten_Lie_belly_sleep_start.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_sleep_start.usdz; sourceTree = "<group>"; };
+		C93C9B3D2BD27A29003EBB41 /* Kitten_Idle_2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_2.usdz; sourceTree = "<group>"; };
+		C93C9B3E2BD27A2E003EBB41 /* Kitten_Run_F_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Run_F_RM.usdz; sourceTree = "<group>"; };
+		C93C9B3F2BD27A32003EBB41 /* Kitten_Idle_6.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_6.usdz; sourceTree = "<group>"; };
+		C93C9B402BD27A37003EBB41 /* Kitten_SharpenClaws_Horiz.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_SharpenClaws_Horiz.usdz; sourceTree = "<group>"; };
+		C93C9B412BD27A3B003EBB41 /* Kitten_Caress_sit.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Caress_sit.usdz; sourceTree = "<group>"; };
+		C93C9B422BD27A3F003EBB41 /* Kitten_Turn_90_L.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Turn_90_L.usdz; sourceTree = "<group>"; };
+		C93C9B432BD27A44003EBB41 /* Kitten_Turn_180_L.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Turn_180_L.usdz; sourceTree = "<group>"; };
+		C93C9B442BD27A48003EBB41 /* Kitten_Sit_loop_2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Sit_loop_2.usdz; sourceTree = "<group>"; };
+		C93C9B452BD27A4E003EBB41 /* Kitten_Lick.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lick.usdz; sourceTree = "<group>"; };
+		C93C9B462BD27A52003EBB41 /* Kitten_Hit_F.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Hit_F.usdz; sourceTree = "<group>"; };
+		C93C9B472BD27A57003EBB41 /* Kitten_Idle_1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_1.usdz; sourceTree = "<group>"; };
+		C93C9B482BD27A5B003EBB41 /* Kitten_EatDrink_start.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_EatDrink_start.usdz; sourceTree = "<group>"; };
+		C93C9B492BD27A60003EBB41 /* Kitten_Lie_side_sleep.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_side_sleep.usdz; sourceTree = "<group>"; };
+		C93C9B4A2BD27A64003EBB41 /* Kitten_Eating.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Eating.usdz; sourceTree = "<group>"; };
+		C93C9B4B2BD27A68003EBB41 /* Kitten_Sit_loop_4.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Sit_loop_4.usdz; sourceTree = "<group>"; };
+		C93C9B4C2BD27A6D003EBB41 /* Kitten_Idle_3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_3.usdz; sourceTree = "<group>"; };
+		C93C9B4D2BD27A72003EBB41 /* Kitten_RunFast_F_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_RunFast_F_RM.usdz; sourceTree = "<group>"; };
+		C93C9B4E2BD27A76003EBB41 /* Kitten_EatDrink_end.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_EatDrink_end.usdz; sourceTree = "<group>"; };
+		C93C9B4F2BD27A7B003EBB41 /* Kitten_Caress_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Caress_idle.usdz; sourceTree = "<group>"; };
+		C93C9B502BD27A7F003EBB41 /* Kitten_Attack_F.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Attack_F.usdz; sourceTree = "<group>"; };
+		C93C9B512BD27A84003EBB41 /* Kitten_Lie_belly_loop_1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_loop_1.usdz; sourceTree = "<group>"; };
+		C93C9B522BD27A89003EBB41 /* Kitten_Trans_Sit_LieBelly.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Trans_Sit_LieBelly.usdz; sourceTree = "<group>"; };
+		C93C9B532BD27A8D003EBB41 /* Kitten_Walk_F_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Walk_F_RM.usdz; sourceTree = "<group>"; };
+		C93C9B542BD27A91003EBB41 /* Kitten_Die_R.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Die_R.usdz; sourceTree = "<group>"; };
+		C93C9B552BD27A96003EBB41 /* Kitten_Lie_side_sleep_end.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_side_sleep_end.usdz; sourceTree = "<group>"; };
+		C93C9B562BD27A9B003EBB41 /* Kitten_JumpFw_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_JumpFw_RM.usdz; sourceTree = "<group>"; };
+		C93C9B572BD27A9F003EBB41 /* Kitten_SharpenClaws_Vert.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_SharpenClaws_Vert.usdz; sourceTree = "<group>"; };
+		C93C9B582BD27AA3003EBB41 /* Kitten_Lie_belly_loop_2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_loop_2.usdz; sourceTree = "<group>"; };
+		C93C9B592BD27AA7003EBB41 /* Kitten_Lie_belly_sleep.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_sleep.usdz; sourceTree = "<group>"; };
+		C93C9B5A2BD27AAC003EBB41 /* Kitten_Lie_side_sleep_start.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_side_sleep_start.usdz; sourceTree = "<group>"; };
+		C93C9B5B2BD27AB1003EBB41 /* Kitten_Attack_R.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Attack_R.usdz; sourceTree = "<group>"; };
+		C93C9B5C2BD27AB5003EBB41 /* Kitten_Lie_side_end.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_side_end.usdz; sourceTree = "<group>"; };
+		C93C9B5D2BD27ABA003EBB41 /* Kitten_Lie_side_start.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_side_start.usdz; sourceTree = "<group>"; };
+		C93C9BA02BD27B0A003EBB41 /* ModelList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelList.swift; sourceTree = "<group>"; };
+		C93C9BA22BD27BEB003EBB41 /* Kitten_Attack_Down.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Attack_Down.usdz; sourceTree = "<group>"; };
+		C93C9BAF2BDA11AA003EBB41 /* tiger_sample.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = tiger_sample.usdz; sourceTree = "<group>"; };
+		C93C9BB02BDA11AE003EBB41 /* black_sample.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = black_sample.usdz; sourceTree = "<group>"; };
+		C93C9BB12BDA11B2003EBB41 /* white_black_sample.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = white_black_sample.usdz; sourceTree = "<group>"; };
+		C93C9BB22BDA11B7003EBB41 /* grey_sample.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = grey_sample.usdz; sourceTree = "<group>"; };
+		C93C9BB32BDA11BB003EBB41 /* orange_sample.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = orange_sample.usdz; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C93C9ABD2BCF1F0A003EBB41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C93C9AC62BCF1F0A003EBB41 /* RealityKitContent in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C93C9AD42BCF1F0B003EBB41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C93C9AB72BCF1F0A003EBB41 = {
+			isa = PBXGroup;
+			children = (
+				C93C9AC22BCF1F0A003EBB41 /* CatCatCat */,
+				C93C9AC32BCF1F0A003EBB41 /* Packages */,
+				C93C9ADA2BCF1F0B003EBB41 /* CatCatCatTests */,
+				C93C9AC12BCF1F0A003EBB41 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C93C9AC12BCF1F0A003EBB41 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C93C9AC02BCF1F0A003EBB41 /* CatCatCat.app */,
+				C93C9AD72BCF1F0B003EBB41 /* CatCatCatTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C93C9AC22BCF1F0A003EBB41 /* CatCatCat */ = {
+			isa = PBXGroup;
+			children = (
+				C93C9AE52BCF381B003EBB41 /* Models */,
+				C93C9AC72BCF1F0A003EBB41 /* CatCatCatApp.swift */,
+				C93C9AC92BCF1F0A003EBB41 /* ContentView.swift */,
+				C93C9ACB2BCF1F0A003EBB41 /* ImmersiveView.swift */,
+				C93C9ACD2BCF1F0B003EBB41 /* Assets.xcassets */,
+				C93C9AD22BCF1F0B003EBB41 /* Info.plist */,
+				C93C9AEA2BCFD0BF003EBB41 /* Character.swift */,
+				C93C9AEC2BCFD186003EBB41 /* ContentsModel.swift */,
+				C93C9BA02BD27B0A003EBB41 /* ModelList.swift */,
+				C93C9ACF2BCF1F0B003EBB41 /* Preview Content */,
+			);
+			path = CatCatCat;
+			sourceTree = "<group>";
+		};
+		C93C9AC32BCF1F0A003EBB41 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				C93C9AC42BCF1F0A003EBB41 /* RealityKitContent */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		C93C9ACF2BCF1F0B003EBB41 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				C93C9AD02BCF1F0B003EBB41 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C93C9ADA2BCF1F0B003EBB41 /* CatCatCatTests */ = {
+			isa = PBXGroup;
+			children = (
+				C93C9ADB2BCF1F0B003EBB41 /* CatCatCatTests.swift */,
+			);
+			path = CatCatCatTests;
+			sourceTree = "<group>";
+		};
+		C93C9AE52BCF381B003EBB41 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C93C9BA42BDA0922003EBB41 /* samples */,
+				C93C9B0F2BD278D4003EBB41 /* textures */,
+				C93C9B0E2BD278BD003EBB41 /* usdz */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C93C9B0E2BD278BD003EBB41 /* usdz */ = {
+			isa = PBXGroup;
+			children = (
+				C93C9BA22BD27BEB003EBB41 /* Kitten_Attack_Down.usdz */,
+				C93C9B502BD27A7F003EBB41 /* Kitten_Attack_F.usdz */,
+				C93C9B202BD279A2003EBB41 /* Kitten_Attack_L.usdz */,
+				C93C9B5B2BD27AB1003EBB41 /* Kitten_Attack_R.usdz */,
+				C93C9B302BD279EE003EBB41 /* Kitten_Attack_Series.usdz */,
+				C93C9B4F2BD27A7B003EBB41 /* Kitten_Caress_idle.usdz */,
+				C93C9B362BD27A09003EBB41 /* Kitten_Caress_lie.usdz */,
+				C93C9B412BD27A3B003EBB41 /* Kitten_Caress_sit.usdz */,
+				C93C9B1D2BD27998003EBB41 /* Kitten_Die_L.usdz */,
+				C93C9B542BD27A91003EBB41 /* Kitten_Die_R.usdz */,
+				C93C9B322BD279F7003EBB41 /* Kitten_Drinking.usdz */,
+				C93C9B4E2BD27A76003EBB41 /* Kitten_EatDrink_end.usdz */,
+				C93C9B482BD27A5B003EBB41 /* Kitten_EatDrink_start.usdz */,
+				C93C9B4A2BD27A64003EBB41 /* Kitten_Eating.usdz */,
+				C93C9B352BD27A05003EBB41 /* Kitten_Hit_B.usdz */,
+				C93C9B462BD27A52003EBB41 /* Kitten_Hit_F.usdz */,
+				C93C9B1C2BD27995003EBB41 /* Kitten_Hit_M.usdz */,
+				C93C9B472BD27A57003EBB41 /* Kitten_Idle_1.usdz */,
+				C93C9B3D2BD27A29003EBB41 /* Kitten_Idle_2.usdz */,
+				C93C9B4C2BD27A6D003EBB41 /* Kitten_Idle_3.usdz */,
+				C93C9B2C2BD279DC003EBB41 /* Kitten_Idle_4.usdz */,
+				C93C9B262BD279C1003EBB41 /* Kitten_Idle_5.usdz */,
+				C93C9B3F2BD27A32003EBB41 /* Kitten_Idle_6.usdz */,
+				C93C9B212BD279A7003EBB41 /* Kitten_Idle_7.usdz */,
+				C93C9B1E2BD2799B003EBB41 /* Kitten_Idle_8.usdz */,
+				C93C9B562BD27A9B003EBB41 /* Kitten_JumpFw_RM.usdz */,
+				C93C9B2F2BD279EA003EBB41 /* Kitten_JumpPlace_RM.usdz */,
+				C93C9B2D2BD279E0003EBB41 /* Kitten_JumpRun_RM.usdz */,
+				C93C9B452BD27A4E003EBB41 /* Kitten_Lick.usdz */,
+				C93C9B242BD279B8003EBB41 /* Kitten_Lie_belly_end.usdz */,
+				C93C9B512BD27A84003EBB41 /* Kitten_Lie_belly_loop_1.usdz */,
+				C93C9B582BD27AA3003EBB41 /* Kitten_Lie_belly_loop_2.usdz */,
+				C93C9B312BD279F2003EBB41 /* Kitten_Lie_belly_loop_3.usdz */,
+				C93C9B3A2BD27A1B003EBB41 /* Kitten_Lie_belly_sleep_end.usdz */,
+				C93C9B3C2BD27A24003EBB41 /* Kitten_Lie_belly_sleep_start.usdz */,
+				C93C9B592BD27AA7003EBB41 /* Kitten_Lie_belly_sleep.usdz */,
+				C93C9B332BD279FC003EBB41 /* Kitten_Lie_belly_start.usdz */,
+				C93C9B5C2BD27AB5003EBB41 /* Kitten_Lie_side_end.usdz */,
+				C93C9B2A2BD279D3003EBB41 /* Kitten_Lie_side_loop_1.usdz */,
+				C93C9B1F2BD2799E003EBB41 /* Kitten_Lie_side_loop_2.usdz */,
+				C93C9B552BD27A96003EBB41 /* Kitten_Lie_side_sleep_end.usdz */,
+				C93C9B5A2BD27AAC003EBB41 /* Kitten_Lie_side_sleep_start.usdz */,
+				C93C9B492BD27A60003EBB41 /* Kitten_Lie_side_sleep.usdz */,
+				C93C9B5D2BD27ABA003EBB41 /* Kitten_Lie_side_start.usdz */,
+				C93C9B3E2BD27A2E003EBB41 /* Kitten_Run_F_RM.usdz */,
+				C93C9B4D2BD27A72003EBB41 /* Kitten_RunFast_F_RM.usdz */,
+				C93C9B2B2BD279D8003EBB41 /* Kitten_Scratching.usdz */,
+				C93C9B402BD27A37003EBB41 /* Kitten_SharpenClaws_Horiz.usdz */,
+				C93C9B572BD27A9F003EBB41 /* Kitten_SharpenClaws_Vert.usdz */,
+				C93C9B3B2BD27A1F003EBB41 /* Kitten_Sit_end.usdz */,
+				C93C9B372BD27A0E003EBB41 /* Kitten_Sit_loop_1.usdz */,
+				C93C9B442BD27A48003EBB41 /* Kitten_Sit_loop_2.usdz */,
+				C93C9B222BD279AF003EBB41 /* Kitten_Sit_loop_3.usdz */,
+				C93C9B4B2BD27A68003EBB41 /* Kitten_Sit_loop_4.usdz */,
+				C93C9B282BD279CA003EBB41 /* Kitten_Sit_start.usdz */,
+				C93C9B392BD27A16003EBB41 /* Kitten_Trans_LieBelly_Sit.usdz */,
+				C93C9B292BD279CF003EBB41 /* Kitten_Trans_LieSide_Sit.usdz */,
+				C93C9B522BD27A89003EBB41 /* Kitten_Trans_Sit_LieBelly.usdz */,
+				C93C9B342BD27A00003EBB41 /* Kitten_Trans_Sit_LieSide.usdz */,
+				C93C9B382BD27A12003EBB41 /* Kitten_Trot_F_RM.usdz */,
+				C93C9B422BD27A3F003EBB41 /* Kitten_Turn_90_L.usdz */,
+				C93C9B2E2BD279E5003EBB41 /* Kitten_Turn_90_R.usdz */,
+				C93C9B432BD27A44003EBB41 /* Kitten_Turn_180_L.usdz */,
+				C93C9B252BD279BC003EBB41 /* Kitten_Turn_180_R.usdz */,
+				C93C9B232BD279B3003EBB41 /* Kitten_Walk_end.usdz */,
+				C93C9B532BD27A8D003EBB41 /* Kitten_Walk_F_RM.usdz */,
+				C93C9B272BD279C5003EBB41 /* Kitten_Walk_start.usdz */,
+			);
+			path = usdz;
+			sourceTree = "<group>";
+		};
+		C93C9B0F2BD278D4003EBB41 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+				C93C9B152BD27959003EBB41 /* black.png */,
+				C93C9B112BD27949003EBB41 /* grey.png */,
+				C93C9B142BD27955003EBB41 /* orange.png */,
+				C93C9B102BD27945003EBB41 /* tiger.png */,
+				C93C9B122BD2794D003EBB41 /* white_black.png */,
+			);
+			path = textures;
+			sourceTree = "<group>";
+		};
+		C93C9BA42BDA0922003EBB41 /* samples */ = {
+			isa = PBXGroup;
+			children = (
+				C93C9BB02BDA11AE003EBB41 /* black_sample.usdz */,
+				C93C9BB22BDA11B7003EBB41 /* grey_sample.usdz */,
+				C93C9BB32BDA11BB003EBB41 /* orange_sample.usdz */,
+				C93C9BAF2BDA11AA003EBB41 /* tiger_sample.usdz */,
+				C93C9BB12BDA11B2003EBB41 /* white_black_sample.usdz */,
+			);
+			path = samples;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C93C9ABF2BCF1F0A003EBB41 /* CatCatCat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C93C9ADF2BCF1F0B003EBB41 /* Build configuration list for PBXNativeTarget "CatCatCat" */;
+			buildPhases = (
+				C93C9ABC2BCF1F0A003EBB41 /* Sources */,
+				C93C9ABD2BCF1F0A003EBB41 /* Frameworks */,
+				C93C9ABE2BCF1F0A003EBB41 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CatCatCat;
+			packageProductDependencies = (
+				C93C9AC52BCF1F0A003EBB41 /* RealityKitContent */,
+			);
+			productName = CatCatCat;
+			productReference = C93C9AC02BCF1F0A003EBB41 /* CatCatCat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C93C9AD62BCF1F0B003EBB41 /* CatCatCatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C93C9AE22BCF1F0B003EBB41 /* Build configuration list for PBXNativeTarget "CatCatCatTests" */;
+			buildPhases = (
+				C93C9AD32BCF1F0B003EBB41 /* Sources */,
+				C93C9AD42BCF1F0B003EBB41 /* Frameworks */,
+				C93C9AD52BCF1F0B003EBB41 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C93C9AD92BCF1F0B003EBB41 /* PBXTargetDependency */,
+			);
+			name = CatCatCatTests;
+			productName = CatCatCatTests;
+			productReference = C93C9AD72BCF1F0B003EBB41 /* CatCatCatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C93C9AB82BCF1F0A003EBB41 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					C93C9ABF2BCF1F0A003EBB41 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					C93C9AD62BCF1F0B003EBB41 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = C93C9ABF2BCF1F0A003EBB41;
+					};
+				};
+			};
+			buildConfigurationList = C93C9ABB2BCF1F0A003EBB41 /* Build configuration list for PBXProject "CatCatCat" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C93C9AB72BCF1F0A003EBB41;
+			productRefGroup = C93C9AC12BCF1F0A003EBB41 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C93C9ABF2BCF1F0A003EBB41 /* CatCatCat */,
+				C93C9AD62BCF1F0B003EBB41 /* CatCatCatTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C93C9ABE2BCF1F0A003EBB41 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C93C9B7B2BD27ABA003EBB41 /* Kitten_Trans_LieBelly_Sit.usdz in Resources */,
+				C93C9B7F2BD27ABA003EBB41 /* Kitten_Idle_2.usdz in Resources */,
+				C93C9B692BD27ABA003EBB41 /* Kitten_Walk_start.usdz in Resources */,
+				C93C9B812BD27ABA003EBB41 /* Kitten_Idle_6.usdz in Resources */,
+				C93C9B6E2BD27ABA003EBB41 /* Kitten_Idle_4.usdz in Resources */,
+				C93C9B862BD27ABA003EBB41 /* Kitten_Sit_loop_2.usdz in Resources */,
+				C93C9B7D2BD27ABA003EBB41 /* Kitten_Sit_end.usdz in Resources */,
+				C93C9B7C2BD27ABA003EBB41 /* Kitten_Lie_belly_sleep_end.usdz in Resources */,
+				C93C9B602BD27ABA003EBB41 /* Kitten_Idle_8.usdz in Resources */,
+				C93C9B952BD27ABA003EBB41 /* Kitten_Walk_F_RM.usdz in Resources */,
+				C93C9B972BD27ABA003EBB41 /* Kitten_Lie_side_sleep_end.usdz in Resources */,
+				C93C9B832BD27ABA003EBB41 /* Kitten_Caress_sit.usdz in Resources */,
+				C93C9B762BD27ABA003EBB41 /* Kitten_Trans_Sit_LieSide.usdz in Resources */,
+				C93C9B6B2BD27ABA003EBB41 /* Kitten_Trans_LieSide_Sit.usdz in Resources */,
+				C93C9B5E2BD27ABA003EBB41 /* Kitten_Hit_M.usdz in Resources */,
+				C93C9B712BD27ABA003EBB41 /* Kitten_JumpPlace_RM.usdz in Resources */,
+				C93C9B672BD27ABA003EBB41 /* Kitten_Turn_180_R.usdz in Resources */,
+				C93C9AD12BCF1F0B003EBB41 /* Preview Assets.xcassets in Resources */,
+				C93C9B1B2BD27959003EBB41 /* black.png in Resources */,
+				C93C9B942BD27ABA003EBB41 /* Kitten_Trans_Sit_LieBelly.usdz in Resources */,
+				C93C9B182BD27959003EBB41 /* white_black.png in Resources */,
+				C93C9B702BD27ABA003EBB41 /* Kitten_Turn_90_R.usdz in Resources */,
+				C93C9B6C2BD27ABA003EBB41 /* Kitten_Lie_side_loop_1.usdz in Resources */,
+				C93C9B772BD27ABA003EBB41 /* Kitten_Hit_B.usdz in Resources */,
+				C93C9B7A2BD27ABA003EBB41 /* Kitten_Trot_F_RM.usdz in Resources */,
+				C93C9B722BD27ABA003EBB41 /* Kitten_Attack_Series.usdz in Resources */,
+				C93C9BB62BDA11BB003EBB41 /* white_black_sample.usdz in Resources */,
+				C93C9B872BD27ABA003EBB41 /* Kitten_Lick.usdz in Resources */,
+				C93C9B662BD27ABA003EBB41 /* Kitten_Lie_belly_end.usdz in Resources */,
+				C93C9B782BD27ABA003EBB41 /* Kitten_Caress_lie.usdz in Resources */,
+				C93C9B822BD27ABA003EBB41 /* Kitten_SharpenClaws_Horiz.usdz in Resources */,
+				C93C9B9E2BD27ABA003EBB41 /* Kitten_Lie_side_end.usdz in Resources */,
+				C93C9B7E2BD27ABA003EBB41 /* Kitten_Lie_belly_sleep_start.usdz in Resources */,
+				C93C9B8D2BD27ABA003EBB41 /* Kitten_Sit_loop_4.usdz in Resources */,
+				C93C9B792BD27ABA003EBB41 /* Kitten_Sit_loop_1.usdz in Resources */,
+				C93C9B9A2BD27ABA003EBB41 /* Kitten_Lie_belly_loop_2.usdz in Resources */,
+				C93C9B6A2BD27ABA003EBB41 /* Kitten_Sit_start.usdz in Resources */,
+				C93C9B612BD27ABA003EBB41 /* Kitten_Lie_side_loop_2.usdz in Resources */,
+				C93C9B982BD27ABA003EBB41 /* Kitten_JumpFw_RM.usdz in Resources */,
+				C93C9B802BD27ABA003EBB41 /* Kitten_Run_F_RM.usdz in Resources */,
+				C93C9B5F2BD27ABA003EBB41 /* Kitten_Die_L.usdz in Resources */,
+				C93C9B882BD27ABA003EBB41 /* Kitten_Hit_F.usdz in Resources */,
+				C93C9ACE2BCF1F0B003EBB41 /* Assets.xcassets in Resources */,
+				C93C9B732BD27ABA003EBB41 /* Kitten_Lie_belly_loop_3.usdz in Resources */,
+				C93C9B6D2BD27ABA003EBB41 /* Kitten_Scratching.usdz in Resources */,
+				C93C9B992BD27ABA003EBB41 /* Kitten_SharpenClaws_Vert.usdz in Resources */,
+				C93C9B632BD27ABA003EBB41 /* Kitten_Idle_7.usdz in Resources */,
+				C93C9BB82BDA11BB003EBB41 /* orange_sample.usdz in Resources */,
+				C93C9B172BD27959003EBB41 /* grey.png in Resources */,
+				C93C9B8E2BD27ABA003EBB41 /* Kitten_Idle_3.usdz in Resources */,
+				C93C9B852BD27ABA003EBB41 /* Kitten_Turn_180_L.usdz in Resources */,
+				C93C9B962BD27ABA003EBB41 /* Kitten_Die_R.usdz in Resources */,
+				C93C9B9C2BD27ABA003EBB41 /* Kitten_Lie_side_sleep_start.usdz in Resources */,
+				C93C9BB42BDA11BB003EBB41 /* tiger_sample.usdz in Resources */,
+				C93C9B622BD27ABA003EBB41 /* Kitten_Attack_L.usdz in Resources */,
+				C93C9B922BD27ABA003EBB41 /* Kitten_Attack_F.usdz in Resources */,
+				C93C9B842BD27ABA003EBB41 /* Kitten_Turn_90_L.usdz in Resources */,
+				C93C9B902BD27ABA003EBB41 /* Kitten_EatDrink_end.usdz in Resources */,
+				C93C9B9F2BD27ABA003EBB41 /* Kitten_Lie_side_start.usdz in Resources */,
+				C93C9BB72BDA11BB003EBB41 /* grey_sample.usdz in Resources */,
+				C93C9B8B2BD27ABA003EBB41 /* Kitten_Lie_side_sleep.usdz in Resources */,
+				C93C9B9D2BD27ABA003EBB41 /* Kitten_Attack_R.usdz in Resources */,
+				C93C9B8C2BD27ABA003EBB41 /* Kitten_Eating.usdz in Resources */,
+				C93C9B6F2BD27ABA003EBB41 /* Kitten_JumpRun_RM.usdz in Resources */,
+				C93C9B652BD27ABA003EBB41 /* Kitten_Walk_end.usdz in Resources */,
+				C93C9B682BD27ABA003EBB41 /* Kitten_Idle_5.usdz in Resources */,
+				C93C9BB52BDA11BB003EBB41 /* black_sample.usdz in Resources */,
+				C93C9B162BD27959003EBB41 /* tiger.png in Resources */,
+				C93C9B932BD27ABA003EBB41 /* Kitten_Lie_belly_loop_1.usdz in Resources */,
+				C93C9B912BD27ABA003EBB41 /* Kitten_Caress_idle.usdz in Resources */,
+				C93C9B8A2BD27ABA003EBB41 /* Kitten_EatDrink_start.usdz in Resources */,
+				C93C9B752BD27ABA003EBB41 /* Kitten_Lie_belly_start.usdz in Resources */,
+				C93C9B642BD27ABA003EBB41 /* Kitten_Sit_loop_3.usdz in Resources */,
+				C93C9B742BD27ABA003EBB41 /* Kitten_Drinking.usdz in Resources */,
+				C93C9B892BD27ABA003EBB41 /* Kitten_Idle_1.usdz in Resources */,
+				C93C9B8F2BD27ABA003EBB41 /* Kitten_RunFast_F_RM.usdz in Resources */,
+				C93C9B9B2BD27ABA003EBB41 /* Kitten_Lie_belly_sleep.usdz in Resources */,
+				C93C9B1A2BD27959003EBB41 /* orange.png in Resources */,
+				C93C9BA32BD27BEB003EBB41 /* Kitten_Attack_Down.usdz in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C93C9AD52BCF1F0B003EBB41 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C93C9ABC2BCF1F0A003EBB41 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C93C9ACA2BCF1F0A003EBB41 /* ContentView.swift in Sources */,
+				C93C9AED2BCFD186003EBB41 /* ContentsModel.swift in Sources */,
+				C93C9AC82BCF1F0A003EBB41 /* CatCatCatApp.swift in Sources */,
+				C93C9BA12BD27B0A003EBB41 /* ModelList.swift in Sources */,
+				C93C9ACC2BCF1F0A003EBB41 /* ImmersiveView.swift in Sources */,
+				C93C9AEB2BCFD0BF003EBB41 /* Character.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C93C9AD32BCF1F0B003EBB41 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C93C9ADC2BCF1F0B003EBB41 /* CatCatCatTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C93C9AD92BCF1F0B003EBB41 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C93C9ABF2BCF1F0A003EBB41 /* CatCatCat */;
+			targetProxy = C93C9AD82BCF1F0B003EBB41 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C93C9ADD2BCF1F0B003EBB41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = xros;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Debug;
+		};
+		C93C9ADE2BCF1F0B003EBB41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = xros;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Release;
+		};
+		C93C9AE02BCF1F0B003EBB41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CatCatCat/Preview Content\"";
+				DEVELOPMENT_TEAM = A64F6L9783;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = s4piru.CatCatCat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Debug;
+		};
+		C93C9AE12BCF1F0B003EBB41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CatCatCat/Preview Content\"";
+				DEVELOPMENT_TEAM = A64F6L9783;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = s4piru.CatCatCat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Release;
+		};
+		C93C9AE32BCF1F0B003EBB41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A64F6L9783;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = s4piru.CatCatCatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CatCatCat.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CatCatCat";
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Debug;
+		};
+		C93C9AE42BCF1F0B003EBB41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A64F6L9783;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = s4piru.CatCatCatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CatCatCat.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CatCatCat";
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C93C9ABB2BCF1F0A003EBB41 /* Build configuration list for PBXProject "CatCatCat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C93C9ADD2BCF1F0B003EBB41 /* Debug */,
+				C93C9ADE2BCF1F0B003EBB41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C93C9ADF2BCF1F0B003EBB41 /* Build configuration list for PBXNativeTarget "CatCatCat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C93C9AE02BCF1F0B003EBB41 /* Debug */,
+				C93C9AE12BCF1F0B003EBB41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C93C9AE22BCF1F0B003EBB41 /* Build configuration list for PBXNativeTarget "CatCatCatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C93C9AE32BCF1F0B003EBB41 /* Debug */,
+				C93C9AE42BCF1F0B003EBB41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C93C9AC52BCF1F0A003EBB41 /* RealityKitContent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityKitContent;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = C93C9AB82BCF1F0A003EBB41 /* Project object */;
+}
