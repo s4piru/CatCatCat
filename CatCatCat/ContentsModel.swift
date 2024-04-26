@@ -10,7 +10,7 @@ class ContentsModel {
     private let rangeX: Float = 2.0
     private let rangeZ: Float = 2.0
     private var yTransformTranslation: Float = 0.0
-    private var floorPlaneAnchor: AnchorEntity = AnchorEntity(.plane(.horizontal, classification: .ceiling, minimumBounds: SIMD2<Float>(0.01, 0.01)))
+    private var floorPlaneAnchor: AnchorEntity = AnchorEntity(.plane(.horizontal, classification: .floor, minimumBounds: SIMD2<Float>(0.01, 0.01)))
     //private var otherAnchor: AnchorEntity = AnchorEntity(.plane(.vertical, classification: [.wall, .seat, .table], minimumBounds: SIMD2<Float>(0.01, 0.01)))
     
     init() {
@@ -51,10 +51,6 @@ class ContentsModel {
     }
     
     func registerContent(content: RealityViewContent) {
-        content.add(floorPlaneAnchor)
-        self.content = content
-        //content.add(otherAnchor)
-        
         if let collisionComponent = floorPlaneAnchor.components[CollisionComponent] as? CollisionComponent {
             floorPlaneAnchor.components[PhysicsBodyComponent] = PhysicsBodyComponent(shapes: collisionComponent.shapes, mass: 0, material: nil, mode: .static)
             floorPlaneAnchor.components[ModelComponent] = nil // make the floorPlaneAnchor invisible
@@ -86,7 +82,6 @@ class ContentsModel {
     
     func registerEntity(entity: ModelEntity, characterName: String, entityType: EntityType, entityName: String) {
         if content != nil {
-            //TODO remove
             content!.subscribe(to: AnimationEvents.PlaybackCompleted.self, on: entity) { e in
                 self.processAfterAnimation(characterName: characterName, entityType: entityType, entityName: entityName)
                 print("ContentsModel::registerEntity() processAfterAnimation called: ", characterName, ", usdzName: ", entityName)
@@ -147,7 +142,7 @@ class ContentsModel {
         var collisionComponent = CollisionComponent(shapes: [collisionShape])
         collisionComponent.filter = CollisionFilter(group: CollisionGroup(rawValue: 1), mask: CollisionGroup(rawValue: 1))
         entity.components.set(collisionComponent)
-        //entity.components[PhysicsBodyComponent] = PhysicsBodyComponent(shapes: collisionComponent.shapes, mass: 0, material: nil, mode: .static)
+        entity.components[PhysicsBodyComponent] = PhysicsBodyComponent(shapes: collisionComponent.shapes, mass: 0, material: nil, mode: .static)
     }
     
     @MainActor

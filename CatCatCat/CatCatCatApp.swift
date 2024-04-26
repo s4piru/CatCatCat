@@ -9,13 +9,14 @@ import SwiftUI
 
 @main
 struct CatCatCatApp: App {
+    private var immersiveView: ImmersiveView = ImmersiveView(contentsModel: ContentsModel())
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(immersiveView: immersiveView)
         }
         
         ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView()
+            immersiveView
         }
     }
 }

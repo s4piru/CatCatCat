@@ -10,6 +10,7 @@ import RealityKit
 import RealityKitContent
 
 struct ContentView: View {
+    var immersiveView: ImmersiveView
 
     @State private var showImmersiveSpace = false
     
@@ -33,7 +34,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("Name your cats and choose ones you want to call!")
+            Text("Name your cats and choose ones you want to invite!")
                 .font(.largeTitle)
                 .bold()
                 .fontDesign(.monospaced)
@@ -270,7 +271,7 @@ struct ContentView: View {
                 await openImmersiveSpace(id: "ImmersiveSpace")
             }
         }
-        /*.onChange(of: isBlackEnabled) { _, newValue in
+        .onChange(of: isBlackEnabled) { _, newValue in
             immersiveView.contentsModel.updateCharacterEnable(catName: "Black", isEnabled: newValue)
         }
         .onChange(of: isGreyEnabled) { _, newValue in
@@ -283,8 +284,8 @@ struct ContentView: View {
             immersiveView.contentsModel.updateCharacterEnable(catName: "Tiger", isEnabled: newValue)
         }
         .onChange(of: isWhiteBlackEnabled) { _, newValue in
-            immersiveView.contentsModel.updateCharacterEnable(catName: "WhiteBlack", isEnabled: newValue)
-        }*/
+            immersiveView.contentsModel.updateCharacterEnable(catName: "White_Black", isEnabled: newValue)
+        }
     }
 }
 

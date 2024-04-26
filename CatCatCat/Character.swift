@@ -13,7 +13,7 @@ class Character {
         "Kitten_Walk_F_RM",
     ]
     var material: SimpleMaterial = SimpleMaterial()
-    var isEnabled = true
+    var isEnabled = false
 
     init(characterName: String, entities: [String: ModelEntity], material: SimpleMaterial) {
         self.characterName = characterName

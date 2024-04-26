@@ -10,7 +10,7 @@ import RealityKit
 import RealityKitContent
 
 struct ImmersiveView: View {
-    @State var contentsModel: ContentsModel = ContentsModel()
+    @State var contentsModel: ContentsModel
     
     var body: some View {
         RealityView { content in
@@ -34,5 +34,5 @@ struct ImmersiveView: View {
 }
 
 #Preview(immersionStyle: .mixed) {
-    ImmersiveView()
+    //ImmersiveView()
 }
