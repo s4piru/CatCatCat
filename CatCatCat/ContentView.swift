@@ -10,24 +10,20 @@ import RealityKit
 import RealityKitContent
 
 struct ContentView: View {
-    var immersiveView: ImmersiveView
-
-    @State private var showImmersiveSpace = false
+    @Binding var isImmersiveSpaceShown: Bool
+    @Binding var showImmersiveSpaceFromButton: Bool
     
-    @State private var isBlackEnabled = false
-    @State private var isGreyEnabled = false
-    @State private var isOrangeEnabled = false
-    @State private var isTigerEnabled = false
-    @State private var isWhiteBlackEnabled = false
+    @Binding var isBlackEnabled: Bool
+    @Binding var isGreyEnabled: Bool
+    @Binding var isOrangeEnabled: Bool
+    @Binding var isTigerEnabled: Bool
+    @Binding var isWhiteBlackEnabled: Bool
     
     @State private var blackName: String = "Black"
     @State private var greyName: String = "Grey"
     @State private var orangeName: String = "Orange"
     @State private var tigerName: String = "Tiger"
     @State private var whiteBlackName: String = "White Black"
-
-    @Environment(\.openImmersiveSpace) var openImmersiveSpace
-    @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
     
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     @State private var r:Double = 0
@@ -35,11 +31,11 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text("Name your cats and choose ones you want to invite!")
-                .font(.largeTitle)
+                .font(.system(size: 35))
                 .bold()
                 .fontDesign(.monospaced)
                 .padding(EdgeInsets(
-                    top: 10,
+                    top: 30,
                     leading: 0,
                     bottom: 30,
                     trailing: 0
@@ -259,6 +255,20 @@ struct ContentView: View {
                 bottom: 10,
                 trailing: 0
             ))
+            
+            if !isImmersiveSpaceShown {
+                Button("Invite your cats!") {
+                    showImmersiveSpaceFromButton = true
+                }
+                .font(.title)
+                .fontDesign(.monospaced)
+                .padding(EdgeInsets(
+                    top: 20,
+                    leading: 0,
+                    bottom: 10,
+                    trailing: 0
+                ))
+            }
         }
         .padding(EdgeInsets(
             top: 10,
@@ -266,26 +276,6 @@ struct ContentView: View {
             bottom: 50,
             trailing: 0
         ))
-        .onAppear {
-            Task{
-                await openImmersiveSpace(id: "ImmersiveSpace")
-            }
-        }
-        .onChange(of: isBlackEnabled) { _, newValue in
-            immersiveView.contentsModel.updateCharacterEnable(catName: "Black", isEnabled: newValue)
-        }
-        .onChange(of: isGreyEnabled) { _, newValue in
-            immersiveView.contentsModel.updateCharacterEnable(catName: "Grey", isEnabled: newValue)
-        }
-        .onChange(of: isOrangeEnabled) { _, newValue in
-            immersiveView.contentsModel.updateCharacterEnable(catName: "Orange", isEnabled: newValue)
-        }
-        .onChange(of: isTigerEnabled) { _, newValue in
-            immersiveView.contentsModel.updateCharacterEnable(catName: "Tiger", isEnabled: newValue)
-        }
-        .onChange(of: isWhiteBlackEnabled) { _, newValue in
-            immersiveView.contentsModel.updateCharacterEnable(catName: "White_Black", isEnabled: newValue)
-        }
     }
 }
 

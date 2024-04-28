@@ -1,16 +1,15 @@
 import SwiftUI
 import RealityKit
-import Combine
-import ARKit
 
 class ContentsModel {
     private let queue = DispatchQueue(label: "com.content.myqueue")
     private var content: RealityViewContent? = nil
     private var characters: [String: Character] = [:]
-    private let rangeX: Float = 2.0
-    private let rangeZ: Float = 2.0
+    private let rangeX: Float = 1.5
+    private let rangeZ: Float = 1.5
     private var yTransformTranslation: Float = 0.0
-    private var floorPlaneAnchor: AnchorEntity = AnchorEntity(.plane(.horizontal, classification: .floor, minimumBounds: SIMD2<Float>(0.01, 0.01)))
+    private var floorPlaneAnchor: AnchorEntity = AnchorEntity()
+    private var isClosing: Bool = false
     //private var otherAnchor: AnchorEntity = AnchorEntity(.plane(.vertical, classification: [.wall, .seat, .table], minimumBounds: SIMD2<Float>(0.01, 0.01)))
     
     init() {
@@ -30,19 +29,21 @@ class ContentsModel {
     }
     
     func updateCharacterEnable(catName: String, isEnabled: Bool) {
-        guard let character = characters[catName] else {
+        guard let character = self.characters[catName] else {
             print("ContentsModel::updateCharacterEnable() Failed to get character catName: ", catName)
             return
         }
         
         if isEnabled {
-            if character.entities.keys.contains("Kitten_Walk_start") {
+            if character.entities.keys.count >= firstUsdzEntityTypeList.keys.count && character.entities.keys.contains("Kitten_Walk_start") {
                 guard let walkStartEntity = character.entities["Kitten_Walk_start"] else {
-                    print("ContentsModel::createCharacter() There is no Kitten_Walk_start for catName: ", catName)
+                    print("ContentsModel::updateCharacterEnable() There is no Kitten_Walk_start for catName: ", catName)
                     return
                 }
                 walkStartEntity.isEnabled = true
                 startAnimation(animateEntity: walkStartEntity)
+            } else {
+                print("ContentsModel::updateCharacterEnable(), wait for entity load")
             }
             character.isEnabled = true
         } else {
@@ -50,7 +51,26 @@ class ContentsModel {
         }
     }
     
+    func removeAllChildren() {
+        isClosing = true
+        for catNameTexture in catNameTextureList {
+            guard let character = characters[catNameTexture.key] else {
+                print("ContentsModel::removeAllChildren() Failed to get character catName: ", catNameTexture.key)
+                return
+            }
+            
+            for entity in character.entities {
+                entity.value.stopAllAnimations()
+                entity.value.isEnabled = false
+                floorPlaneAnchor.removeChild(entity.value)
+            }
+        }
+        content?.remove(floorPlaneAnchor)
+    }
+    
     func registerContent(content: RealityViewContent) {
+        isClosing = false
+        floorPlaneAnchor = AnchorEntity(.plane(.horizontal, classification: .floor, minimumBounds: SIMD2<Float>(0.01, 0.01)))
         if let collisionComponent = floorPlaneAnchor.components[CollisionComponent] as? CollisionComponent {
             floorPlaneAnchor.components[PhysicsBodyComponent] = PhysicsBodyComponent(shapes: collisionComponent.shapes, mass: 0, material: nil, mode: .static)
             floorPlaneAnchor.components[ModelComponent] = nil // make the floorPlaneAnchor invisible
@@ -69,9 +89,9 @@ class ContentsModel {
     
     func createRandomTransformTranslation() -> SIMD3<Float> {
         return SIMD3<Float>(
-            x: Float.random(in: -1.0...1.0),
+            x: Float.random(in: -1.5...1.5),
             y: yTransformTranslation,
-            z: Float.random(in: -1.0...1.0)
+            z: Float.random(in: -1.5...1.5)
         )
     }
     
@@ -102,9 +122,17 @@ class ContentsModel {
         let orientation = createRandomOrientation()
         
         for usdzEntityType in firstUsdzEntityTypeList {
-            let entity = await loadEntity(characterName: catName, entityType:usdzEntityType.value, usdzName: usdzEntityType.key, material: character.material, transformTranslation: firstTransformTranslation, orientation: orientation)
-            character.entities[usdzEntityType.key] = entity
-            registerEntity(entity: entity, characterName: catName, entityType: usdzEntityTypeList[usdzEntityType.key]!, entityName: usdzEntityType.key)
+            if !character.entities.keys.contains(usdzEntityType.key) {
+                let entity = await loadEntity(characterName: catName, entityType:usdzEntityType.value, usdzName: usdzEntityType.key, material: character.material, transformTranslation: firstTransformTranslation, orientation: orientation)
+                    character.entities[usdzEntityType.key] = entity
+            }
+        }
+        
+        for regiterEntity in character.entities {
+            DispatchQueue.main.async {
+                self.floorPlaneAnchor.addChild(regiterEntity.value)
+                self.registerEntity(entity: regiterEntity.value, characterName: catName, entityType: usdzEntityTypeList[regiterEntity.key]!, entityName: regiterEntity.key)
+            }
         }
         
         guard let walkStartEntity = character.entities["Kitten_Walk_start"] else {
@@ -113,6 +141,8 @@ class ContentsModel {
         }
 
         if character.isEnabled {
+            walkStartEntity.transform.translation = firstTransformTranslation
+            walkStartEntity.orientation = orientation
             walkStartEntity.isEnabled = true
             startAnimation(animateEntity: walkStartEntity)
         }
@@ -127,18 +157,25 @@ class ContentsModel {
     
     func addRemainigEntities(character: Character, material:  SimpleMaterial, transformTranslation: SIMD3<Float>, orientation: simd_quatf) async {
         for usdzEntityType in usdzEntityTypeList {
-            if !firstUsdzEntityTypeList.keys.contains(usdzEntityType.key) {
+            if !character.entities.keys.contains(usdzEntityType.key) && !firstUsdzEntityTypeList.keys.contains(usdzEntityType.key) {
                 let entity = await self.loadEntity(characterName: character.characterName, entityType:usdzEntityType.value, usdzName: usdzEntityType.key, material: material, transformTranslation: transformTranslation, orientation: orientation)
                 DispatchQueue.main.async {
+                    self.floorPlaneAnchor.addChild(entity)
                     self.registerEntity(entity: entity, characterName: character.characterName, entityType: usdzEntityType.value, entityName: usdzEntityType.key)
                     character.entities[usdzEntityType.key] = entity
+                }
+            } else if !firstUsdzEntityTypeList.keys.contains(usdzEntityType.key) {
+                DispatchQueue.main.async {
+                    let entity = character.entities[usdzEntityType.key]!
+                    self.floorPlaneAnchor.addChild(entity)
+                    //self.registerEntity(entity: entity, characterName: character.characterName, entityType: usdzEntityType.value, entityName: usdzEntityType.key)
                 }
             }
         }
     }
     
     func setCollisionComponent(entity: ModelEntity) {
-        let collisionShape = ShapeResource.generateBox(size: entity.scale)
+        let collisionShape = ShapeResource.generateBox(size: SIMD3<Float>(entity.scale.x/2, entity.scale.y/2, entity.scale.z*2.0))
         var collisionComponent = CollisionComponent(shapes: [collisionShape])
         collisionComponent.filter = CollisionFilter(group: CollisionGroup(rawValue: 1), mask: CollisionGroup(rawValue: 1))
         entity.components.set(collisionComponent)
@@ -156,7 +193,6 @@ class ContentsModel {
             loadedEntity.components.set(InputTargetComponent(allowedInputTypes: .all))
             loadedEntity.isEnabled = false
             self.setCollisionComponent(entity: loadedEntity)
-            floorPlaneAnchor.addChild(loadedEntity)
             
             print("ContentsModel::loadEntity() Succeeded to load entity for characterName: ", characterName, ", usdzName: ", usdzName)
             return loadedEntity
@@ -327,7 +363,11 @@ class ContentsModel {
     }
     
     func processAfterAnimation(characterName: String, entityType: EntityType, entityName: String) {
-        var newEntity = ModelEntity()
+        if isClosing {
+            print("=========ContentsModel::processAfterAnimation(): Now on Closing!", characterName)
+            return
+        }
+        
         guard let character = characters[characterName] else {
             print("ContentsModel::processAfterAnimation(): There is no character: ", characterName)
             return
@@ -426,11 +466,6 @@ class ContentsModel {
         if character.entities["Kitten_Walk_F_RM"] == entity {
             processRandomEntityFromType(character: character, transformTranslation: entity.transform.translation, orientation: entity.orientation, currentEntity: _entity, isTapped: true)
         }
-    }
-    
-    
-    func close() {
-        characters.removeAll()
     }
     
     func degreesToRadians(_ degrees: Float) -> Float {

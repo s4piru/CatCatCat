@@ -9,14 +9,40 @@ import SwiftUI
 
 @main
 struct CatCatCatApp: App {
-    private var immersiveView: ImmersiveView = ImmersiveView(contentsModel: ContentsModel())
+    @Environment(\.openImmersiveSpace) private var openImmersiveSpace
+    @Environment(\.dismissWindow) var dismissWindow
+    
+    @State private var isImmersiveSpaceShown: Bool = false
+    @State private var immersionStyle: ImmersionStyle = .mixed
+    @State private var showImmersiveSpaceFromButton = false
+    
+    @State private var isBlackEnabled = false
+    @State private var isGreyEnabled = false
+    @State private var isOrangeEnabled = false
+    @State private var isTigerEnabled = false
+    @State private var isWhiteBlackEnabled = false
+    private var contentsModel = ContentsModel()
+    
     var body: some Scene {
-        WindowGroup {
-            ContentView(immersiveView: immersiveView)
+        WindowGroup(id: "FirstWindow") {
+            ContentView(isImmersiveSpaceShown: $isImmersiveSpaceShown, showImmersiveSpaceFromButton: $showImmersiveSpaceFromButton, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled)
+                .onAppear() {
+                    Task {
+                        await openImmersiveSpace(id: "ImmersiveSpace")
+                    }
+                }
+                .onChange(of: showImmersiveSpaceFromButton) { _, newValue in
+                    if newValue {
+                        Task {
+                            await openImmersiveSpace(id: "ImmersiveSpace")
+                            showImmersiveSpaceFromButton = false
+                        }
+                    }
+                }
         }
         
         ImmersiveSpace(id: "ImmersiveSpace") {
-            immersiveView
+            ImmersiveView(contentsModel: contentsModel, isImmersiveSpaceShown: $isImmersiveSpaceShown, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled)
         }
     }
 }
