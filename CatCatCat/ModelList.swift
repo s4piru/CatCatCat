@@ -289,10 +289,10 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.independent: 70,
     ],
     EntityType.run: [
-        EntityType.run_fast: 10,
+        EntityType.run_fast: 0,
         EntityType.trot: 20,
         EntityType.run: 50,
-        EntityType.walk: 20,
+        EntityType.walk: 30,
     ],
     EntityType.run_fast: [
         EntityType.run_fast: 20,

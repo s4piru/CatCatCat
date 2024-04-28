@@ -11,6 +11,7 @@ import RealityKitContent
 
 struct ImmersiveView: View {
     @State var contentsModel: ContentsModel
+    @State var subscriptions: [EventSubscription] = []
     @Binding var isImmersiveSpaceShown: Bool
     @Binding var isBlackEnabled: Bool
     @Binding var isGreyEnabled: Bool
@@ -25,9 +26,10 @@ struct ImmersiveView: View {
             for catNameTexture in catNameTextureList {
                 await contentsModel.showCat(catName: catNameTexture.key)
             }
+            subscriptions = contentsModel.getSubscriptions()
         }
         .onDisappear {
-            contentsModel.removeAllChildren()
+            contentsModel.closeImmersiveView()
             isImmersiveSpaceShown = false
         }
         .onChange(of: isBlackEnabled) { _, newValue in

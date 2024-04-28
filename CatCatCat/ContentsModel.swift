@@ -1,15 +1,22 @@
 import SwiftUI
 import RealityKit
+import Combine
 
 class ContentsModel {
     private let queue = DispatchQueue(label: "com.content.myqueue")
     private var content: RealityViewContent? = nil
     private var characters: [String: Character] = [:]
-    private let rangeX: Float = 1.5
-    private let rangeZ: Float = 1.5
+    private var currentPositions: [String: SIMD3<Float>] = [:]
+    private let rangeX: Float = 2.0
+    private let rangeZ: Float = 2.0
     private var yPosition: Float = 0.0
     private var floorPlaneAnchor: AnchorEntity = AnchorEntity()
     private var isClosing: Bool = false
+    private let walkMovement: Float = 0.28289
+    private let trotMovement: Float = 0.47015
+    private let runMovement: Float = 0.72235
+    private let runFastMovement: Float = 1.0202
+    private var subscriptions: [EventSubscription] = []
     //private var otherAnchor: AnchorEntity = AnchorEntity(.plane(.vertical, classification: [.wall, .seat, .table], minimumBounds: SIMD2<Float>(0.01, 0.01)))
     
     init() {
@@ -51,6 +58,11 @@ class ContentsModel {
         }
     }
     
+    func closeImmersiveView() {
+        cancelAllSubscriptions()
+        removeAllChildren()
+    }
+    
     func removeAllChildren() {
         isClosing = true
         for catNameTexture in catNameTextureList {
@@ -68,13 +80,20 @@ class ContentsModel {
         content?.remove(floorPlaneAnchor)
     }
     
+    func cancelAllSubscriptions() {
+        for event in subscriptions {
+            event.cancel()
+        }
+    }
+    
+    func getSubscriptions() -> [EventSubscription] {
+        return subscriptions
+    }
+    
     func registerContent(content: RealityViewContent) {
         isClosing = false
         floorPlaneAnchor = AnchorEntity(.plane(.horizontal, classification: .floor, minimumBounds: SIMD2<Float>(0.01, 0.01)))
-        if let collisionComponent = floorPlaneAnchor.components[CollisionComponent] as? CollisionComponent {
-            floorPlaneAnchor.components[PhysicsBodyComponent] = PhysicsBodyComponent(shapes: collisionComponent.shapes, mass: 0, material: nil, mode: .static)
-            floorPlaneAnchor.components[ModelComponent] = nil // make the floorPlaneAnchor invisible
-        }
+        floorPlaneAnchor.generateCollisionShapes(recursive: false)
         content.add(floorPlaneAnchor)
         self.content = content
         
@@ -89,9 +108,9 @@ class ContentsModel {
     
     func createRandomPosition() -> SIMD3<Float> {
         return SIMD3<Float>(
-            x: Float.random(in: -1.5...1.5),
+            x: Float.random(in: -rangeX...rangeX),
             y: yPosition,
-            z: Float.random(in: -1.5...1.5)
+            z: Float.random(in: -rangeZ...rangeZ)
         )
     }
     
@@ -102,10 +121,13 @@ class ContentsModel {
     
     func registerEntity(entity: ModelEntity, characterName: String, entityType: EntityType, entityName: String) {
         if content != nil {
-            content!.subscribe(to: AnimationEvents.PlaybackCompleted.self, on: entity) { e in
+            subscriptions.append(content!.subscribe(to: AnimationEvents.PlaybackCompleted.self, on: entity) { e in
                 self.processAfterAnimation(characterName: characterName, entityType: entityType, entityName: entityName)
                 print("ContentsModel::registerEntity() processAfterAnimation called: ", characterName, ", usdzName: ", entityName)
-            }
+            })
+            subscriptions.append(content!.subscribe(to: CollisionEvents.Began.self) { e in
+                print("====================Collision between \(e.entityA.name) and \(e.entityB.name) is occured====================")
+            })
         } else {
             print("ContentsModel::registerEntity() NO content!!!")
         }
@@ -143,6 +165,7 @@ class ContentsModel {
         if character.isEnabled {
             walkStartEntity.position.x = firstPosition.x
             walkStartEntity.position.z = firstPosition.z
+            self.currentPositions[catName] = walkStartEntity.position
             walkStartEntity.orientation = orientation
             walkStartEntity.isEnabled = true
             startAnimation(animateEntity: walkStartEntity)
@@ -169,18 +192,16 @@ class ContentsModel {
                 DispatchQueue.main.async {
                     let entity = character.entities[usdzEntityType.key]!
                     self.floorPlaneAnchor.addChild(entity)
-                    //self.registerEntity(entity: entity, characterName: character.characterName, entityType: usdzEntityType.value, entityName: usdzEntityType.key)
                 }
             }
         }
     }
     
     func setCollisionComponent(entity: ModelEntity) {
-        let collisionShape = ShapeResource.generateBox(size: SIMD3<Float>(entity.scale.x/2, entity.scale.y/2, entity.scale.z*2.0))
+        entity.generateCollisionShapes(recursive: true)
+        let collisionShape = ShapeResource.generateBox(size: SIMD3<Float>(entity.scale.x/2, entity.scale.y/2, entity.scale.z*1.5))
         var collisionComponent = CollisionComponent(shapes: [collisionShape])
-        collisionComponent.filter = CollisionFilter(group: CollisionGroup(rawValue: 1), mask: CollisionGroup(rawValue: 1))
         entity.components.set(collisionComponent)
-        entity.components[PhysicsBodyComponent] = PhysicsBodyComponent(shapes: collisionComponent.shapes, mass: 0, material: nil, mode: .static)
     }
     
     @MainActor
@@ -408,21 +429,26 @@ class ContentsModel {
         return position.x >= -rangeX && position.x <= rangeX && position.z >= -rangeZ && position.z <= rangeZ
     }
     
+    func isNoCollision(position: SIMD3<Float>) -> Bool {
+        // will not cause collision possibility in the next action
+        return true
+    }
+    
     func processAfterTravel(character: Character, entity: ModelEntity, entityType: EntityType) {
         let forwardDirection = entity.orientation.act(SIMD3<Float>(0, 0, 1))
         var meshMovement: Float = 0.0
         switch entityType {
         case EntityType.walk, EntityType.walk_start:
-            meshMovement = 0.28289
+            meshMovement = walkMovement
             break;
         case EntityType.trot:
-            meshMovement = 0.47015
+            meshMovement = trotMovement
             break;
         case EntityType.run:
-            meshMovement = 0.72235
+            meshMovement = runMovement
             break;
-        case EntityType.run_fast:
-            meshMovement = 1.0202
+        case EntityType.run_fast: // will not come here
+            meshMovement = runFastMovement
         default:
             print("ContentsModel::processAfterTravel() Invalid Entity", meshMovement)
         }
@@ -435,6 +461,7 @@ class ContentsModel {
         } else {
             processRandomEntityFromType(character: character, position: finalPosition, orientation: entity.orientation, currentEntity: entity, isForceTurn: true)
         }
+        self.currentPositions[character.characterName] = finalPosition
     }
     
     func processAfterTurn(character: Character, turnEntity: ModelEntity) {
@@ -458,6 +485,10 @@ class ContentsModel {
     }
     
     func handleTouchedAnimation(entity: Entity) {
+        if !entity.isEnabled {
+            print("ContentsModel::handleTouchedAnimation() This is NOT enabled : ", entity.name)
+            return
+        }
         print("ContentsModel::handleTouchedAnimation() entity.name : ", entity.name)
         guard let _entity = entity as? ModelEntity else {
             print("ContentsModel::handleTouchedAnimation() Failed to convert to ModelEnity ")
