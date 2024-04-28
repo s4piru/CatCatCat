@@ -7,7 +7,7 @@ class ContentsModel {
     private var characters: [String: Character] = [:]
     private let rangeX: Float = 1.5
     private let rangeZ: Float = 1.5
-    private var yTransformTranslation: Float = 0.0
+    private var yPosition: Float = 0.0
     private var floorPlaneAnchor: AnchorEntity = AnchorEntity()
     private var isClosing: Bool = false
     //private var otherAnchor: AnchorEntity = AnchorEntity(.plane(.vertical, classification: [.wall, .seat, .table], minimumBounds: SIMD2<Float>(0.01, 0.01)))
@@ -87,10 +87,10 @@ class ContentsModel {
         }*/
     }
     
-    func createRandomTransformTranslation() -> SIMD3<Float> {
+    func createRandomPosition() -> SIMD3<Float> {
         return SIMD3<Float>(
             x: Float.random(in: -1.5...1.5),
-            y: yTransformTranslation,
+            y: yPosition,
             z: Float.random(in: -1.5...1.5)
         )
     }
@@ -118,12 +118,12 @@ class ContentsModel {
             return
         }
         
-        let firstTransformTranslation = createRandomTransformTranslation()
+        let firstPosition = createRandomPosition()
         let orientation = createRandomOrientation()
         
         for usdzEntityType in firstUsdzEntityTypeList {
             if !character.entities.keys.contains(usdzEntityType.key) {
-                let entity = await loadEntity(characterName: catName, entityType:usdzEntityType.value, usdzName: usdzEntityType.key, material: character.material, transformTranslation: firstTransformTranslation, orientation: orientation)
+                let entity = await loadEntity(characterName: catName, entityType:usdzEntityType.value, usdzName: usdzEntityType.key, material: character.material, position: firstPosition, orientation: orientation)
                     character.entities[usdzEntityType.key] = entity
             }
         }
@@ -141,24 +141,25 @@ class ContentsModel {
         }
 
         if character.isEnabled {
-            walkStartEntity.transform.translation = firstTransformTranslation
+            walkStartEntity.position.x = firstPosition.x
+            walkStartEntity.position.z = firstPosition.z
             walkStartEntity.orientation = orientation
             walkStartEntity.isEnabled = true
             startAnimation(animateEntity: walkStartEntity)
         }
         
         Task {
-            await addRemainigEntities(character: character, material: character.material, transformTranslation: firstTransformTranslation, orientation: orientation)
+            await addRemainigEntities(character: character, material: character.material, position: firstPosition, orientation: orientation)
             character.hasModelLoadCompleted = true
         }
         
         return
     }
     
-    func addRemainigEntities(character: Character, material:  SimpleMaterial, transformTranslation: SIMD3<Float>, orientation: simd_quatf) async {
+    func addRemainigEntities(character: Character, material:  SimpleMaterial, position: SIMD3<Float>, orientation: simd_quatf) async {
         for usdzEntityType in usdzEntityTypeList {
             if !character.entities.keys.contains(usdzEntityType.key) && !firstUsdzEntityTypeList.keys.contains(usdzEntityType.key) {
-                let entity = await self.loadEntity(characterName: character.characterName, entityType:usdzEntityType.value, usdzName: usdzEntityType.key, material: material, transformTranslation: transformTranslation, orientation: orientation)
+                let entity = await self.loadEntity(characterName: character.characterName, entityType:usdzEntityType.value, usdzName: usdzEntityType.key, material: material, position: position, orientation: orientation)
                 DispatchQueue.main.async {
                     self.floorPlaneAnchor.addChild(entity)
                     self.registerEntity(entity: entity, characterName: character.characterName, entityType: usdzEntityType.value, entityName: usdzEntityType.key)
@@ -183,12 +184,14 @@ class ContentsModel {
     }
     
     @MainActor
-    func loadEntity(characterName: String, entityType: EntityType, usdzName: String, material: SimpleMaterial, transformTranslation: SIMD3<Float>, orientation: simd_quatf) async -> ModelEntity {
+    func loadEntity(characterName: String, entityType: EntityType, usdzName: String, material: SimpleMaterial, position: SIMD3<Float>, orientation: simd_quatf) async -> ModelEntity {
         do {
             let loadedEntity = try await ModelEntity(named: usdzName)
             loadedEntity.model?.materials = [material]
             loadedEntity.name = characterName
-            loadedEntity.transform.translation = transformTranslation
+            loadedEntity.position.x = position.x
+            loadedEntity.position.z = position.z
+            loadedEntity.transform.translation.y = 0.0
             loadedEntity.orientation = orientation
             loadedEntity.components.set(InputTargetComponent(allowedInputTypes: .all))
             loadedEntity.isEnabled = false
@@ -267,7 +270,7 @@ class ContentsModel {
         return firstEntity
     }
     
-    func processRandomEntityFromType(character: Character, transformTranslation: SIMD3<Float>, orientation: simd_quatf, currentEntity: ModelEntity, isTapped: Bool = false, isForceTurn: Bool = false) {
+    func processRandomEntityFromType(character: Character, position: SIMD3<Float>, orientation: simd_quatf, currentEntity: ModelEntity, isTapped: Bool = false, isForceTurn: Bool = false) {
         var nextEntity: ModelEntity = ModelEntity()
         if isTapped {
             character.entityNameQueue.removeAll()
@@ -346,7 +349,8 @@ class ContentsModel {
                 print("ContentsModel::processRandomEntityFromType(): No available queue element found for: ", character.characterName)
             }
         }
-        nextEntity.transform.translation = transformTranslation
+        nextEntity.position.x = position.x
+        nextEntity.position.z = position.z
         nextEntity.orientation = orientation
         currentEntity.isEnabled = false
         nextEntity.isEnabled = true
@@ -396,12 +400,12 @@ class ContentsModel {
             break;
         default:
             print("ContentsModel::processAfterAnimation(): Process random next animation for: ", entityType)
-            processRandomEntityFromType(character: character, transformTranslation: entity.transform.translation, orientation: entity.orientation, currentEntity: entity)
+            processRandomEntityFromType(character: character, position: entity.position, orientation: entity.orientation, currentEntity: entity)
         }
     }
     
-    func isInsizeRange(transformTranslation: SIMD3<Float>) -> Bool {
-        return transformTranslation.x >= -rangeX && transformTranslation.x <= rangeX && transformTranslation.z >= -rangeZ && transformTranslation.z <= rangeZ
+    func isInsizeRange(position: SIMD3<Float>) -> Bool {
+        return position.x >= -rangeX && position.x <= rangeX && position.z >= -rangeZ && position.z <= rangeZ
     }
     
     func processAfterTravel(character: Character, entity: ModelEntity, entityType: EntityType) {
@@ -423,12 +427,13 @@ class ContentsModel {
             print("ContentsModel::processAfterTravel() Invalid Entity", meshMovement)
         }
         
-        let finalTransformTranslation = entity.transform.translation + forwardDirection * meshMovement
-        if isInsizeRange(transformTranslation: finalTransformTranslation) {
+        //let finalTransformTranslation = entity.transform.translation + forwardDirection * meshMovement
+        let finalPosition = entity.position + forwardDirection * meshMovement
+        if isInsizeRange(position: finalPosition) {
             character.isInForceTurn = false
-            processRandomEntityFromType(character: character, transformTranslation: finalTransformTranslation, orientation: entity.orientation, currentEntity: entity)
+            processRandomEntityFromType(character: character, position: finalPosition, orientation: entity.orientation, currentEntity: entity)
         } else {
-            processRandomEntityFromType(character: character, transformTranslation: finalTransformTranslation, orientation: entity.orientation, currentEntity: entity, isForceTurn: true)
+            processRandomEntityFromType(character: character, position: finalPosition, orientation: entity.orientation, currentEntity: entity, isForceTurn: true)
         }
     }
     
@@ -449,7 +454,7 @@ class ContentsModel {
             return
         }
         let newOrientation = turnEntity.orientation * simd_quatf(angle: rotationAngle, axis: SIMD3<Float>(0, 1, 0)) // Orientation?
-        processRandomEntityFromType(character: character, transformTranslation: turnEntity.transform.translation, orientation: newOrientation, currentEntity: turnEntity)
+        processRandomEntityFromType(character: character, position: turnEntity.position, orientation: newOrientation, currentEntity: turnEntity)
     }
     
     func handleTouchedAnimation(entity: Entity) {
@@ -464,7 +469,7 @@ class ContentsModel {
         }
         
         if character.entities["Kitten_Walk_F_RM"] == entity {
-            processRandomEntityFromType(character: character, transformTranslation: entity.transform.translation, orientation: entity.orientation, currentEntity: _entity, isTapped: true)
+            processRandomEntityFromType(character: character, position: entity.position, orientation: entity.orientation, currentEntity: _entity, isTapped: true)
         }
     }
     
