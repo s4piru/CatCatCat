@@ -5,13 +5,7 @@ class Character {
     var entities: [String: ModelEntity]
     var isInForceTurn: Bool = false
     var hasModelLoadCompleted: Bool = false
-    var entityNameQueue: [String] = [
-        "Kitten_Walk_F_RM",
-        "Kitten_Walk_F_RM",
-        "Kitten_Walk_F_RM",
-        "Kitten_Walk_F_RM",
-        "Kitten_Walk_F_RM",
-    ]
+    var entityNameQueue: [String] = []
     var material: SimpleMaterial = SimpleMaterial()
     var isEnabled = false
     var characterNameIsCollide: [String: Bool] = [:]

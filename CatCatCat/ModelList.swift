@@ -3,11 +3,11 @@ import RealityKit
 enum EntityType {
     case unknown
     case independent
+    case idle
     case walk          // Travel
     case walk_start    // Travel
     case walk_end
     case run           // Travel
-    case run_fast      // Travel
     case trot          // Travel
     case turn
     case sit_to_lieside
@@ -29,9 +29,7 @@ enum EntityType {
     case liebelly_sleep
     case liebelly_sleep_start
     case liebelly_sleep_end
-    case jump_run       // Travel
     case jump_place
-    case jump_fw        // Travel
     case eat
     case drink
     case eatdrink_start
@@ -40,6 +38,7 @@ enum EntityType {
 
 let canTurnList: [EntityType] = [
     EntityType.independent,
+    EntityType.idle,
     EntityType.walk_end,
     EntityType.sit_end,
     EntityType.lieside_end,
@@ -69,18 +68,17 @@ let sampleNameUsdzList: [String: String] =
     ]
 
 let firstUsdzEntityTypeList: [String: EntityType] = [
-    "Kitten_Lick": EntityType.independent,
-    "Kitten_Walk_F_RM": EntityType.walk,
-    "Kitten_Walk_start": EntityType.walk_start,
-    "Kitten_Walk_end": EntityType.walk_end,
-    "Kitten_Turn_180_R": EntityType.turn,
+    "Kitten_Idle_2": EntityType.idle,
+    "Kitten_Idle_3": EntityType.idle,
+    "Kitten_Idle_5": EntityType.idle,
+    "Kitten_Idle_6": EntityType.idle,
+    "Kitten_Idle_7": EntityType.idle,
 ]
 
 let travelEntityTypeList: [EntityType] = [
     EntityType.walk,
     EntityType.walk_start,
     EntityType.run,
-    EntityType.run_fast,
     EntityType.trot
 ]
 
@@ -91,7 +89,7 @@ let usdzEntityTypeList: [String: EntityType] =
         "Kitten_Attack_L": EntityType.independent,
         "Kitten_Attack_R": EntityType.independent,
         "Kitten_Attack_Series": EntityType.independent,
-        "Kitten_Caress_idle": EntityType.independent,
+        "Kitten_Caress_idle": EntityType.idle,
         "Kitten_Caress_lie": EntityType.liebelly,
         "Kitten_Caress_sit": EntityType.sit,
         "Kitten_Die_L": EntityType.independent,
@@ -103,17 +101,15 @@ let usdzEntityTypeList: [String: EntityType] =
         "Kitten_Hit_B": EntityType.independent,
         "Kitten_Hit_F": EntityType.independent,
         "Kitten_Hit_M": EntityType.independent,
-        "Kitten_Idle_1": EntityType.independent,
-        "Kitten_Idle_2": EntityType.independent,
-        "Kitten_Idle_3": EntityType.independent,
-        "Kitten_Idle_4": EntityType.independent,
-        "Kitten_Idle_5": EntityType.independent,
-        "Kitten_Idle_6": EntityType.independent,
-        "Kitten_Idle_7": EntityType.independent,
-        "Kitten_Idle_8": EntityType.independent,
-        "Kitten_JumpFw_RM": EntityType.jump_fw,
+        "Kitten_Idle_1": EntityType.idle,
+        "Kitten_Idle_2": EntityType.idle,
+        "Kitten_Idle_3": EntityType.idle,
+        "Kitten_Idle_4": EntityType.idle,
+        "Kitten_Idle_5": EntityType.idle,
+        "Kitten_Idle_6": EntityType.idle,
+        "Kitten_Idle_7": EntityType.idle,
+        "Kitten_Idle_8": EntityType.idle,
         "Kitten_JumpPlace_RM": EntityType.jump_place,
-        "Kitten_JumpRun_RM": EntityType.jump_run,
         "Kitten_Lick": EntityType.independent,
         "Kitten_Lie_belly_end": EntityType.liebelly_end,
         "Kitten_Lie_belly_loop_1": EntityType.liebelly,
@@ -131,7 +127,6 @@ let usdzEntityTypeList: [String: EntityType] =
         "Kitten_Lie_side_sleep": EntityType.lieside_sleep,
         "Kitten_Lie_side_start": EntityType.lieside_start,
         "Kitten_Run_F_RM": EntityType.run,
-        "Kitten_RunFast_F_RM": EntityType.run_fast,
         "Kitten_Scratching": EntityType.independent,
         "Kitten_SharpenClaws_Horiz": EntityType.independent,
         "Kitten_SharpenClaws_Vert": EntityType.independent,
@@ -162,12 +157,18 @@ let entityTypeUsdzList: [EntityType: [String]] = [
         "Kitten_Attack_L",
         "Kitten_Attack_R",
         "Kitten_Attack_Series",
-        "Kitten_Caress_idle",
         "Kitten_Die_L",
         "Kitten_Die_R",
         "Kitten_Hit_B",
         "Kitten_Hit_F",
         "Kitten_Hit_M",
+        "Kitten_Lick",
+        "Kitten_Scratching",
+        "Kitten_SharpenClaws_Horiz",
+        "Kitten_SharpenClaws_Vert",
+    ],
+    EntityType.idle: [
+        "Kitten_Caress_idle",
         "Kitten_Idle_1",
         "Kitten_Idle_2",
         "Kitten_Idle_3",
@@ -176,10 +177,6 @@ let entityTypeUsdzList: [EntityType: [String]] = [
         "Kitten_Idle_6",
         "Kitten_Idle_7",
         "Kitten_Idle_8",
-        "Kitten_Lick",
-        "Kitten_Scratching",
-        "Kitten_SharpenClaws_Horiz",
-        "Kitten_SharpenClaws_Vert",
     ],
     EntityType.walk: [
         "Kitten_Walk_F_RM",
@@ -192,9 +189,6 @@ let entityTypeUsdzList: [EntityType: [String]] = [
     ],
     EntityType.run: [
         "Kitten_Run_F_RM",
-    ],
-    EntityType.run_fast: [
-        "Kitten_RunFast_F_RM",
     ],
     EntityType.trot: [
         "Kitten_Trot_F_RM",
@@ -270,14 +264,8 @@ let entityTypeUsdzList: [EntityType: [String]] = [
     EntityType.liebelly_sleep_end: [
         "Kitten_Lie_belly_sleep_end",
     ],
-    EntityType.jump_run: [
-        "Kitten_JumpRun_RM",
-    ],
     EntityType.jump_place: [
         "Kitten_JumpPlace_RM",
-    ],
-    EntityType.jump_fw: [
-        "Kitten_JumpFw_RM",
     ],
     EntityType.eat: [
         "Kitten_Eating",
@@ -295,16 +283,26 @@ let entityTypeUsdzList: [EntityType: [String]] = [
 
 let nextEntityList: [EntityType: [EntityType: Int]] = [
     EntityType.independent: [
+        EntityType.idle: 75,
         EntityType.sit_start: 5,
         EntityType.lieside_start: 5,
         EntityType.liebelly_start: 5,
-        EntityType.walk_start: 85,
+        EntityType.independent: 8,
+        EntityType.walk_start: 2,
+    ],
+    EntityType.idle: [
+        EntityType.idle: 53,
+        EntityType.sit_start: 5,
+        EntityType.lieside_start: 5,
+        EntityType.liebelly_start: 5,
+        EntityType.independent: 30,
+        EntityType.walk_start: 2,
     ],
     EntityType.walk: [
-        EntityType.trot: 5,
-        EntityType.run: 5,
-        EntityType.walk_end: 3,
-        EntityType.walk: 87,
+        EntityType.trot: 2,
+        EntityType.run: 2,
+        EntityType.walk_end: 91,
+        EntityType.walk: 5,
     ],
     EntityType.walk_start: [
         EntityType.walk: 100,
@@ -313,27 +311,28 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.eatdrink_start: 2,
         EntityType.lieside_start: 4,
         EntityType.liebelly_start: 4,
-        EntityType.turn: 10,
+        EntityType.turn: 20,
         EntityType.sit_start: 10,
-        EntityType.independent: 70,
+        EntityType.independent: 20,
+        EntityType.idle: 40,
     ],
     EntityType.run: [
-        EntityType.run_fast: 0,
-        EntityType.trot: 20,
-        EntityType.run: 50,
-        EntityType.walk: 30,
-    ],
-    EntityType.run_fast: [
-        EntityType.run_fast: 20,
-        EntityType.run: 80,
+        EntityType.trot: 0,
+        EntityType.run: 0,
+        EntityType.walk: 100,
     ],
     EntityType.trot: [
-        EntityType.run: 10,
-        EntityType.trot: 40,
-        EntityType.walk: 50,
+        EntityType.run: 0,
+        EntityType.trot: 0,
+        EntityType.walk: 100,
     ],
     EntityType.turn: [
-        EntityType.walk_start: 100,
+        EntityType.idle: 53,
+        EntityType.sit_start: 5,
+        EntityType.lieside_start: 5,
+        EntityType.liebelly_start: 5,
+        EntityType.independent: 30,
+        EntityType.walk_start: 2,
     ],
     EntityType.sit_to_lieside: [
         EntityType.lieside_sleep_start: 20,
@@ -358,7 +357,9 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.sit: 100,
     ],
     EntityType.sit_end: [
-        EntityType.walk_start: 100,
+        EntityType.idle: 63,
+        EntityType.independent: 35,
+        EntityType.walk_start: 2,
     ],
     EntityType.lieside: [
         EntityType.lieside_sleep_start: 10,
@@ -369,7 +370,9 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.lieside: 100,
     ],
     EntityType.lieside_end: [
-        EntityType.walk_start: 100,
+        EntityType.idle: 63,
+        EntityType.independent: 35,
+        EntityType.walk_start: 2,
     ],
     EntityType.lieside_sleep: [
         EntityType.lieside_sleep_end: 100,
@@ -390,7 +393,9 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.liebelly: 100,
     ],
     EntityType.liebelly_end: [
-        EntityType.walk_start: 100,
+        EntityType.idle: 63,
+        EntityType.independent: 35,
+        EntityType.walk_start: 2,
     ],
     EntityType.liebelly_sleep: [
         EntityType.lieside_sleep_end: 100,
@@ -402,14 +407,10 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.liebelly: 20,
         EntityType.liebelly_end: 80,
     ],
-    EntityType.jump_run: [
-        EntityType.run: 100,
-    ],
     EntityType.jump_place: [
-        EntityType.walk_start: 100,
-    ],
-    EntityType.jump_fw: [
-        EntityType.walk_start: 100,
+        EntityType.idle: 63,
+        EntityType.independent: 35,
+        EntityType.walk_start: 2,
     ],
     EntityType.eat: [
         EntityType.eat: 10,
@@ -424,7 +425,9 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.drink: 50,
     ],
     EntityType.eatdrink_end: [
-        EntityType.walk_start: 100,
+        EntityType.idle: 63,
+        EntityType.independent: 35,
+        EntityType.walk_start: 2,
     ],
 ]
 

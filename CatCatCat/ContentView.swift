@@ -24,14 +24,15 @@ struct ContentView: View {
     @State private var orangeName: String = "Orange"
     @State private var tigerName: String = "Tiger"
     @State private var whiteBlackName: String = "White Black"
+    @State var enabledCount: Int = 0
     
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     @State private var r:Double = 0
 
     var body: some View {
         VStack {
-            Text("Name your cats and choose ones you want to invite!")
-                .font(.system(size: 35))
+            Text("Name your cats and choose ones you want to invite! (up to 3 cats)")
+                .font(.system(size: 30))
                 .bold()
                 .fontDesign(.monospaced)
                 .padding(EdgeInsets(
@@ -79,6 +80,7 @@ struct ContentView: View {
                         bottom: 0,
                         trailing: 0
                     ))
+                    .disabled(enabledCount >= 3 && !isBlackEnabled)
             }.padding(EdgeInsets(
                 top: 10,
                 leading: 0,
@@ -120,6 +122,7 @@ struct ContentView: View {
                         bottom: 0,
                         trailing: 0
                     ))
+                    .disabled(enabledCount >= 3 && !isGreyEnabled)
             }.padding(EdgeInsets(
                 top: 10,
                 leading: 0,
@@ -163,6 +166,7 @@ struct ContentView: View {
                         bottom: 0,
                         trailing: 0
                     ))
+                    .disabled(enabledCount >= 3 && !isOrangeEnabled)
             }.padding(EdgeInsets(
                 top: 10,
                 leading: 0,
@@ -206,6 +210,7 @@ struct ContentView: View {
                         bottom: 0,
                         trailing: 0
                     ))
+                    .disabled(enabledCount >= 3 && !isTigerEnabled)
             }.padding(EdgeInsets(
                 top: 10,
                 leading: 0,
@@ -249,6 +254,7 @@ struct ContentView: View {
                         bottom: 0,
                         trailing: 0
                     ))
+                    .disabled(enabledCount >= 3 && !isWhiteBlackEnabled)
             }.padding(EdgeInsets(
                 top: 10,
                 leading: 0,
@@ -276,6 +282,21 @@ struct ContentView: View {
             bottom: 50,
             trailing: 0
         ))
+        .onChange(of: isBlackEnabled) { _, newValue in
+            enabledCount = newValue ? enabledCount + 1 : enabledCount - 1
+        }
+        .onChange(of: isGreyEnabled) { _, newValue in
+            enabledCount = newValue ? enabledCount + 1 : enabledCount - 1
+        }
+        .onChange(of: isOrangeEnabled) { _, newValue in
+            enabledCount = newValue ? enabledCount + 1 : enabledCount - 1
+        }
+        .onChange(of: isTigerEnabled) { _, newValue in
+            enabledCount = newValue ? enabledCount + 1 : enabledCount - 1
+        }
+        .onChange(of: isWhiteBlackEnabled) { _, newValue in
+            enabledCount = newValue ? enabledCount + 1 : enabledCount - 1
+        }
     }
 }
 

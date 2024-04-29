@@ -3,10 +3,12 @@ import RealityKit
 import Combine
 
 class ContentsModel {
+    // TODO: Add Audio
+    // TODO: Adjust angle
+    // TODO: Adjust possibilities
     private let queue = DispatchQueue(label: "com.content.myqueue")
     private var content: RealityViewContent? = nil
     private var characters: [String: Character] = [:]
-    private var currentPositions: [String: SIMD3<Float>] = [:]
     private let rangeX: Float = 2.0
     private let rangeZ: Float = 2.0
     private var yPosition: Float = 0.0
@@ -15,7 +17,6 @@ class ContentsModel {
     private let walkMovement: Float = 0.28289
     private let trotMovement: Float = 0.47015
     private let runMovement: Float = 0.72235
-    private let runFastMovement: Float = 1.0202
     private var subscriptions: [EventSubscription] = []
     
     init() {
@@ -33,6 +34,11 @@ class ContentsModel {
             for catName in catNameTextureList.keys {
                 character.characterNameIsCollide[catName] = false
             }
+            
+            for _ in 1...3 {
+                character.entityNameQueue.append(firstUsdzEntityTypeList.randomElement()!.key)
+            }
+            
             self.characters[catNameTexture.key] = character
         }
     }
@@ -44,13 +50,14 @@ class ContentsModel {
         }
         
         if isEnabled {
-            if character.entities.keys.count >= firstUsdzEntityTypeList.keys.count && character.entities.keys.contains("Kitten_Walk_start") {
-                guard let walkStartEntity = character.entities["Kitten_Walk_start"] else {
+            if character.entities.keys.count >= firstUsdzEntityTypeList.keys.count {
+                let firstEntityName = firstUsdzEntityTypeList.randomElement()!.key
+                guard let firstEntity = character.entities[firstEntityName] else {
                     print("ContentsModel::updateCharacterEnable() There is no Kitten_Walk_start for catName: ", catName)
                     return
                 }
-                walkStartEntity.isEnabled = true
-                startAnimation(animateEntity: walkStartEntity)
+                firstEntity.isEnabled = true
+                startAnimation(animateEntity: firstEntity)
             } else {
                 print("ContentsModel::updateCharacterEnable(), wait for entity load")
             }
@@ -184,18 +191,18 @@ class ContentsModel {
             }
         }
         
-        guard let walkStartEntity = character.entities["Kitten_Walk_start"] else {
+        let firstEntityName = firstUsdzEntityTypeList.randomElement()!.key
+        guard let firstEntity = character.entities[firstEntityName] else {
             print("ContentsModel::createCharacter() There is no Kitten_Walk_start for catName: ", catName)
             return
         }
 
         if character.isEnabled {
-            walkStartEntity.position.x = firstPosition.x
-            walkStartEntity.position.z = firstPosition.z
-            self.currentPositions[catName] = walkStartEntity.position
-            walkStartEntity.orientation = orientation
-            walkStartEntity.isEnabled = true
-            startAnimation(animateEntity: walkStartEntity)
+            firstEntity.position.x = firstPosition.x
+            firstEntity.position.z = firstPosition.z
+            firstEntity.orientation = orientation
+            firstEntity.isEnabled = true
+            startAnimation(animateEntity: firstEntity)
         }
         
         Task {
@@ -226,9 +233,8 @@ class ContentsModel {
     
     func setCollisionComponent(entity: ModelEntity) {
         entity.generateCollisionShapes(recursive: true)
-        let collisionShape = ShapeResource.generateBox(size: SIMD3<Float>(entity.scale.x, entity.scale.y, entity.scale.z*1.8))
-        var collisionComponent = CollisionComponent(shapes: [collisionShape])
-        entity.components.set(collisionComponent)
+        let collisionShape = ShapeResource.generateBox(size: SIMD3<Float>(entity.scale.x/2, entity.scale.y/2, entity.scale.z*1.2))
+        entity.components.set(CollisionComponent(shapes: [collisionShape]))
     }
     
     @MainActor
@@ -327,16 +333,7 @@ class ContentsModel {
             let newLastEntityType = getNextEntityType(currentType: lastEntityType)
             return getRandomEntityName(entityTypes: [newLastEntityType])
         } else {
-            switch lastEntityType {
-            case EntityType.independent, EntityType.turn:
-                return "Kitten_Walk_start"
-            case EntityType.walk, EntityType.walk_start:
-                return "Kitten_Walk_F_RM"
-            case EntityType.walk_end:
-                return "Kitten_Lick"            default:
-                print("ContentsModel::processRandomEntityFromType(): switch lastEntityType unknown error")
-                return ""
-            }
+            return firstUsdzEntityTypeList.randomElement()!.key
         }
     }
     
@@ -377,13 +374,16 @@ class ContentsModel {
         if isTapped {
             character.entityNameQueue.removeAll()
             character.entityNameQueue.append("Kitten_Walk_end")
-            let independentEntityName = getRandomEntityName(entityTypes: [EntityType.independent])
+            let independentEntityName = getRandomEntityName(entityTypes: [EntityType.independent, EntityType.idle])
             if character.entities.keys.contains(independentEntityName) {
                 character.entityNameQueue.append(independentEntityName)
             } else {
-                character.entityNameQueue.append("Kitten_Lick")
+                character.entityNameQueue.append(firstUsdzEntityTypeList.randomElement()!.key)
             }
             return
+        } else if !character.hasModelLoadCompleted {
+            nextEntity = getFirstEntityFromQueue(character: character)
+            appendRandomActionToLastEntity(character: character)
         } else if isInCollision(characterNameIsCollide: character.characterNameIsCollide) {
             if character.isHandlingColision {
                 nextEntity = getFirstEntityFromQueue(character: character)
@@ -445,21 +445,13 @@ class ContentsModel {
                 appendRandomActionToLastEntity(character: character)
             }
         }
+        
         nextEntity.position.x = position.x
         nextEntity.position.z = position.z
         nextEntity.orientation = orientation
         currentEntity.isEnabled = false
         nextEntity.isEnabled = true
         startAnimation(animateEntity: nextEntity)
-    }
-    
-    func shouldHandleInTapMotion(entityType: EntityType) -> Bool {
-        switch entityType {
-        case EntityType.independent:
-            return true
-        default:
-            return false
-        }
     }
 
     func isInCollision(characterNameIsCollide: [String:Bool]) -> Bool {
@@ -494,7 +486,7 @@ class ContentsModel {
         }
         
         switch entityType {
-        case EntityType.walk, EntityType.walk_start, EntityType.run, EntityType.run_fast, EntityType.trot/*, EntityType.jump_run, EntityType.jump_fw*/:
+        case EntityType.walk, EntityType.walk_start, EntityType.run, EntityType.trot:
             processAfterTravel(character: character, entity: entity, entityType: entityType)
             break;
         case EntityType.turn:
@@ -513,11 +505,6 @@ class ContentsModel {
         return position.x >= -rangeX && position.x <= rangeX && position.z >= -rangeZ && position.z <= rangeZ
     }
     
-    func isNoCollision(position: SIMD3<Float>) -> Bool {
-        // will not cause collision possibility in the next action
-        return true
-    }
-    
     func processAfterTravel(character: Character, entity: ModelEntity, entityType: EntityType) {
         let forwardDirection = entity.orientation.act(SIMD3<Float>(0, 0, 1))
         var meshMovement: Float = 0.0
@@ -531,13 +518,10 @@ class ContentsModel {
         case EntityType.run:
             meshMovement = runMovement
             break;
-        case EntityType.run_fast: // will not come here
-            meshMovement = runFastMovement
         default:
             print("ContentsModel::processAfterTravel() Invalid Entity", meshMovement)
         }
         
-        //let finalTransformTranslation = entity.transform.translation + forwardDirection * meshMovement
         let finalPosition = entity.position + forwardDirection * meshMovement
         if isInsizeRange(position: finalPosition) {
             character.isInForceTurn = false
@@ -545,7 +529,6 @@ class ContentsModel {
         } else {
             processRandomEntityFromType(character: character, position: finalPosition, orientation: entity.orientation, currentEntity: entity, isForceTurn: true, isCurrentTravel: true)
         }
-        self.currentPositions[character.characterName] = finalPosition
     }
     
     func processAfterTurn(character: Character, turnEntity: ModelEntity) {
