@@ -14,6 +14,8 @@ class Character {
     ]
     var material: SimpleMaterial = SimpleMaterial()
     var isEnabled = false
+    var characterNameIsCollide: [String: Bool] = [:]
+    var isHandlingColision: Bool = false
 
     init(characterName: String, entities: [String: ModelEntity], material: SimpleMaterial) {
         self.characterName = characterName

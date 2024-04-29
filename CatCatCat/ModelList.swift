@@ -38,6 +38,27 @@ enum EntityType {
     case eatdrink_end
 }
 
+let canTurnList: [EntityType] = [
+    EntityType.independent,
+    EntityType.walk_end,
+    EntityType.sit_end,
+    EntityType.lieside_end,
+    EntityType.liebelly_end,
+    EntityType.jump_place,
+    EntityType.eatdrink_end,
+]
+
+let idleUsdzList:[String] = [
+    "Kitten_Idle_1",
+    "Kitten_Idle_2",
+    "Kitten_Idle_3",
+    "Kitten_Idle_4",
+    "Kitten_Idle_5",
+    "Kitten_Idle_6",
+    "Kitten_Idle_7",
+    "Kitten_Idle_8",
+]
+
 let sampleNameUsdzList: [String: String] =
     [
         "Black"      : "black_idle",
@@ -53,6 +74,14 @@ let firstUsdzEntityTypeList: [String: EntityType] = [
     "Kitten_Walk_start": EntityType.walk_start,
     "Kitten_Walk_end": EntityType.walk_end,
     "Kitten_Turn_180_R": EntityType.turn,
+]
+
+let travelEntityTypeList: [EntityType] = [
+    EntityType.walk,
+    EntityType.walk_start,
+    EntityType.run,
+    EntityType.run_fast,
+    EntityType.trot
 ]
 
 let usdzEntityTypeList: [String: EntityType] =
