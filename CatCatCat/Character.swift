@@ -10,11 +10,13 @@ class Character {
     var isEnabled = false
     var characterNameIsCollide: [String: Bool] = [:]
     var isHandlingColision: Bool = false
+    var firstPosition: SIMD3<Float>
 
-    init(characterName: String, entities: [String: ModelEntity], material: SimpleMaterial) {
+    init(characterName: String, entities: [String: ModelEntity], material: SimpleMaterial, firstPosition: SIMD3<Float>) {
         self.characterName = characterName
         self.entities = entities
         self.material = material
+        self.firstPosition = firstPosition
     }
     
     func addEntity(entityName: String, entity: ModelEntity) {

@@ -20,6 +20,7 @@ class ContentsModel {
     private var subscriptions: [EventSubscription] = []
     
     init() {
+        var randomPositions = createRandomPositions(count: catNameTextureList.keys.count)
         for catNameTexture in catNameTextureList {
             guard let textureName: String = catNameTextureList[catNameTexture.key] else {
                 print("ContentsModel::init() There is no catName: ", catNameTexture.key)
@@ -30,7 +31,14 @@ class ContentsModel {
             let texture = try! TextureResource.load(named: textureName)
             material.color.texture = .init(texture)
             
-            let character = Character(characterName: catNameTexture.key, entities: [:], material: material)
+            guard let randomPosition:SIMD3<Float> = randomPositions.first else {
+                print("ContentsModel::init() Failed to get randomPosition: ", catNameTexture.key)
+                return
+            }
+            randomPositions.remove(at: 0)
+            
+            
+            let character = Character(characterName: catNameTexture.key, entities: [:], material: material, firstPosition: randomPosition)
             for catName in catNameTextureList.keys {
                 character.characterNameIsCollide[catName] = false
             }
@@ -107,13 +115,33 @@ class ContentsModel {
         self.content = content
     }
     
-    func createRandomPosition() -> SIMD3<Float> {
+    func createRandomPositions(count:Int) -> [SIMD3<Float>] {
+        var result: [SIMD3<Float>] = []
+        var isSmallZ = true
+        var perRange = (rangeX * 2) / Float(count)
+        var minX: Float = -rangeX
+        for num in 1...count {
+            let minZ:Float = isSmallZ ? -rangeZ : 0.1
+            let maxZ:Float = isSmallZ ? -0.1 : rangeZ
+            result.append(SIMD3<Float>(
+                x: Float.random(in: minX...minX+perRange),
+                y: yPosition,
+                z: Float.random(in: minZ...maxZ)
+            ))
+            minX += perRange
+            isSmallZ = !isSmallZ
+        }
+        result.shuffle()
+        return result
+    }
+    
+    /*func createRandomPosition() -> SIMD3<Float> {
         return SIMD3<Float>(
             x: Float.random(in: -rangeX...rangeX),
             y: yPosition,
             z: Float.random(in: -rangeZ...rangeZ)
         )
-    }
+    }*/
     
     func createRandomOrientation() -> simd_quatf {
         let randomRotation = Float.random(in: 0...(.pi * 2))
@@ -174,7 +202,7 @@ class ContentsModel {
             return
         }
         
-        let firstPosition = createRandomPosition()
+        let firstPosition = character.firstPosition
         let orientation = createRandomOrientation()
         
         for usdzEntityType in firstUsdzEntityTypeList {
