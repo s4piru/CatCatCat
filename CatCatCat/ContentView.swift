@@ -19,11 +19,11 @@ struct ContentView: View {
     @Binding var isTigerEnabled: Bool
     @Binding var isWhiteBlackEnabled: Bool
     
-    @State private var blackName: String = "Black"
-    @State private var greyName: String = "Grey"
-    @State private var orangeName: String = "Orange"
-    @State private var tigerName: String = "Tiger"
-    @State private var whiteBlackName: String = "White Black"
+    @AppStorage("blackName") var blackName: String = "Black"
+    @AppStorage("greyName") var greyName: String = "Grey"
+    @AppStorage("orangeName") var orangeName: String = "Orange"
+    @AppStorage("tigerName") var tigerName: String = "Tiger"
+    @AppStorage("whiteBlackName") var whiteBlackName: String = "White Black"
     @State var enabledCount: Int = 0
     
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
