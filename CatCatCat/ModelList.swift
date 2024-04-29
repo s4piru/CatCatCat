@@ -9,7 +9,8 @@ enum EntityType {
     case walk_end
     case run           // Travel
     case trot          // Travel
-    case turn
+    case turn90
+    case turn180
     case sit_to_lieside
     case sit_to_liebelly
     case lieside_to_sit
@@ -141,10 +142,10 @@ let usdzEntityTypeList: [String: EntityType] =
         "Kitten_Trans_Sit_LieBelly": EntityType.sit_to_liebelly,
         "Kitten_Trans_Sit_LieSide": EntityType.sit_to_lieside,
         "Kitten_Trot_F_RM": EntityType.trot,
-        "Kitten_Turn_90_L": EntityType.turn,
-        "Kitten_Turn_90_R": EntityType.turn,
-        "Kitten_Turn_180_L": EntityType.turn,
-        "Kitten_Turn_180_R": EntityType.turn,
+        "Kitten_Turn_90_L": EntityType.turn90,
+        "Kitten_Turn_90_R": EntityType.turn90,
+        "Kitten_Turn_180_L": EntityType.turn180,
+        "Kitten_Turn_180_R": EntityType.turn180,
         "Kitten_Walk_end": EntityType.walk_end,
         "Kitten_Walk_F_RM": EntityType.walk,
         "Kitten_Walk_start": EntityType.walk_start,
@@ -193,9 +194,11 @@ let entityTypeUsdzList: [EntityType: [String]] = [
     EntityType.trot: [
         "Kitten_Trot_F_RM",
     ],
-    EntityType.turn: [
+    EntityType.turn90: [
         "Kitten_Turn_90_L",
         "Kitten_Turn_90_R",
+    ],
+    EntityType.turn180: [
         "Kitten_Turn_180_L",
         "Kitten_Turn_180_R",
     ],
@@ -283,24 +286,25 @@ let entityTypeUsdzList: [EntityType: [String]] = [
 
 let nextEntityList: [EntityType: [EntityType: Int]] = [
     EntityType.independent: [
-        EntityType.idle: 75,
+        EntityType.idle: 70,
         EntityType.sit_start: 5,
         EntityType.lieside_start: 5,
         EntityType.liebelly_start: 5,
-        EntityType.independent: 8,
-        EntityType.walk_start: 2,
+        EntityType.turn90: 10,
+        EntityType.walk_start: 5,
     ],
     EntityType.idle: [
-        EntityType.idle: 53,
+        EntityType.idle: 60,
         EntityType.sit_start: 5,
         EntityType.lieside_start: 5,
         EntityType.liebelly_start: 5,
-        EntityType.independent: 30,
-        EntityType.walk_start: 2,
+        EntityType.independent: 10,
+        EntityType.turn90: 10,
+        EntityType.walk_start: 5,
     ],
     EntityType.walk: [
         EntityType.trot: 2,
-        EntityType.run: 2,
+        EntityType.run: 0,
         EntityType.walk_end: 91,
         EntityType.walk: 5,
     ],
@@ -311,10 +315,10 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.eatdrink_start: 2,
         EntityType.lieside_start: 4,
         EntityType.liebelly_start: 4,
-        EntityType.turn: 20,
+        EntityType.turn90: 10,
         EntityType.sit_start: 10,
         EntityType.independent: 20,
-        EntityType.idle: 40,
+        EntityType.idle: 50,
     ],
     EntityType.run: [
         EntityType.trot: 0,
@@ -326,21 +330,29 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.trot: 0,
         EntityType.walk: 100,
     ],
-    EntityType.turn: [
-        EntityType.idle: 53,
+    EntityType.turn90: [
+        EntityType.idle: 60,
         EntityType.sit_start: 5,
         EntityType.lieside_start: 5,
         EntityType.liebelly_start: 5,
-        EntityType.independent: 30,
-        EntityType.walk_start: 2,
+        EntityType.independent: 20,
+        EntityType.walk_start: 5,
+    ],
+    EntityType.turn180: [
+        EntityType.idle: 60,
+        EntityType.sit_start: 5,
+        EntityType.lieside_start: 5,
+        EntityType.liebelly_start: 5,
+        EntityType.independent: 20,
+        EntityType.walk_start: 5,
     ],
     EntityType.sit_to_lieside: [
-        EntityType.lieside_sleep_start: 20,
-        EntityType.lieside: 80,
+        EntityType.lieside_sleep_start: 50,
+        EntityType.lieside: 50,
     ],
     EntityType.sit_to_liebelly: [
-        EntityType.liebelly_sleep_start: 20,
-        EntityType.liebelly: 80,
+        EntityType.liebelly_sleep_start: 50,
+        EntityType.liebelly: 50,
     ],
     EntityType.lieside_to_sit: [
         EntityType.sit: 100,
@@ -349,30 +361,32 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.sit: 100,
     ],
     EntityType.sit: [
-        EntityType.sit_to_lieside: 10,
-        EntityType.sit_to_liebelly: 10,
-        EntityType.sit_end: 80,
+        EntityType.sit_to_lieside: 15,
+        EntityType.sit_to_liebelly: 15,
+        EntityType.sit: 40,
+        EntityType.sit_end: 30,
     ],
     EntityType.sit_start: [
         EntityType.sit: 100,
     ],
     EntityType.sit_end: [
-        EntityType.idle: 63,
-        EntityType.independent: 35,
-        EntityType.walk_start: 2,
+        EntityType.idle: 70,
+        EntityType.independent: 25,
+        EntityType.walk_start: 5,
     ],
     EntityType.lieside: [
-        EntityType.lieside_sleep_start: 10,
+        EntityType.lieside_sleep_start: 30,
+        EntityType.lieside: 20,
         EntityType.lieside_to_sit: 10,
-        EntityType.lieside_end: 80,
+        EntityType.lieside_end: 40,
     ],
     EntityType.lieside_start: [
         EntityType.lieside: 100,
     ],
     EntityType.lieside_end: [
-        EntityType.idle: 63,
-        EntityType.independent: 35,
-        EntityType.walk_start: 2,
+        EntityType.idle: 70,
+        EntityType.independent: 25,
+        EntityType.walk_start: 5,
     ],
     EntityType.lieside_sleep: [
         EntityType.lieside_sleep_end: 100,
@@ -381,21 +395,22 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.lieside_sleep: 100,
     ],
     EntityType.lieside_sleep_end: [
-        EntityType.lieside: 20,
-        EntityType.lieside_end: 80,
+        EntityType.lieside: 50,
+        EntityType.lieside_end: 50,
     ],
     EntityType.liebelly: [
-        EntityType.liebelly_sleep_start: 10,
+        EntityType.liebelly_sleep_start: 30,
         EntityType.liebelly_to_sit: 10,
-        EntityType.liebelly_end: 80,
+        EntityType.liebelly: 20,
+        EntityType.liebelly_end: 40,
     ],
     EntityType.liebelly_start: [
         EntityType.liebelly: 100,
     ],
     EntityType.liebelly_end: [
-        EntityType.idle: 63,
-        EntityType.independent: 35,
-        EntityType.walk_start: 2,
+        EntityType.idle: 70,
+        EntityType.independent: 25,
+        EntityType.walk_start: 5,
     ],
     EntityType.liebelly_sleep: [
         EntityType.lieside_sleep_end: 100,
@@ -404,30 +419,30 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.lieside_sleep: 100,
     ],
     EntityType.liebelly_sleep_end: [
-        EntityType.liebelly: 20,
-        EntityType.liebelly_end: 80,
+        EntityType.liebelly: 50,
+        EntityType.liebelly_end: 50,
     ],
     EntityType.jump_place: [
-        EntityType.idle: 63,
-        EntityType.independent: 35,
-        EntityType.walk_start: 2,
+        EntityType.idle: 70,
+        EntityType.independent: 25,
+        EntityType.walk_start: 5,
     ],
     EntityType.eat: [
-        EntityType.eat: 10,
-        EntityType.eatdrink_end: 90,
+        EntityType.eat: 50,
+        EntityType.eatdrink_end: 50,
     ],
     EntityType.drink: [
-        EntityType.drink: 10,
-        EntityType.eatdrink_end: 90,
+        EntityType.drink: 50,
+        EntityType.eatdrink_end: 50,
     ],
     EntityType.eatdrink_start: [
         EntityType.eat: 50,
         EntityType.drink: 50,
     ],
     EntityType.eatdrink_end: [
-        EntityType.idle: 63,
-        EntityType.independent: 35,
-        EntityType.walk_start: 2,
+        EntityType.idle: 70,
+        EntityType.independent: 25,
+        EntityType.walk_start: 5,
     ],
 ]
 

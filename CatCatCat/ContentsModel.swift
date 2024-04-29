@@ -4,8 +4,6 @@ import Combine
 
 class ContentsModel {
     // TODO: Add Audio
-    // TODO: Adjust angle
-    // TODO: Adjust possibilities
     private let queue = DispatchQueue(label: "com.content.myqueue")
     private var content: RealityViewContent? = nil
     private var characters: [String: Character] = [:]
@@ -118,9 +116,9 @@ class ContentsModel {
     func createRandomPositions(count:Int) -> [SIMD3<Float>] {
         var result: [SIMD3<Float>] = []
         var isSmallZ = true
-        var perRange = (rangeX * 2) / Float(count)
+        let perRange = (rangeX * 2) / Float(count)
         var minX: Float = -rangeX
-        for num in 1...count {
+        for _ in 1...count {
             let minZ:Float = isSmallZ ? -rangeZ : 0.1
             let maxZ:Float = isSmallZ ? -0.1 : rangeZ
             result.append(SIMD3<Float>(
@@ -134,14 +132,6 @@ class ContentsModel {
         result.shuffle()
         return result
     }
-    
-    /*func createRandomPosition() -> SIMD3<Float> {
-        return SIMD3<Float>(
-            x: Float.random(in: -rangeX...rangeX),
-            y: yPosition,
-            z: Float.random(in: -rangeZ...rangeZ)
-        )
-    }*/
     
     func createRandomOrientation() -> simd_quatf {
         let randomRotation = Float.random(in: 0...(.pi * 2))
@@ -261,7 +251,7 @@ class ContentsModel {
     
     func setCollisionComponent(entity: ModelEntity) {
         entity.generateCollisionShapes(recursive: true)
-        let collisionShape = ShapeResource.generateBox(size: SIMD3<Float>(entity.scale.x/2, entity.scale.y/2, entity.scale.z*1.2))
+        let collisionShape = ShapeResource.generateBox(size: SIMD3<Float>(entity.scale.x/1.95, entity.scale.y/1.95, entity.scale.z*1.3))
         entity.components.set(CollisionComponent(shapes: [collisionShape]))
     }
     
@@ -299,13 +289,6 @@ class ContentsModel {
     func getNextEntityType(currentType: EntityType) -> EntityType {
         guard let possibleEntities = nextEntityList[currentType] else {
             print("ContentsModel::getNextEntityType() There is no currentType: ", currentType)
-            return EntityType.unknown
-        }
-        
-        // TODO: Comment out after validating
-        let sum = possibleEntities.values.reduce(0, +)
-        guard sum == 100 else {
-            print("ContentsModel::getNextEntityType(): Probabilities must sum up to 100")
             return EntityType.unknown
         }
         
@@ -517,7 +500,7 @@ class ContentsModel {
         case EntityType.walk, EntityType.walk_start, EntityType.run, EntityType.trot:
             processAfterTravel(character: character, entity: entity, entityType: entityType)
             break;
-        case EntityType.turn:
+        case EntityType.turn90, EntityType.turn180:
             processAfterTurn(character: character, turnEntity: entity)
             break;
         case EntityType.unknown:
