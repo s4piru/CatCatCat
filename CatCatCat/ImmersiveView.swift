@@ -18,6 +18,7 @@ struct ImmersiveView: View {
     @Binding var isOrangeEnabled: Bool
     @Binding var isTigerEnabled: Bool
     @Binding var isWhiteBlackEnabled: Bool
+    @State var toggleUpdate: Bool = false
     
     var body: some View {
         RealityView { content in
@@ -34,18 +35,23 @@ struct ImmersiveView: View {
         }
         .onChange(of: isBlackEnabled) { _, newValue in
             contentsModel.updateCharacterEnable(catName: "Black", isEnabled: newValue)
+            self.toggleUpdate = !toggleUpdate
         }
         .onChange(of: isGreyEnabled) { _, newValue in
             contentsModel.updateCharacterEnable(catName: "Grey", isEnabled: newValue)
+            self.toggleUpdate = !toggleUpdate
         }
         .onChange(of: isOrangeEnabled) { _, newValue in
             contentsModel.updateCharacterEnable(catName: "Orange", isEnabled: newValue)
+            self.toggleUpdate = !toggleUpdate
         }
         .onChange(of: isTigerEnabled) { _, newValue in
             contentsModel.updateCharacterEnable(catName: "Tiger", isEnabled: newValue)
+            self.toggleUpdate = !toggleUpdate
         }
         .onChange(of: isWhiteBlackEnabled) { _, newValue in
             contentsModel.updateCharacterEnable(catName: "White_Black", isEnabled: newValue)
+            self.toggleUpdate = !toggleUpdate
         }
         .gesture(
            SpatialTapGesture()

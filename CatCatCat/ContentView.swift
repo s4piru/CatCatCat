@@ -19,11 +19,11 @@ struct ContentView: View {
     @Binding var isTigerEnabled: Bool
     @Binding var isWhiteBlackEnabled: Bool
     
-    @AppStorage("blackName") var blackName: String = "Black"
-    @AppStorage("greyName") var greyName: String = "Grey"
-    @AppStorage("orangeName") var orangeName: String = "Orange"
-    @AppStorage("tigerName") var tigerName: String = "Tiger"
-    @AppStorage("whiteBlackName") var whiteBlackName: String = "White Black"
+    @AppStorage("blackName") var blackName: String = "Damiano"
+    @AppStorage("greyName") var greyName: String = "Sherry"
+    @AppStorage("orangeName") var orangeName: String = "Anya"
+    @AppStorage("tigerName") var tigerName: String = "OMG"
+    @AppStorage("whiteBlackName") var whiteBlackName: String = "Leon"
     @State var enabledCount: Int = 0
     
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
@@ -32,7 +32,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text("Name your cats and choose ones you want to invite! (up to 3 cats)")
-                .font(.system(size: 30))
+                .font(.system(size: 28))
                 .bold()
                 .fontDesign(.monospaced)
                 .padding(EdgeInsets(
@@ -61,7 +61,7 @@ struct ContentView: View {
                 ))
                 .frame(alignment: .center)
                 
-                TextField("Black",text: $blackName)
+                TextField("Name",text: $blackName)
                     .font(.title)
                     .fontDesign(.monospaced)
                     .frame(width: 300, alignment: .center)
@@ -103,7 +103,7 @@ struct ContentView: View {
                     bottom: 0,
                     trailing: 50
                 ))
-                TextField("Grey",text: $greyName)
+                TextField("Name",text: $greyName)
                     .font(.title)
                     .fontDesign(.monospaced)
                     .frame(width: 300, alignment: .center)
@@ -147,7 +147,7 @@ struct ContentView: View {
                 ))
                 .frame(alignment: .center)
                 
-                TextField("Orange",text: $orangeName)
+                TextField("Name",text: $orangeName)
                     .font(.title)
                     .fontDesign(.monospaced)
                     .frame(width: 300, alignment: .center)
@@ -191,7 +191,7 @@ struct ContentView: View {
                 ))
                 .frame(alignment: .center)
                 
-                TextField("Tiger",text: $tigerName)
+                TextField("Name",text: $tigerName)
                     .font(.title)
                     .fontDesign(.monospaced)
                     .frame(width: 300, alignment: .center)
@@ -235,7 +235,7 @@ struct ContentView: View {
                 ))
                 .frame(alignment: .center)
                 
-                TextField("White Black",text: $whiteBlackName)
+                TextField("Name",text: $whiteBlackName)
                     .font(.title)
                     .fontDesign(.monospaced)
                     .frame(width: 300, alignment: .center)

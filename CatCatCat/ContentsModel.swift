@@ -7,8 +7,8 @@ class ContentsModel {
     private let queue = DispatchQueue(label: "com.content.myqueue")
     private var content: RealityViewContent? = nil
     private var characters: [String: Character] = [:]
-    private let rangeX: Float = 2.0
-    private let rangeZ: Float = 2.0
+    private let rangeX: Float = 1.0
+    private let rangeZ: Float = 1.0
     private var yPosition: Float = 0.0
     private var floorPlaneAnchor: AnchorEntity = AnchorEntity()
     private var isClosing: Bool = false
