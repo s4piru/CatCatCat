@@ -418,11 +418,11 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.walk_start: 5,
     ],
     EntityType.liebelly_sleep: [
-        EntityType.lieside_sleep: 70,
-        EntityType.lieside_sleep_end: 30,
+        EntityType.liebelly_sleep: 70,
+        EntityType.liebelly_sleep_end: 30,
     ],
     EntityType.liebelly_sleep_start: [
-        EntityType.lieside_sleep: 100,
+        EntityType.liebelly_sleep: 100,
     ],
     EntityType.liebelly_sleep_end: [
         EntityType.liebelly: 80,
