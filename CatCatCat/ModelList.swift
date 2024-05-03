@@ -1,5 +1,11 @@
 import RealityKit
 
+enum ForceActivityType {
+    case none
+    case collision
+    case turn
+}
+
 enum EntityType {
     case unknown
     case independent
@@ -83,6 +89,13 @@ let travelEntityTypeList: [EntityType] = [
     EntityType.trot
 ]
 
+let travelEntityNameList: [String] = [
+    "Kitten_Walk_F_RM",
+    "Kitten_Walk_start",
+    "Kitten_Run_F_RM",
+    "Kitten_Trot_F_RM",
+]
+
 let usdzEntityTypeList: [String: EntityType] =
     [
         "Kitten_Attack_Down": EntityType.independent,
@@ -93,8 +106,6 @@ let usdzEntityTypeList: [String: EntityType] =
         "Kitten_Caress_idle": EntityType.idle,
         "Kitten_Caress_lie": EntityType.liebelly,
         "Kitten_Caress_sit": EntityType.sit,
-        "Kitten_Die_L": EntityType.independent,
-        "Kitten_Die_R": EntityType.independent,
         "Kitten_Drinking": EntityType.drink,
         "Kitten_EatDrink_end": EntityType.eatdrink_end,
         "Kitten_EatDrink_start": EntityType.eatdrink_start,
@@ -158,8 +169,6 @@ let entityTypeUsdzList: [EntityType: [String]] = [
         "Kitten_Attack_L",
         "Kitten_Attack_R",
         "Kitten_Attack_Series",
-        "Kitten_Die_L",
-        "Kitten_Die_R",
         "Kitten_Hit_B",
         "Kitten_Hit_F",
         "Kitten_Hit_M",
@@ -292,10 +301,10 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.liebelly_start: 5,
         EntityType.turn90: 10,
         EntityType.walk_start: 5,
-        EntityType.jump_place: 5,
-        EntityType.eatdrink_start: 2,
+        EntityType.jump_place: 1,
+        EntityType.eatdrink_start: 6,
     ],
-    EntityType.idle: [
+    /*EntityType.idle: [
         EntityType.idle: 58,
         EntityType.sit_start: 5,
         EntityType.lieside_start: 5,
@@ -303,14 +312,27 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.independent: 5,
         EntityType.turn90: 10,
         EntityType.walk_start: 5,
-        EntityType.jump_place: 5,
-        EntityType.eatdrink_start: 2,
+        EntityType.jump_place: 1,
+        EntityType.eatdrink_start: 6,
+    ],*/
+    EntityType.idle: [
+        EntityType.idle: 5,
+        EntityType.turn90: 10,
+        EntityType.walk_start: 78,
+        EntityType.jump_place: 1,
+        EntityType.eatdrink_start: 6,
     ],
-    EntityType.walk: [
+    /*EntityType.walk: [
         EntityType.trot: 2,
         EntityType.run: 0,
         EntityType.walk_end: 91,
         EntityType.walk: 5,
+    ],*/
+    EntityType.walk: [
+        EntityType.trot: 2,
+        EntityType.run: 0,
+        EntityType.walk_end: 5,
+        EntityType.walk: 91,
     ],
     EntityType.walk_start: [
         EntityType.walk: 100,
@@ -400,8 +422,8 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.lieside_sleep: 100,
     ],
     EntityType.lieside_sleep_end: [
-        EntityType.lieside: 80,
-        EntityType.lieside_end: 20,
+        EntityType.lieside: 50,
+        EntityType.lieside_end: 50,
     ],
     EntityType.liebelly: [
         EntityType.liebelly_sleep_start: 30,
@@ -425,8 +447,8 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.liebelly_sleep: 100,
     ],
     EntityType.liebelly_sleep_end: [
-        EntityType.liebelly: 80,
-        EntityType.liebelly_end: 20,
+        EntityType.liebelly: 50,
+        EntityType.liebelly_end: 50,
     ],
     EntityType.jump_place: [
         EntityType.idle: 85,
@@ -434,12 +456,12 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.walk_start: 5,
     ],
     EntityType.eat: [
-        EntityType.eat: 70,
-        EntityType.eatdrink_end: 30,
+        EntityType.eat: 50,
+        EntityType.eatdrink_end: 50,
     ],
     EntityType.drink: [
-        EntityType.drink: 70,
-        EntityType.eatdrink_end: 30,
+        EntityType.drink: 50,
+        EntityType.eatdrink_end: 50,
     ],
     EntityType.eatdrink_start: [
         EntityType.eat: 50,
@@ -460,3 +482,63 @@ let catNameTextureList: [String: String] =
         "Tiger"      : "tiger.png",
         "White_Black": "white_black.png",
     ]
+
+let audioSourceList: [String] = [
+    "amae_2.mp3",
+    "amae.mp3",
+    "gorogoro.mp3",
+    "gorogoronya-n.mp3",
+    "guruguru.mp3",
+    "myao.mp3",
+    "myaooon.mp3",
+    "nya-large.mp3",
+    "umyao_oko.mp3",
+]
+
+let audioAvailableUsdzSoucesList: [String:[String]] = [
+    //independent
+    "Kitten_Attack_Down": ["amae.mp3", "myao.mp3"],
+    "Kitten_Attack_F": ["myao.mp3", "umyao_oko.mp3"],
+    "Kitten_Attack_L": ["amae.mp3", "myao.mp3"],
+    "Kitten_Attack_R": ["amae.mp3", "myao.mp3"],
+    "Kitten_Attack_Series": ["umyao_oko.mp3"],
+    "Kitten_Hit_B": ["amae.mp3", "myao.mp3"],
+    "Kitten_Hit_F": ["amae.mp3", "myao.mp3"],
+    "Kitten_Hit_M": ["amae.mp3", "myao.mp3"],
+    "Kitten_Lick": ["guruguru.mp3"],
+    "Kitten_Scratching": ["guruguru.mp3"],
+    "Kitten_SharpenClaws_Horiz": ["guruguru.mp3"],
+    "Kitten_SharpenClaws_Vert": ["guruguru.mp3"],
+    
+    //idle
+    "Kitten_Caress_idle": ["amae_2.mp3", "myaooon.mp3", "nya-large.mp3"],
+    "Kitten_Idle_1": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Idle_2": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Idle_3": ["amae_2.mp3", "myaooon.mp3", "nya-large.mp3"],
+    "Kitten_Idle_5": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Idle_6": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Idle_7": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Idle_8": ["gorogoronya-n.mp3"],
+    
+    /*
+    //lieside
+    "Kitten_Lie_side_loop_1": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Lie_side_loop_2": ["guruguru.mp3", "gorogoro.mp3"],
+    
+    //liebelly
+    "Kitten_Lie_belly_loop_1": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Lie_belly_loop_2": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Caress_lie": ["guruguru.mp3", "gorogoro.mp3"],
+    
+    //sleep
+    "Kitten_Lie_side_sleep": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Lie_belly_sleep": ["guruguru.mp3", "gorogoro.mp3"],
+    
+    //sit
+    "Kitten_Sit_loop_1": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Sit_loop_2": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Sit_loop_3": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Sit_loop_4": ["guruguru.mp3", "gorogoro.mp3"],
+    "Kitten_Caress_sit": ["guruguru.mp3", "gorogoro.mp3"],
+    */
+]

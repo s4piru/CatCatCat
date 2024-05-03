@@ -14,8 +14,8 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "592"
-            endingLineNumber = "592"
+            startingLineNumber = "713"
+            endingLineNumber = "713"
             landmarkName = "handleTouchedAnimation(entity:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,9 +46,9 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
-            landmarkName = "addRemainigEntities(character:material:position:orientation:)"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
+            landmarkName = "showCat(catName:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -62,9 +62,9 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
-            landmarkName = "loadEntity(characterName:entityType:usdzName:material:position:orientation:)"
+            startingLineNumber = "446"
+            endingLineNumber = "446"
+            landmarkName = "setCollisionComponent(entity:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -78,25 +78,9 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "init()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "592E785B-5B5C-4D82-8FDF-DBC1EEB0354F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CatCatCat/ContentsModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "updateCharacterEnable(catName:isEnabled:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -110,8 +94,8 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "updateCharacterEnable(catName:isEnabled:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +110,8 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
             landmarkName = "showCat(catName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +126,8 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
             landmarkName = "showCat(catName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -152,14 +136,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "87D20DA3-2D3E-4F8C-8222-93446A072D8B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "registerEntity(entity:characterName:entityType:entityName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +158,8 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
+            startingLineNumber = "613"
+            endingLineNumber = "613"
             landmarkName = "processAfterAnimation(characterName:entityType:entityName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +174,8 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
             landmarkName = "showCat(catName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +206,8 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "updateCharacterEnable(catName:isEnabled:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,9 +238,9 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
-            landmarkName = "showCat(catName:)"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
+            landmarkName = "registerEntity(entity:characterName:entityType:entityName:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -270,8 +254,8 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
             landmarkName = "registerEntity(entity:characterName:entityType:entityName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -302,8 +286,8 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
             landmarkName = "showCat(catName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -327,22 +311,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5B1D980A-5C62-40E0-ACF2-E64ED98C40B2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CatCatCat/ContentsModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
-            landmarkName = "processRandomEntityFromType(character:position:orientation:currentEntity:isTapped:isForceTurn:isCurrentTravel:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D486460D-CAEF-45E5-8A38-EF1857BDCB65"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -350,9 +318,9 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
-            landmarkName = "processRandomEntityFromType(character:position:orientation:currentEntity:isTapped:isForceTurn:isCurrentTravel:)"
+            startingLineNumber = "500"
+            endingLineNumber = "500"
+            landmarkName = "startAnimation(animateEntity:characterName:entiityName:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -366,9 +334,9 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "518"
-            endingLineNumber = "518"
-            landmarkName = "updateRange(position:)"
+            startingLineNumber = "639"
+            endingLineNumber = "639"
+            landmarkName = "processAfterAnimation(characterName:entityType:entityName:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -376,16 +344,16 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7396FCED-A76D-4293-A672-A578FDD1BCE7"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "519"
-            endingLineNumber = "519"
-            landmarkName = "updateRange(position:)"
-            landmarkType = "7">
+            startingLineNumber = "640"
+            endingLineNumber = "640"
+            landmarkName = "ContentsModel"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -398,8 +366,8 @@
             filePath = "CatCatCat/ContentsModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
             landmarkName = "registerContent(content:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -408,6 +376,54 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9E2CC1A3-6618-45E8-AD6D-1247663321EF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CatCatCat/ContentsModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "636"
+            endingLineNumber = "636"
+            landmarkName = "processAfterAnimation(characterName:entityType:entityName:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B5BEB399-3DCB-4614-A6D9-490E5FDEB5A4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CatCatCat/ContentsModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "465"
+            endingLineNumber = "465"
+            landmarkName = "loadEntity(characterName:entityType:usdzName:material:position:orientation:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0DB5ABEE-A9E7-47EA-B393-1B0D02BA8D7B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CatCatCat/ContentsModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "468"
+            endingLineNumber = "468"
+            landmarkName = "loadEntity(characterName:entityType:usdzName:material:position:orientation:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "73754164-3344-4379-9A5C-3A627160D497"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -416,7 +432,99 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "515"
             endingLineNumber = "515"
-            landmarkName = "isInsizeRange(position:)"
+            landmarkName = "processRandomEntityFromType(character:position:orientation:currentEntity:isTapped:isForceTurn:isCurrentTravel:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "73754164-3344-4379-9A5C-3A627160D497 - b9ff658099250344"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CatCatCat.ContentsModel.processRandomEntityFromType(character: CatCatCat.Character, position: Swift.SIMD3&lt;Swift.Float&gt;, orientation: __C.simd_quatf, currentEntity: RealityKit.ModelEntity, isTapped: Swift.Bool, isForceTurn: Swift.Bool, isCurrentTravel: Swift.Bool) -&gt; ()"
+                  moduleName = "CatCatCat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakiokubo/src/CatCatCat/CatCatCat/ContentsModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "535"
+                  endingLineNumber = "535">
+               </Location>
+               <Location
+                  uuid = "73754164-3344-4379-9A5C-3A627160D497 - b9ff6580992506e8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CatCatCat.ContentsModel.processRandomEntityFromType(character: CatCatCat.Character, position: Swift.SIMD3&lt;Swift.Float&gt;, orientation: __C.simd_quatf, currentEntity: RealityKit.ModelEntity, isTapped: Swift.Bool, isForceTurn: Swift.Bool, isCurrentTravel: Swift.Bool) -&gt; ()"
+                  moduleName = "CatCatCat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakiokubo/src/CatCatCat/CatCatCat/ContentsModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "515"
+                  endingLineNumber = "515">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9FCA8AA1-6979-47A8-85E0-7A25B6BB621E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CatCatCat/ContentsModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "562"
+            endingLineNumber = "562"
+            landmarkName = "processRandomEntityFromType(character:position:orientation:currentEntity:isTapped:isForceTurn:isCurrentTravel:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9FCA8AA1-6979-47A8-85E0-7A25B6BB621E - b9ff658099250d4b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CatCatCat.ContentsModel.processRandomEntityFromType(character: CatCatCat.Character, position: Swift.SIMD3&lt;Swift.Float&gt;, orientation: __C.simd_quatf, currentEntity: RealityKit.ModelEntity, isTapped: Swift.Bool, isForceTurn: Swift.Bool, isCurrentTravel: Swift.Bool) -&gt; ()"
+                  moduleName = "CatCatCat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakiokubo/src/CatCatCat/CatCatCat/ContentsModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "582"
+                  endingLineNumber = "582">
+               </Location>
+               <Location
+                  uuid = "9FCA8AA1-6979-47A8-85E0-7A25B6BB621E - b9ff6580992500ff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CatCatCat.ContentsModel.processRandomEntityFromType(character: CatCatCat.Character, position: Swift.SIMD3&lt;Swift.Float&gt;, orientation: __C.simd_quatf, currentEntity: RealityKit.ModelEntity, isTapped: Swift.Bool, isForceTurn: Swift.Bool, isCurrentTravel: Swift.Bool) -&gt; ()"
+                  moduleName = "CatCatCat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sakiokubo/src/CatCatCat/CatCatCat/ContentsModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "562"
+                  endingLineNumber = "562">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1D6ECD23-00A0-4F85-95C0-EEB8A6FF94F3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CatCatCat/ContentsModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "572"
+            endingLineNumber = "572"
+            landmarkName = "processRandomEntityFromType(character:position:orientation:currentEntity:isTapped:isForceTurn:isCurrentTravel:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

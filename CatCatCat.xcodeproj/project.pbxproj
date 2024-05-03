@@ -22,7 +22,6 @@
 		C93C9B1A2BD27959003EBB41 /* orange.png in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B142BD27955003EBB41 /* orange.png */; };
 		C93C9B1B2BD27959003EBB41 /* black.png in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B152BD27959003EBB41 /* black.png */; };
 		C93C9B5E2BD27ABA003EBB41 /* Kitten_Hit_M.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B1C2BD27995003EBB41 /* Kitten_Hit_M.usdz */; };
-		C93C9B5F2BD27ABA003EBB41 /* Kitten_Die_L.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B1D2BD27998003EBB41 /* Kitten_Die_L.usdz */; };
 		C93C9B602BD27ABA003EBB41 /* Kitten_Idle_8.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B1E2BD2799B003EBB41 /* Kitten_Idle_8.usdz */; };
 		C93C9B612BD27ABA003EBB41 /* Kitten_Lie_side_loop_2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B1F2BD2799E003EBB41 /* Kitten_Lie_side_loop_2.usdz */; };
 		C93C9B622BD27ABA003EBB41 /* Kitten_Attack_L.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B202BD279A2003EBB41 /* Kitten_Attack_L.usdz */; };
@@ -38,7 +37,6 @@
 		C93C9B6C2BD27ABA003EBB41 /* Kitten_Lie_side_loop_1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2A2BD279D3003EBB41 /* Kitten_Lie_side_loop_1.usdz */; };
 		C93C9B6D2BD27ABA003EBB41 /* Kitten_Scratching.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2B2BD279D8003EBB41 /* Kitten_Scratching.usdz */; };
 		C93C9B6E2BD27ABA003EBB41 /* Kitten_Idle_4.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2C2BD279DC003EBB41 /* Kitten_Idle_4.usdz */; };
-		C93C9B6F2BD27ABA003EBB41 /* Kitten_JumpRun_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2D2BD279E0003EBB41 /* Kitten_JumpRun_RM.usdz */; };
 		C93C9B702BD27ABA003EBB41 /* Kitten_Turn_90_R.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2E2BD279E5003EBB41 /* Kitten_Turn_90_R.usdz */; };
 		C93C9B712BD27ABA003EBB41 /* Kitten_JumpPlace_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B2F2BD279EA003EBB41 /* Kitten_JumpPlace_RM.usdz */; };
 		C93C9B722BD27ABA003EBB41 /* Kitten_Attack_Series.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B302BD279EE003EBB41 /* Kitten_Attack_Series.usdz */; };
@@ -70,16 +68,13 @@
 		C93C9B8C2BD27ABA003EBB41 /* Kitten_Eating.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4A2BD27A64003EBB41 /* Kitten_Eating.usdz */; };
 		C93C9B8D2BD27ABA003EBB41 /* Kitten_Sit_loop_4.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4B2BD27A68003EBB41 /* Kitten_Sit_loop_4.usdz */; };
 		C93C9B8E2BD27ABA003EBB41 /* Kitten_Idle_3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4C2BD27A6D003EBB41 /* Kitten_Idle_3.usdz */; };
-		C93C9B8F2BD27ABA003EBB41 /* Kitten_RunFast_F_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4D2BD27A72003EBB41 /* Kitten_RunFast_F_RM.usdz */; };
 		C93C9B902BD27ABA003EBB41 /* Kitten_EatDrink_end.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4E2BD27A76003EBB41 /* Kitten_EatDrink_end.usdz */; };
 		C93C9B912BD27ABA003EBB41 /* Kitten_Caress_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B4F2BD27A7B003EBB41 /* Kitten_Caress_idle.usdz */; };
 		C93C9B922BD27ABA003EBB41 /* Kitten_Attack_F.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B502BD27A7F003EBB41 /* Kitten_Attack_F.usdz */; };
 		C93C9B932BD27ABA003EBB41 /* Kitten_Lie_belly_loop_1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B512BD27A84003EBB41 /* Kitten_Lie_belly_loop_1.usdz */; };
 		C93C9B942BD27ABA003EBB41 /* Kitten_Trans_Sit_LieBelly.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B522BD27A89003EBB41 /* Kitten_Trans_Sit_LieBelly.usdz */; };
 		C93C9B952BD27ABA003EBB41 /* Kitten_Walk_F_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B532BD27A8D003EBB41 /* Kitten_Walk_F_RM.usdz */; };
-		C93C9B962BD27ABA003EBB41 /* Kitten_Die_R.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B542BD27A91003EBB41 /* Kitten_Die_R.usdz */; };
 		C93C9B972BD27ABA003EBB41 /* Kitten_Lie_side_sleep_end.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B552BD27A96003EBB41 /* Kitten_Lie_side_sleep_end.usdz */; };
-		C93C9B982BD27ABA003EBB41 /* Kitten_JumpFw_RM.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B562BD27A9B003EBB41 /* Kitten_JumpFw_RM.usdz */; };
 		C93C9B992BD27ABA003EBB41 /* Kitten_SharpenClaws_Vert.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B572BD27A9F003EBB41 /* Kitten_SharpenClaws_Vert.usdz */; };
 		C93C9B9A2BD27ABA003EBB41 /* Kitten_Lie_belly_loop_2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B582BD27AA3003EBB41 /* Kitten_Lie_belly_loop_2.usdz */; };
 		C93C9B9B2BD27ABA003EBB41 /* Kitten_Lie_belly_sleep.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9B592BD27AA7003EBB41 /* Kitten_Lie_belly_sleep.usdz */; };
@@ -94,6 +89,15 @@
 		C93C9BB62BDA11BB003EBB41 /* white_black_sample.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BB12BDA11B2003EBB41 /* white_black_sample.usdz */; };
 		C93C9BB72BDA11BB003EBB41 /* grey_sample.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BB22BDA11B7003EBB41 /* grey_sample.usdz */; };
 		C93C9BB82BDA11BB003EBB41 /* orange_sample.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BB32BDA11BB003EBB41 /* orange_sample.usdz */; };
+		C93C9BC32BE0A063003EBB41 /* amae_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BBA2BE0A05F003EBB41 /* amae_2.mp3 */; };
+		C93C9BC42BE0A063003EBB41 /* guruguru.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BBB2BE0A062003EBB41 /* guruguru.mp3 */; };
+		C93C9BC52BE0A063003EBB41 /* nya-large.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BBC2BE0A062003EBB41 /* nya-large.mp3 */; };
+		C93C9BC62BE0A063003EBB41 /* myaooon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BBD2BE0A062003EBB41 /* myaooon.mp3 */; };
+		C93C9BC72BE0A063003EBB41 /* myao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BBE2BE0A062003EBB41 /* myao.mp3 */; };
+		C93C9BC82BE0A063003EBB41 /* amae.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BBF2BE0A062003EBB41 /* amae.mp3 */; };
+		C93C9BC92BE0A063003EBB41 /* gorogoro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BC02BE0A063003EBB41 /* gorogoro.mp3 */; };
+		C93C9BCA2BE0A063003EBB41 /* umyao_oko.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BC12BE0A063003EBB41 /* umyao_oko.mp3 */; };
+		C93C9BCB2BE0A063003EBB41 /* gorogoronya-n.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BC22BE0A063003EBB41 /* gorogoronya-n.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,7 +129,6 @@
 		C93C9B142BD27955003EBB41 /* orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orange.png; sourceTree = "<group>"; };
 		C93C9B152BD27959003EBB41 /* black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black.png; sourceTree = "<group>"; };
 		C93C9B1C2BD27995003EBB41 /* Kitten_Hit_M.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Hit_M.usdz; sourceTree = "<group>"; };
-		C93C9B1D2BD27998003EBB41 /* Kitten_Die_L.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Die_L.usdz; sourceTree = "<group>"; };
 		C93C9B1E2BD2799B003EBB41 /* Kitten_Idle_8.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_8.usdz; sourceTree = "<group>"; };
 		C93C9B1F2BD2799E003EBB41 /* Kitten_Lie_side_loop_2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_side_loop_2.usdz; sourceTree = "<group>"; };
 		C93C9B202BD279A2003EBB41 /* Kitten_Attack_L.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Attack_L.usdz; sourceTree = "<group>"; };
@@ -141,7 +144,6 @@
 		C93C9B2A2BD279D3003EBB41 /* Kitten_Lie_side_loop_1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_side_loop_1.usdz; sourceTree = "<group>"; };
 		C93C9B2B2BD279D8003EBB41 /* Kitten_Scratching.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Scratching.usdz; sourceTree = "<group>"; };
 		C93C9B2C2BD279DC003EBB41 /* Kitten_Idle_4.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_4.usdz; sourceTree = "<group>"; };
-		C93C9B2D2BD279E0003EBB41 /* Kitten_JumpRun_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_JumpRun_RM.usdz; sourceTree = "<group>"; };
 		C93C9B2E2BD279E5003EBB41 /* Kitten_Turn_90_R.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Turn_90_R.usdz; sourceTree = "<group>"; };
 		C93C9B2F2BD279EA003EBB41 /* Kitten_JumpPlace_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_JumpPlace_RM.usdz; sourceTree = "<group>"; };
 		C93C9B302BD279EE003EBB41 /* Kitten_Attack_Series.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Attack_Series.usdz; sourceTree = "<group>"; };
@@ -173,16 +175,13 @@
 		C93C9B4A2BD27A64003EBB41 /* Kitten_Eating.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Eating.usdz; sourceTree = "<group>"; };
 		C93C9B4B2BD27A68003EBB41 /* Kitten_Sit_loop_4.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Sit_loop_4.usdz; sourceTree = "<group>"; };
 		C93C9B4C2BD27A6D003EBB41 /* Kitten_Idle_3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Idle_3.usdz; sourceTree = "<group>"; };
-		C93C9B4D2BD27A72003EBB41 /* Kitten_RunFast_F_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_RunFast_F_RM.usdz; sourceTree = "<group>"; };
 		C93C9B4E2BD27A76003EBB41 /* Kitten_EatDrink_end.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_EatDrink_end.usdz; sourceTree = "<group>"; };
 		C93C9B4F2BD27A7B003EBB41 /* Kitten_Caress_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Caress_idle.usdz; sourceTree = "<group>"; };
 		C93C9B502BD27A7F003EBB41 /* Kitten_Attack_F.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Attack_F.usdz; sourceTree = "<group>"; };
 		C93C9B512BD27A84003EBB41 /* Kitten_Lie_belly_loop_1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_loop_1.usdz; sourceTree = "<group>"; };
 		C93C9B522BD27A89003EBB41 /* Kitten_Trans_Sit_LieBelly.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Trans_Sit_LieBelly.usdz; sourceTree = "<group>"; };
 		C93C9B532BD27A8D003EBB41 /* Kitten_Walk_F_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Walk_F_RM.usdz; sourceTree = "<group>"; };
-		C93C9B542BD27A91003EBB41 /* Kitten_Die_R.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Die_R.usdz; sourceTree = "<group>"; };
 		C93C9B552BD27A96003EBB41 /* Kitten_Lie_side_sleep_end.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_side_sleep_end.usdz; sourceTree = "<group>"; };
-		C93C9B562BD27A9B003EBB41 /* Kitten_JumpFw_RM.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_JumpFw_RM.usdz; sourceTree = "<group>"; };
 		C93C9B572BD27A9F003EBB41 /* Kitten_SharpenClaws_Vert.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_SharpenClaws_Vert.usdz; sourceTree = "<group>"; };
 		C93C9B582BD27AA3003EBB41 /* Kitten_Lie_belly_loop_2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_loop_2.usdz; sourceTree = "<group>"; };
 		C93C9B592BD27AA7003EBB41 /* Kitten_Lie_belly_sleep.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Kitten_Lie_belly_sleep.usdz; sourceTree = "<group>"; };
@@ -197,6 +196,15 @@
 		C93C9BB12BDA11B2003EBB41 /* white_black_sample.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = white_black_sample.usdz; sourceTree = "<group>"; };
 		C93C9BB22BDA11B7003EBB41 /* grey_sample.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = grey_sample.usdz; sourceTree = "<group>"; };
 		C93C9BB32BDA11BB003EBB41 /* orange_sample.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = orange_sample.usdz; sourceTree = "<group>"; };
+		C93C9BBA2BE0A05F003EBB41 /* amae_2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = amae_2.mp3; sourceTree = "<group>"; };
+		C93C9BBB2BE0A062003EBB41 /* guruguru.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = guruguru.mp3; sourceTree = "<group>"; };
+		C93C9BBC2BE0A062003EBB41 /* nya-large.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "nya-large.mp3"; sourceTree = "<group>"; };
+		C93C9BBD2BE0A062003EBB41 /* myaooon.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = myaooon.mp3; sourceTree = "<group>"; };
+		C93C9BBE2BE0A062003EBB41 /* myao.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = myao.mp3; sourceTree = "<group>"; };
+		C93C9BBF2BE0A062003EBB41 /* amae.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = amae.mp3; sourceTree = "<group>"; };
+		C93C9BC02BE0A063003EBB41 /* gorogoro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gorogoro.mp3; sourceTree = "<group>"; };
+		C93C9BC12BE0A063003EBB41 /* umyao_oko.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = umyao_oko.mp3; sourceTree = "<group>"; };
+		C93C9BC22BE0A063003EBB41 /* gorogoronya-n.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "gorogoronya-n.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +289,7 @@
 		C93C9AE52BCF381B003EBB41 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C93C9BB92BE09F4D003EBB41 /* audios */,
 				C93C9BA42BDA0922003EBB41 /* samples */,
 				C93C9B0F2BD278D4003EBB41 /* textures */,
 				C93C9B0E2BD278BD003EBB41 /* usdz */,
@@ -299,8 +308,6 @@
 				C93C9B4F2BD27A7B003EBB41 /* Kitten_Caress_idle.usdz */,
 				C93C9B362BD27A09003EBB41 /* Kitten_Caress_lie.usdz */,
 				C93C9B412BD27A3B003EBB41 /* Kitten_Caress_sit.usdz */,
-				C93C9B1D2BD27998003EBB41 /* Kitten_Die_L.usdz */,
-				C93C9B542BD27A91003EBB41 /* Kitten_Die_R.usdz */,
 				C93C9B322BD279F7003EBB41 /* Kitten_Drinking.usdz */,
 				C93C9B4E2BD27A76003EBB41 /* Kitten_EatDrink_end.usdz */,
 				C93C9B482BD27A5B003EBB41 /* Kitten_EatDrink_start.usdz */,
@@ -316,9 +323,7 @@
 				C93C9B3F2BD27A32003EBB41 /* Kitten_Idle_6.usdz */,
 				C93C9B212BD279A7003EBB41 /* Kitten_Idle_7.usdz */,
 				C93C9B1E2BD2799B003EBB41 /* Kitten_Idle_8.usdz */,
-				C93C9B562BD27A9B003EBB41 /* Kitten_JumpFw_RM.usdz */,
 				C93C9B2F2BD279EA003EBB41 /* Kitten_JumpPlace_RM.usdz */,
-				C93C9B2D2BD279E0003EBB41 /* Kitten_JumpRun_RM.usdz */,
 				C93C9B452BD27A4E003EBB41 /* Kitten_Lick.usdz */,
 				C93C9B242BD279B8003EBB41 /* Kitten_Lie_belly_end.usdz */,
 				C93C9B512BD27A84003EBB41 /* Kitten_Lie_belly_loop_1.usdz */,
@@ -336,7 +341,6 @@
 				C93C9B492BD27A60003EBB41 /* Kitten_Lie_side_sleep.usdz */,
 				C93C9B5D2BD27ABA003EBB41 /* Kitten_Lie_side_start.usdz */,
 				C93C9B3E2BD27A2E003EBB41 /* Kitten_Run_F_RM.usdz */,
-				C93C9B4D2BD27A72003EBB41 /* Kitten_RunFast_F_RM.usdz */,
 				C93C9B2B2BD279D8003EBB41 /* Kitten_Scratching.usdz */,
 				C93C9B402BD27A37003EBB41 /* Kitten_SharpenClaws_Horiz.usdz */,
 				C93C9B572BD27A9F003EBB41 /* Kitten_SharpenClaws_Vert.usdz */,
@@ -384,6 +388,22 @@
 				C93C9BB12BDA11B2003EBB41 /* white_black_sample.usdz */,
 			);
 			path = samples;
+			sourceTree = "<group>";
+		};
+		C93C9BB92BE09F4D003EBB41 /* audios */ = {
+			isa = PBXGroup;
+			children = (
+				C93C9BBA2BE0A05F003EBB41 /* amae_2.mp3 */,
+				C93C9BBF2BE0A062003EBB41 /* amae.mp3 */,
+				C93C9BC02BE0A063003EBB41 /* gorogoro.mp3 */,
+				C93C9BC22BE0A063003EBB41 /* gorogoronya-n.mp3 */,
+				C93C9BBB2BE0A062003EBB41 /* guruguru.mp3 */,
+				C93C9BBE2BE0A062003EBB41 /* myao.mp3 */,
+				C93C9BBD2BE0A062003EBB41 /* myaooon.mp3 */,
+				C93C9BBC2BE0A062003EBB41 /* nya-large.mp3 */,
+				C93C9BC12BE0A063003EBB41 /* umyao_oko.mp3 */,
+			);
+			path = audios;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -474,15 +494,18 @@
 				C93C9B7F2BD27ABA003EBB41 /* Kitten_Idle_2.usdz in Resources */,
 				C93C9B692BD27ABA003EBB41 /* Kitten_Walk_start.usdz in Resources */,
 				C93C9B812BD27ABA003EBB41 /* Kitten_Idle_6.usdz in Resources */,
+				C93C9BCA2BE0A063003EBB41 /* umyao_oko.mp3 in Resources */,
 				C93C9B6E2BD27ABA003EBB41 /* Kitten_Idle_4.usdz in Resources */,
 				C93C9B862BD27ABA003EBB41 /* Kitten_Sit_loop_2.usdz in Resources */,
 				C93C9B7D2BD27ABA003EBB41 /* Kitten_Sit_end.usdz in Resources */,
 				C93C9B7C2BD27ABA003EBB41 /* Kitten_Lie_belly_sleep_end.usdz in Resources */,
+				C93C9BC72BE0A063003EBB41 /* myao.mp3 in Resources */,
 				C93C9B602BD27ABA003EBB41 /* Kitten_Idle_8.usdz in Resources */,
 				C93C9B952BD27ABA003EBB41 /* Kitten_Walk_F_RM.usdz in Resources */,
 				C93C9B972BD27ABA003EBB41 /* Kitten_Lie_side_sleep_end.usdz in Resources */,
 				C93C9B832BD27ABA003EBB41 /* Kitten_Caress_sit.usdz in Resources */,
 				C93C9B762BD27ABA003EBB41 /* Kitten_Trans_Sit_LieSide.usdz in Resources */,
+				C93C9BC32BE0A063003EBB41 /* amae_2.mp3 in Resources */,
 				C93C9B6B2BD27ABA003EBB41 /* Kitten_Trans_LieSide_Sit.usdz in Resources */,
 				C93C9B5E2BD27ABA003EBB41 /* Kitten_Hit_M.usdz in Resources */,
 				C93C9B712BD27ABA003EBB41 /* Kitten_JumpPlace_RM.usdz in Resources */,
@@ -503,14 +526,14 @@
 				C93C9B822BD27ABA003EBB41 /* Kitten_SharpenClaws_Horiz.usdz in Resources */,
 				C93C9B9E2BD27ABA003EBB41 /* Kitten_Lie_side_end.usdz in Resources */,
 				C93C9B7E2BD27ABA003EBB41 /* Kitten_Lie_belly_sleep_start.usdz in Resources */,
+				C93C9BC42BE0A063003EBB41 /* guruguru.mp3 in Resources */,
 				C93C9B8D2BD27ABA003EBB41 /* Kitten_Sit_loop_4.usdz in Resources */,
 				C93C9B792BD27ABA003EBB41 /* Kitten_Sit_loop_1.usdz in Resources */,
 				C93C9B9A2BD27ABA003EBB41 /* Kitten_Lie_belly_loop_2.usdz in Resources */,
 				C93C9B6A2BD27ABA003EBB41 /* Kitten_Sit_start.usdz in Resources */,
 				C93C9B612BD27ABA003EBB41 /* Kitten_Lie_side_loop_2.usdz in Resources */,
-				C93C9B982BD27ABA003EBB41 /* Kitten_JumpFw_RM.usdz in Resources */,
 				C93C9B802BD27ABA003EBB41 /* Kitten_Run_F_RM.usdz in Resources */,
-				C93C9B5F2BD27ABA003EBB41 /* Kitten_Die_L.usdz in Resources */,
+				C93C9BC92BE0A063003EBB41 /* gorogoro.mp3 in Resources */,
 				C93C9B882BD27ABA003EBB41 /* Kitten_Hit_F.usdz in Resources */,
 				C93C9ACE2BCF1F0B003EBB41 /* Assets.xcassets in Resources */,
 				C93C9B732BD27ABA003EBB41 /* Kitten_Lie_belly_loop_3.usdz in Resources */,
@@ -518,22 +541,24 @@
 				C93C9B992BD27ABA003EBB41 /* Kitten_SharpenClaws_Vert.usdz in Resources */,
 				C93C9B632BD27ABA003EBB41 /* Kitten_Idle_7.usdz in Resources */,
 				C93C9BB82BDA11BB003EBB41 /* orange_sample.usdz in Resources */,
+				C93C9BC82BE0A063003EBB41 /* amae.mp3 in Resources */,
 				C93C9B172BD27959003EBB41 /* grey.png in Resources */,
 				C93C9B8E2BD27ABA003EBB41 /* Kitten_Idle_3.usdz in Resources */,
+				C93C9BCB2BE0A063003EBB41 /* gorogoronya-n.mp3 in Resources */,
+				C93C9BC62BE0A063003EBB41 /* myaooon.mp3 in Resources */,
 				C93C9B852BD27ABA003EBB41 /* Kitten_Turn_180_L.usdz in Resources */,
-				C93C9B962BD27ABA003EBB41 /* Kitten_Die_R.usdz in Resources */,
 				C93C9B9C2BD27ABA003EBB41 /* Kitten_Lie_side_sleep_start.usdz in Resources */,
 				C93C9BB42BDA11BB003EBB41 /* tiger_sample.usdz in Resources */,
 				C93C9B622BD27ABA003EBB41 /* Kitten_Attack_L.usdz in Resources */,
 				C93C9B922BD27ABA003EBB41 /* Kitten_Attack_F.usdz in Resources */,
 				C93C9B842BD27ABA003EBB41 /* Kitten_Turn_90_L.usdz in Resources */,
+				C93C9BC52BE0A063003EBB41 /* nya-large.mp3 in Resources */,
 				C93C9B902BD27ABA003EBB41 /* Kitten_EatDrink_end.usdz in Resources */,
 				C93C9B9F2BD27ABA003EBB41 /* Kitten_Lie_side_start.usdz in Resources */,
 				C93C9BB72BDA11BB003EBB41 /* grey_sample.usdz in Resources */,
 				C93C9B8B2BD27ABA003EBB41 /* Kitten_Lie_side_sleep.usdz in Resources */,
 				C93C9B9D2BD27ABA003EBB41 /* Kitten_Attack_R.usdz in Resources */,
 				C93C9B8C2BD27ABA003EBB41 /* Kitten_Eating.usdz in Resources */,
-				C93C9B6F2BD27ABA003EBB41 /* Kitten_JumpRun_RM.usdz in Resources */,
 				C93C9B652BD27ABA003EBB41 /* Kitten_Walk_end.usdz in Resources */,
 				C93C9B682BD27ABA003EBB41 /* Kitten_Idle_5.usdz in Resources */,
 				C93C9BB52BDA11BB003EBB41 /* black_sample.usdz in Resources */,
@@ -545,7 +570,6 @@
 				C93C9B642BD27ABA003EBB41 /* Kitten_Sit_loop_3.usdz in Resources */,
 				C93C9B742BD27ABA003EBB41 /* Kitten_Drinking.usdz in Resources */,
 				C93C9B892BD27ABA003EBB41 /* Kitten_Idle_1.usdz in Resources */,
-				C93C9B8F2BD27ABA003EBB41 /* Kitten_RunFast_F_RM.usdz in Resources */,
 				C93C9B9B2BD27ABA003EBB41 /* Kitten_Lie_belly_sleep.usdz in Resources */,
 				C93C9B1A2BD27959003EBB41 /* orange.png in Resources */,
 				C93C9BA32BD27BEB003EBB41 /* Kitten_Attack_Down.usdz in Resources */,

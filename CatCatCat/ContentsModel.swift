@@ -3,14 +3,13 @@ import RealityKit
 import Combine
 
 class ContentsModel {
-    // TODO: Add Audio
     private let queue = DispatchQueue(label: "com.content.myqueue")
     private var content: RealityViewContent? = nil
     private var characters: [String: Character] = [:]
-    private let initialRangeX: Float = 1.5
-    private let initialRangeZ: Float = 1.5
-    private var rangeX: Float = 1.5
-    private var rangeZ: Float = 1.5
+    private let initialRangeX: Float = 1.25
+    private let initialRangeZ: Float = 1.25
+    private var rangeX: Float = 1.25
+    private var rangeZ: Float = 1.25
     private var yPosition: Float = 0.0
     private var floorPlaneAnchor: AnchorEntity = AnchorEntity()
     private var isClosing: Bool = false
@@ -18,66 +17,212 @@ class ContentsModel {
     private let trotMovement: Float = 0.47015
     private let runMovement: Float = 0.72235
     private var subscriptions: [EventSubscription] = []
+    private var audioList: [String: AudioFileResource] = [:]
+    private var travelingCharacter: String = ""
+    private var characterTravelInQueue: String = ""
+    private var isHandlingCollision: Bool = false
     
-    init() {
-        var randomPositions = createRandomPositions(count: catNameTextureList.keys.count)
-        for catNameTexture in catNameTextureList {
-            guard let textureName: String = catNameTextureList[catNameTexture.key] else {
-                print("ContentsModel::init() There is no catName: ", catNameTexture.key)
-                return
+    // Helper functions
+    func createRandomOrientation() -> simd_quatf {
+        let randomRotation = Float.random(in: 0...(.pi * 2))
+        return simd_quatf(angle: randomRotation, axis: SIMD3<Float>(0, 1, 0))
+    }
+    
+    // TODO: Need to be updated.
+    func createRandomPositions(count:Int) -> [SIMD3<Float>] {
+        var result: [SIMD3<Float>] = []
+        var isSmallZ = true
+        let perRange = (rangeX * 2) / Float(count)
+        var minX: Float = rangeX * -1
+        for _ in 1...count {
+            let minZ:Float = isSmallZ ? -rangeZ : 0.25
+            let maxZ:Float = isSmallZ ? -0.25 : rangeZ
+            result.append(SIMD3<Float>(
+                x: Float.random(in: minX...minX+perRange),
+                y: yPosition,
+                z: Float.random(in: minZ...maxZ)
+            ))
+            minX += perRange
+            isSmallZ = !isSmallZ
+        }
+        result.shuffle()
+        return result
+    }
+    
+    func getCharacterFromName(characterName: String) -> Character? {
+        guard let character = self.characters[characterName] else {
+            print("ContentsModel::getCharacterFromName() characterA Failed to get")
+            return nil
+        }
+        return character
+    }
+    
+    func getModelEntityFromEntity(entity: Entity) -> ModelEntity? {
+        guard let modelEntity = entity as? ModelEntity else {
+            print("ContentsModel::getModelEntityFromEntity() Failed to convert to ModelEnity ")
+            return nil
+        }
+        return modelEntity
+    }
+    
+    func getFirstEntityFromQueue(character: Character) -> (String, ForceActivityType, ModelEntity) {
+        guard var (firstEntityName, forceActivity): (String, ForceActivityType) = character.entityNameQueue.first else {
+            print("ContentsModel::getFirstEntityFromQueue(): entityNameQueue is empty for: ", character.characterName)
+            return ("", ForceActivityType.none, ModelEntity())
+        }
+        
+        print("ContentsModel::getFirstEntityFromQueue(): firstEntityName: ", firstEntityName)
+        
+        guard let firstEntity = character.entities[firstEntityName] else {
+            print("ContentsModel::getFirstEntityFromQueue(): No entity found for: ", character.characterName, ", entityName: ", firstEntityName)
+            return ("", ForceActivityType.none, ModelEntity())
+        }
+        return (firstEntityName, forceActivity, firstEntity)
+    }
+    
+    func getNextEntityType(currentType: EntityType, isNoTurn: Bool, isNoTravel: Bool = false) -> EntityType {
+        guard let possibleEntities = nextEntityList[currentType] else {
+            print("ContentsModel::getNextEntityType() There is no currentType: ", currentType)
+            return EntityType.unknown
+        }
+        
+        let randomValue = Int.random(in: 0..<100)
+        var cumulativeProbability: Int = 0
+        
+        for (entityType, probability) in possibleEntities {
+            cumulativeProbability += probability
+            if randomValue <= cumulativeProbability {
+                if isNoTurn && (entityType == EntityType.turn90 || entityType == EntityType.turn180) {
+                    return EntityType.idle
+                } else if isNoTravel && travelEntityTypeList.contains(entityType) { //TODO: onlywalk_start
+                    return EntityType.idle
+                } else {
+                    return entityType
+                }
             }
-            
-            var material = SimpleMaterial()
-            let texture = try! TextureResource.load(named: textureName)
-            material.color.texture = .init(texture)
-            
-            guard let randomPosition:SIMD3<Float> = randomPositions.first else {
-                print("ContentsModel::init() Failed to get randomPosition: ", catNameTexture.key)
-                return
+        }
+        
+        
+        print("ContentsModel::getNextEntityType(): Failed to get random entityType")
+        return EntityType.unknown
+    }
+    
+    func getRandomEntityName(entityTypes: [EntityType], isNoTurn: Bool, isNoTravel: Bool = false) -> String {
+        var usdzList: [String] = []
+        for entityType in entityTypes {
+            guard let usdzs = entityTypeUsdzList[entityType] else {
+                print("ContentsModel::getRandomEntityName(): Failed to get usdzList for: ", entityType)
+                return ""
             }
-            randomPositions.remove(at: 0)
-            
-            
-            let character = Character(characterName: catNameTexture.key, entities: [:], material: material, firstPosition: randomPosition)
-            for catName in catNameTextureList.keys {
-                character.characterNameIsCollide[catName] = false
+            if isNoTurn && (entityType == EntityType.turn90 || entityType == EntityType.turn180) {
+                print("ContentsModel::getRandomEntityName(): Skip Turn")
+            } else if isNoTravel && travelEntityTypeList.contains(entityType) {
+                print("ContentsModel::getRandomEntityName(): Skip Travel")
+            } else {
+                usdzList.append(contentsOf: usdzs)
             }
-            
-            for _ in 1...3 {
-                character.entityNameQueue.append(firstUsdzEntityTypeList.randomElement()!.key)
-            }
-            
-            self.characters[catNameTexture.key] = character
+        }
+        
+        guard let randomEntityName = usdzList.randomElement() else {
+            print("ContentsModel::getRandomEntityName(): Failed to get randomEntityName ")
+            return ""
+        }
+        
+        return randomEntityName
+    }
+    
+    func isOtherCatTraveling(characterName: String, shouldInculdeQueue: Bool) -> Bool {
+        if travelingCharacter != "" && characterName != travelingCharacter {
+            return true
+        }
+        
+        if shouldInculdeQueue && characterTravelInQueue != "" && characterName != characterTravelInQueue {
+            return true
+        }
+        return false
+    }
+    
+    func getNewEntityName(hasModelLoadCompleted: Bool, lastEntityType: EntityType, isNoturn: Bool, isNoTravel: Bool = false) -> String {
+        if hasModelLoadCompleted {
+            let newLastEntityType = getNextEntityType(currentType: lastEntityType, isNoTurn: isNoturn, isNoTravel: isNoTravel)
+            return getRandomEntityName(entityTypes: [newLastEntityType], isNoTurn: isNoturn, isNoTravel: isNoTravel)
+        } else {
+            return firstUsdzEntityTypeList.randomElement()!.key
         }
     }
     
-    func updateCharacterEnable(catName: String, isEnabled: Bool) {
-        guard let character = self.characters[catName] else {
-            print("ContentsModel::updateCharacterEnable() Failed to get character catName: ", catName)
+    func appendRandomActionToLastEntity(character: Character, newLastForceActivity: ForceActivityType, isNoTurn: Bool, isNoTravel: Bool = false) {
+        guard let (lastEntityName, lastForceActivity): (String, ForceActivityType) = character.entityNameQueue.last else {
+            print("ContentsModel::appendRandomActionToLastEntity(): No lastEntityName found for: ", character.characterName)
             return
         }
         
-        if isEnabled {
-            if character.entities.keys.count >= firstUsdzEntityTypeList.keys.count {
-                let firstEntityName = firstUsdzEntityTypeList.randomElement()!.key
-                guard let firstEntity = character.entities[firstEntityName] else {
-                    print("ContentsModel::updateCharacterEnable() There is no Kitten_Walk_start for catName: ", catName)
-                    return
-                }
-                firstEntity.isEnabled = true
-                startAnimation(animateEntity: firstEntity)
-            } else {
-                print("ContentsModel::updateCharacterEnable(), wait for entity load")
-            }
-            character.isEnabled = true
+        print("ContentsModel::appendRandomActionToLastEntity(): lastEntityName: ", lastEntityName)
+        
+        guard let lastEntityType = usdzEntityTypeList[lastEntityName] else {
+            print("ContentsModel::appendRandomActionToLastEntity(): No lastEntityType found for: ", character.characterName)
+            return
+        }
+        
+        print("ContentsModel::appendRandomActionToLastEntity(): hasModelLoadCompleted: ", character.hasModelLoadCompleted)
+        
+        var newLastEntityName: String
+        
+        if isOtherCatTraveling(characterName: character.characterName, shouldInculdeQueue: true) {
+            newLastEntityName = getNewEntityName(hasModelLoadCompleted: character.hasModelLoadCompleted, lastEntityType: lastEntityType, isNoturn: isNoTurn, isNoTravel: true)
         } else {
-            character.isEnabled = false
+            newLastEntityName = getNewEntityName(hasModelLoadCompleted: character.hasModelLoadCompleted, lastEntityType: lastEntityType, isNoturn: isNoTurn, isNoTravel: isNoTravel)
+        }
+        
+        print("ContentsModel::appendRandomActionToLastEntity(): newLastEntityName: ", newLastEntityName)
+        
+        character.entityNameQueue.append((newLastEntityName, newLastForceActivity))
+        
+        if travelEntityNameList.contains(newLastEntityName) {
+            characterTravelInQueue = character.characterName
+        }
+        
+        if character.entityNameQueue.count > 1 {
+            character.entityNameQueue.remove(at: 0)
+        } else {
+            print("ContentsModel::appendRandomActionToLastEntity(): No available queue element found for: ", character.characterName)
         }
     }
     
-    func closeImmersiveView() {
-        cancelAllSubscriptions()
-        removeAllChildren()
+    func canTurn(currentType: EntityType) -> Bool {
+        return canTurnList.contains(currentType)
+    }
+    
+    func getTurnEntityNameFromCount(count: Int) -> String {
+        if count == 1 {
+            return getRandomEntityName(entityTypes: [EntityType.turn180], isNoTurn: false, isNoTravel: true)
+        } else {
+            return count % 2 == 0 ? "Kitten_Turn_90_L" : "Kitten_Turn_90_R"
+        }
+    }
+    
+    func clearTravelFromQueue(characterName: String) {
+        guard let character = characters[characterName] else {
+            print("ContentsModel::clearTravelFromQueue() Failed to get character catName: ", characterName)
+            return
+        }
+        
+        var (firstEntityName, _) = character.entityNameQueue.first!
+        character.entityNameQueue.removeAll()
+        if travelEntityNameList.contains(firstEntityName) {
+            if usdzEntityTypeList[firstEntityName]! == EntityType.walk_start {
+                firstEntityName = getRandomEntityName(entityTypes: [EntityType.independent, EntityType.idle], isNoTurn: true, isNoTravel: true)
+            } else {
+                firstEntityName = "Kitten_Walk_end"
+            }
+        }
+        
+        character.entityNameQueue.append((firstEntityName, ForceActivityType.none))
+        let nextName = getNewEntityName(hasModelLoadCompleted: character.hasModelLoadCompleted, lastEntityType: usdzEntityTypeList[firstEntityName]!, isNoturn: false, isNoTravel: true)
+        character.entityNameQueue.append((nextName, ForceActivityType.none))
+        appendRandomActionToLastEntity(character: character, newLastForceActivity: ForceActivityType.none, isNoTurn: false, isNoTravel: true)
+        appendRandomActionToLastEntity(character: character, newLastForceActivity: ForceActivityType.none, isNoTurn: false, isNoTravel: true)
+        
     }
     
     func removeAllChildren() {
@@ -107,63 +252,103 @@ class ContentsModel {
         return subscriptions
     }
     
+    // This is run only when ContentsModel is created.
+    init() {
+        var randomPositions = createRandomPositions(count: catNameTextureList.keys.count)
+        for catNameTexture in catNameTextureList {
+            guard let textureName: String = catNameTextureList[catNameTexture.key] else {
+                print("ContentsModel::init() There is no catName: ", catNameTexture.key)
+                return
+            }
+            
+            var material = SimpleMaterial()
+            let texture = try! TextureResource.load(named: textureName)
+            material.color.texture = .init(texture)
+            
+            guard let randomPosition:SIMD3<Float> = randomPositions.first else {
+                print("ContentsModel::init() Failed to get randomPosition: ", catNameTexture.key)
+                return
+            }
+            randomPositions.remove(at: 0)
+            
+            
+            let character = Character(characterName: catNameTexture.key, entities: [:], material: material, firstPosition: randomPosition)
+            
+            for _ in 1...3 {
+                character.entityNameQueue.append((firstUsdzEntityTypeList.randomElement()!.key, ForceActivityType.none))
+            }
+            
+            self.characters[catNameTexture.key] = character
+        }
+        
+        for audioSource in audioSourceList {
+            let audio = try! AudioFileResource.load(named: audioSource, configuration: .init(shouldLoop: false))
+            audioList[audioSource] = audio
+        }
+    }
+    
+    // This is called when user update the character status
+    func updateCharacterEnable(catName: String, isEnabled: Bool) {
+        let character = getCharacterFromName(characterName: catName)!
+        if isEnabled {
+            if character.entities.keys.count >= firstUsdzEntityTypeList.keys.count {
+                let firstEntityName = firstUsdzEntityTypeList.randomElement()!.key
+                guard let firstEntity = character.entities[firstEntityName] else {
+                    print("ContentsModel::updateCharacterEnable() There is no Kitten_Walk_start for catName: ", catName)
+                    return
+                }
+                firstEntity.isEnabled = true
+                startAnimation(animateEntity: firstEntity, characterName: character.characterName, entiityName: firstEntityName)
+                startAudio(character: character, entity: firstEntity, entiityName: firstEntityName)
+            } else {
+                print("ContentsModel::updateCharacterEnable(), wait for entity load")
+            }
+            character.isEnabled = true
+        } else {
+            character.isEnabled = false
+        }
+    }
+    
+    // This is called everytime immersiveView is closed
+    func closeImmersiveView() {
+        cancelAllSubscriptions()
+        removeAllChildren()
+    }
+    
+    // This is called everytime immersiveView is opend
     func registerContent(content: RealityViewContent) {
         self.isClosing = false
+        self.travelingCharacter = ""
+        self.characterTravelInQueue = ""
         self.rangeX = self.initialRangeX
         self.rangeZ = self.initialRangeZ
         self.floorPlaneAnchor = AnchorEntity(.plane(.horizontal, classification: .floor, minimumBounds: SIMD2<Float>(0.01, 0.01)))
         self.floorPlaneAnchor.generateCollisionShapes(recursive: false)
+        self.floorPlaneAnchor.position.x = 0.0
+        self.floorPlaneAnchor.position.z = 0.0
+        self.isHandlingCollision = false
         content.add(floorPlaneAnchor)
         self.content = content
     }
     
-    func createRandomPositions(count:Int) -> [SIMD3<Float>] {
-        var result: [SIMD3<Float>] = []
-        var isSmallZ = true
-        let perRange = (rangeX * 2) / Float(count)
-        var minX: Float = rangeX * -1
-        for _ in 1...count {
-            let minZ:Float = isSmallZ ? -rangeZ : 0.1
-            let maxZ:Float = isSmallZ ? -0.1 : rangeZ
-            result.append(SIMD3<Float>(
-                x: Float.random(in: minX...minX+perRange),
-                y: yPosition,
-                z: Float.random(in: minZ...maxZ)
-            ))
-            minX += perRange
-            isSmallZ = !isSmallZ
-        }
-        result.shuffle()
-        return result
-    }
-    
-    func createRandomOrientation() -> simd_quatf {
-        let randomRotation = Float.random(in: 0...(.pi * 2))
-        return simd_quatf(angle: randomRotation, axis: SIMD3<Float>(0, 1, 0))
-    }
-    
     func handleCollision(entityA: Entity, entityB: Entity, isCollide: Bool) {
-        guard let modelEntityA = entityA as? ModelEntity else {
-            print("ContentsModel::handleTouchedAnimation() Failed to convert to ModelEnity ")
-            return
-        }
-        guard let modelEntityB = entityB as? ModelEntity else {
-            print("ContentsModel::handleTouchedAnimation() Failed to convert to ModelEnity ")
-            return
-        }
+        let modelEntityA = getModelEntityFromEntity(entity: entityA)!
+        let modelEntityB = getModelEntityFromEntity(entity: entityB)!
+        let characterA = getCharacterFromName(characterName: modelEntityA.name)!
+        let characterB = getCharacterFromName(characterName: modelEntityB.name)!
         
-        guard let characterA = characters[modelEntityA.name] else {
-            print("ContentsModel::handleCollisionEnd() characterA Failed to get")
-            return
+        let (_, countA) = characterA.shouldResolveCollisionCount
+        let (_, countB) = characterB.shouldResolveCollisionCount
+        if isCollide {
+            self.isHandlingCollision = true
+            if modelEntityA.name == travelingCharacter {
+                characterA.shouldResolveCollisionCount = (true, countA+1)
+            } else if modelEntityB.name == travelingCharacter {
+                characterB.shouldResolveCollisionCount = (true, countB+1)
+            } else {
+                characterB.shouldResolveCollisionCount = (true, 1)
+            }
         }
-        
-        guard let characterB = characters[modelEntityB.name] else {
-            print("ContentsModel::handleCollisionEnd() characterA Failed to get")
-            return
-        }
-        
-        characterA.characterNameIsCollide[modelEntityB.name]! = isCollide
-        characterB.characterNameIsCollide[modelEntityA.name]! = isCollide
     }
     
     func registerEntity(entity: ModelEntity, characterName: String, entityType: EntityType, entityName: String) {
@@ -173,15 +358,9 @@ class ContentsModel {
                 print("ContentsModel::registerEntity() processAfterAnimation called: ", characterName, ", usdzName: ", entityName)
             })
             subscriptions.append(content!.subscribe(to: CollisionEvents.Began.self) { e in
-                if e.entityA.isEnabled && e.entityB.isEnabled {
+                if !self.isHandlingCollision && e.entityA.isEnabled && e.entityB.isEnabled {
                     print("====================Collision between \(e.entityA.name) and \(e.entityB.name) is occured====================")
                     self.handleCollision(entityA: e.entityA, entityB: e.entityB, isCollide: true)
-                }
-            })
-            subscriptions.append(content!.subscribe(to: CollisionEvents.Ended.self) { e in
-                if e.entityA.isEnabled && e.entityB.isEnabled {
-                    print("====================Collision between \(e.entityA.name) and \(e.entityB.name) is ended====================")
-                    self.handleCollision(entityA: e.entityA, entityB: e.entityB, isCollide: false)
                 }
             })
         } else {
@@ -224,7 +403,8 @@ class ContentsModel {
             firstEntity.position.z = firstPosition.z
             firstEntity.orientation = orientation
             firstEntity.isEnabled = true
-            startAnimation(animateEntity: firstEntity)
+            startAnimation(animateEntity: firstEntity, characterName: character.characterName, entiityName: firstEntityName)
+            startAudio(character: character, entity: firstEntity, entiityName: firstEntityName)
         }
         
         Task {
@@ -281,173 +461,116 @@ class ContentsModel {
         }
     }
     
-    func startAnimation(animateEntity: ModelEntity) {
-        if animateEntity.availableAnimations.count > 0{
+    func startAudio(character: Character, entity: ModelEntity, entiityName: String) {
+        if audioAvailableUsdzSoucesList.keys.contains(entiityName) {
+            let shouldPlay: Bool = Int.random(in: 0...10000) % 8 == 0
+            if shouldPlay {
+                let sourceName: String = audioAvailableUsdzSoucesList[entiityName]!.randomElement()!
+                guard let audio = audioList[sourceName] else {
+                    print("ContentsModel::startAudio() Failed to get audio: ", sourceName)
+                    return
+                }
+                character.audioSource.removeFromParent()
+                entity.addChild(character.audioSource)
+                character.audioSource.playAudio(audio)
+            }
+        }
+    }
+    
+    func startAnimation(animateEntity: ModelEntity, characterName: String, entiityName: String) {
+        if animateEntity.availableAnimations.count > 0 {
             animateEntity.playAnimation(animateEntity.availableAnimations[0])
+            if travelEntityNameList.contains(entiityName) {
+                self.travelingCharacter = characterName
+            } else {
+                if self.travelingCharacter == characterName {
+                    self.travelingCharacter = ""
+                }
+            }
         } else {
             print("ContentsModel::startAnimation() No available animation: ", animateEntity.name)
             return
         }
     }
     
-    func getNextEntityType(currentType: EntityType, isNoTurn: Bool) -> EntityType {
-        guard let possibleEntities = nextEntityList[currentType] else {
-            print("ContentsModel::getNextEntityType() There is no currentType: ", currentType)
-            return EntityType.unknown
-        }
-        
-        let randomValue = Int.random(in: 0..<100)
-        var cumulativeProbability: Int = 0
-        
-        for (entityType, probability) in possibleEntities {
-            cumulativeProbability += probability
-            if randomValue <= cumulativeProbability {
-                if isNoTurn && (entityType == EntityType.turn90 || entityType == EntityType.turn180) {
-                    return EntityType.idle
-                } else {
-                    return entityType
-                }
-            }
-        }
-        
-        
-        print("ContentsModel::getNextEntityType(): Failed to get random entityType")
-        return EntityType.unknown
-    }
-    
-    func getRandomEntityName(entityTypes: [EntityType], isNoTurn: Bool) -> String {
-        var usdzList: [String] = []
-        for entityType in entityTypes {
-            guard let usdzs = entityTypeUsdzList[entityType] else {
-                print("ContentsModel::getRandomEntityName(): Failed to get usdzList for: ", entityType)
-                return ""
-            }
-            if (entityType == EntityType.turn90 || entityType == EntityType.turn180) && isNoTurn {
-                print("ContentsModel::getRandomEntityName(): Skip Turn")
-            } else {
-                usdzList.append(contentsOf: usdzs)
-            }
-        }
-        
-        guard let randomEntityName = usdzList.randomElement() else {
-            print("ContentsModel::getRandomEntityName(): Failed to get randomEntityName ")
-            return ""
-        }
-        
-        return randomEntityName
-    }
-    
-    func getFirstEntityFromQueue(character: Character) -> ModelEntity {
-        guard let firstEntityName: String = character.entityNameQueue.first else {
-            print("ContentsModel::processRandomEntityFromType(): entityNameQueue is empty for: ", character.characterName)
-            return ModelEntity()
-        }
-        
-        print("ContentsModel::processRandomEntityFromType(): firstEntityName: ", firstEntityName)
-        
-        guard let firstEntity = character.entities[firstEntityName] else {
-            print("ContentsModel::processRandomEntityFromType(): No entity found for: ", character.characterName, ", entityName: ", firstEntityName)
-            return ModelEntity()
-        }
-        return firstEntity
-    }
-    
-    func getNewEntityName(hasModelLoadCompleted: Bool, lastEntityType: EntityType, isNoturn: Bool) -> String {
-        if hasModelLoadCompleted {
-            let newLastEntityType = getNextEntityType(currentType: lastEntityType, isNoTurn: isNoturn)
-            return getRandomEntityName(entityTypes: [newLastEntityType], isNoTurn: isNoturn)
-        } else {
-            return firstUsdzEntityTypeList.randomElement()!.key
-        }
-    }
-    
-    func appendRandomActionToLastEntity(character: Character, isNoTurn: Bool) {
-        guard let lastEntityName: String = character.entityNameQueue.last else {
-            print("ContentsModel::appendRandomActionToLastEntity(): No lastEntityName found for: ", character.characterName)
-            return
-        }
-        
-        print("ContentsModel::appendRandomActionToLastEntity(): lastEntityName: ", lastEntityName)
-        
-        guard let lastEntityType = usdzEntityTypeList[lastEntityName] else {
-            print("ContentsModel::appendRandomActionToLastEntity(): No lastEntityType found for: ", character.characterName)
-            return
-        }
-        
-        print("ContentsModel::appendRandomActionToLastEntity(): hasModelLoadCompleted: ", character.hasModelLoadCompleted)
-        
-        let newLastEntityName: String = getNewEntityName(hasModelLoadCompleted: character.hasModelLoadCompleted, lastEntityType: lastEntityType, isNoturn: true)
-        
-        print("ContentsModel::appendRandomActionToLastEntity(): newLastEntityName: ", newLastEntityName)
-        
-        character.entityNameQueue.append(newLastEntityName)
-        
-        if character.entityNameQueue.count > 1 {
-            character.entityNameQueue.remove(at: 0)
-        } else {
-            print("ContentsModel::appendRandomActionToLastEntity(): No available queue element found for: ", character.characterName)
-        }
-    }
-    
-    func canTurn(currentType: EntityType) -> Bool {
-        return canTurnList.contains(currentType)
-    }
-    
     func processRandomEntityFromType(character: Character, position: SIMD3<Float>, orientation: simd_quatf, currentEntity: ModelEntity, isTapped: Bool = false, isForceTurn: Bool = false, isCurrentTravel: Bool = false) {
         var nextEntity: ModelEntity = ModelEntity()
+        var nextEntityName: String = ""
+        let (shouldResolve, count) = character.shouldResolveCollisionCount
         if isTapped {
             character.entityNameQueue.removeAll()
-            character.entityNameQueue.append("Kitten_Walk_end")
-            let independentEntityName = getRandomEntityName(entityTypes: [EntityType.independent, EntityType.idle], isNoTurn: true)
+            character.entityNameQueue.append(("Kitten_Walk_end", ForceActivityType.none))
+            let independentEntityName = getRandomEntityName(entityTypes: [EntityType.independent, EntityType.idle], isNoTurn: true, isNoTravel: true)
             if character.entities.keys.contains(independentEntityName) {
-                character.entityNameQueue.append(independentEntityName)
+                character.entityNameQueue.append((independentEntityName, ForceActivityType.none))
             } else {
-                character.entityNameQueue.append(firstUsdzEntityTypeList.randomElement()!.key)
+                character.entityNameQueue.append((firstUsdzEntityTypeList.randomElement()!.key, ForceActivityType.none))
             }
             return
         } else if !character.hasModelLoadCompleted {
-            nextEntity = getFirstEntityFromQueue(character: character)
-            appendRandomActionToLastEntity(character: character, isNoTurn: true)
-        } else if isInCollision(characterNameIsCollide: character.characterNameIsCollide) {
-            if isCurrentTravel {
+            (nextEntityName, _, nextEntity) = getFirstEntityFromQueue(character: character)
+            appendRandomActionToLastEntity(character: character, newLastForceActivity: ForceActivityType.none, isNoTurn: true)
+        } else if isHandlingCollision {
+            if shouldResolve {
                 if character.entities["Kitten_Walk_F_RM"]! == currentEntity {
+                    // if walk, end walk and return
+                    nextEntityName = "Kitten_Walk_end"
                     nextEntity = character.entities["Kitten_Walk_end"]!
+                    let turnEntityName = getTurnEntityNameFromCount(count: count)
                     character.entityNameQueue.removeAll()
-                    let newLastEntityName: String = getNewEntityName(hasModelLoadCompleted: character.hasModelLoadCompleted, lastEntityType: EntityType.walk_end, isNoturn: true)
-                    character.entityNameQueue.append(newLastEntityName)
-                } else {
-                    nextEntity = character.entities["Kitten_Walk_F_RM"]!
-                }
-            } else {
-                nextEntity = getFirstEntityFromQueue(character: character)
-                if character.entityNameQueue.count > 0 && !canTurn(currentType: usdzEntityTypeList[character.entityNameQueue.first!]!) {
-                    appendRandomActionToLastEntity(character: character, isNoTurn: true)
-                } else {
-                    character.entityNameQueue.removeAll()
-                    let shouldTurn: Bool = Int.random(in: 0...500) % 10 == 0
-                    if shouldTurn {
-                        character.entityNameQueue.append("Kitten_Turn_180_L")
-                        character.entityNameQueue.append("Kitten_Walk_start")
-                        character.entityNameQueue.append("Kitten_Walk_F_RM")
-                        clearisInCollision(character: character)
-                    } else {
-                        let newLastEntityName: String = getNewEntityName(hasModelLoadCompleted: character.hasModelLoadCompleted, lastEntityType: EntityType.walk_end, isNoturn: true)
-                        character.entityNameQueue.append(newLastEntityName)
+                    character.entityNameQueue.append((turnEntityName, ForceActivityType.collision))
+                    character.entityNameQueue.append(("Kitten_Walk_start", ForceActivityType.collision))
+                    character.entityNameQueue.append(("Kitten_Walk_F_RM", ForceActivityType.collision))
+                    character.entityNameQueue.append(("Kitten_Walk_end", ForceActivityType.collision))
+                    character.shouldResolveCollisionCount = (false, count)
+                    if self.characterTravelInQueue != "" && self.characterTravelInQueue != character.characterName {
+                        clearTravelFromQueue(characterName: self.characterTravelInQueue)
                     }
+                    self.characterTravelInQueue = character.characterName
+                } else if isCurrentTravel {
+                    // if not walk, walk first.
+                    nextEntityName = "Kitten_Walk_F_RM"
+                    nextEntity = character.entities["Kitten_Walk_F_RM"]!
+                } else if character.entityNameQueue.count > 0 && !canTurn(currentType: usdzEntityTypeList[character.entityNameQueue.first!.0]!) {
+                    // not travel, cannot turn
+                    (nextEntityName, _, nextEntity) = getFirstEntityFromQueue(character: character)
+                    appendRandomActionToLastEntity(character: character, newLastForceActivity: ForceActivityType.collision, isNoTurn: true, isNoTravel: true)
+                } else {
+                    // not travel, can turn
+                    let turnEntityName = getTurnEntityNameFromCount(count: count)
+                    nextEntityName = turnEntityName
+                    nextEntity = character.entities[nextEntityName]!
+                    character.entityNameQueue.removeAll()
+                    character.entityNameQueue.append(("Kitten_Walk_start", ForceActivityType.collision))
+                    character.entityNameQueue.append(("Kitten_Walk_F_RM", ForceActivityType.collision))
+                    character.entityNameQueue.append(("Kitten_Walk_end", ForceActivityType.collision))
+                    character.shouldResolveCollisionCount = (false, count)
+                    if self.characterTravelInQueue != "" && self.characterTravelInQueue != character.characterName {
+                        clearTravelFromQueue(characterName: self.characterTravelInQueue)
+                    }
+                    self.characterTravelInQueue = character.characterName
+                }
+            } else{
+                var nextForceActivity: ForceActivityType
+                (nextEntityName, nextForceActivity, nextEntity) = getFirstEntityFromQueue(character: character)
+                appendRandomActionToLastEntity(character: character, newLastForceActivity: ForceActivityType.none, isNoTurn: true, isNoTravel: true)
+                if nextForceActivity == ForceActivityType.none {
+                    self.isHandlingCollision = false
                 }
             }
         } else if isForceTurn {
             if character.entities["Kitten_Walk_F_RM"]! == currentEntity {
+                nextEntityName = "Kitten_Walk_end"
                 nextEntity = character.entities["Kitten_Walk_end"]!
                 character.entityNameQueue.removeAll()
-                character.entityNameQueue.append("Kitten_Turn_180_R")
-                character.entityNameQueue.append("Kitten_Walk_start")
+                character.entityNameQueue.append(("Kitten_Turn_180_R", ForceActivityType.turn))
             } else {
+                nextEntityName = "Kitten_Walk_F_RM"
                 nextEntity = character.entities["Kitten_Walk_F_RM"]!
             }
         } else {
-            nextEntity = getFirstEntityFromQueue(character: character)
-            appendRandomActionToLastEntity(character: character, isNoTurn: false)
+            (nextEntityName, _, nextEntity) = getFirstEntityFromQueue(character: character)
+            appendRandomActionToLastEntity(character: character, newLastForceActivity: ForceActivityType.none, isNoTurn: false)
         }
         
         nextEntity.position.x = position.x
@@ -455,21 +578,19 @@ class ContentsModel {
         nextEntity.orientation = orientation
         currentEntity.isEnabled = false
         nextEntity.isEnabled = true
-        startAnimation(animateEntity: nextEntity)
-    }
-
-    func isInCollision(characterNameIsCollide: [String:Bool]) -> Bool {
-        for isCollide in characterNameIsCollide.values {
-            if isCollide {
-                return true
+        startAnimation(animateEntity: nextEntity, characterName: character.characterName, entiityName: nextEntityName)
+        startAudio(character: character, entity: nextEntity, entiityName: nextEntityName)
+        
+        if self.characterTravelInQueue == character.characterName {
+            var hasTravelItem: Bool = false
+            for (name, type) in character.entityNameQueue {
+                if travelEntityNameList.contains(name) {
+                    hasTravelItem = true
+                }
             }
-        }
-        return false
-    }
-    
-    func clearisInCollision(character: Character) {
-        for isCollide in character.characterNameIsCollide {
-            character.characterNameIsCollide[isCollide.key] = false
+            if !hasTravelItem {
+                self.characterTravelInQueue = ""
+            }
         }
     }
     
