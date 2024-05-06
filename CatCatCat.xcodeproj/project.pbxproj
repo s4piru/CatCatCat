@@ -98,6 +98,7 @@
 		C93C9BC92BE0A063003EBB41 /* gorogoro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BC02BE0A063003EBB41 /* gorogoro.mp3 */; };
 		C93C9BCA2BE0A063003EBB41 /* umyao_oko.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BC12BE0A063003EBB41 /* umyao_oko.mp3 */; };
 		C93C9BCB2BE0A063003EBB41 /* gorogoronya-n.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BC22BE0A063003EBB41 /* gorogoronya-n.mp3 */; };
+		C93C9C042BE5B99D003EBB41 /* PlaneDetectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9C032BE5B99D003EBB41 /* PlaneDetectionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +206,7 @@
 		C93C9BC02BE0A063003EBB41 /* gorogoro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gorogoro.mp3; sourceTree = "<group>"; };
 		C93C9BC12BE0A063003EBB41 /* umyao_oko.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = umyao_oko.mp3; sourceTree = "<group>"; };
 		C93C9BC22BE0A063003EBB41 /* gorogoronya-n.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "gorogoronya-n.mp3"; sourceTree = "<group>"; };
+		C93C9C032BE5B99D003EBB41 /* PlaneDetectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetectionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +258,7 @@
 				C93C9AD22BCF1F0B003EBB41 /* Info.plist */,
 				C93C9AEA2BCFD0BF003EBB41 /* Character.swift */,
 				C93C9AEC2BCFD186003EBB41 /* ContentsModel.swift */,
+				C93C9C032BE5B99D003EBB41 /* PlaneDetectionModel.swift */,
 				C93C9BA02BD27B0A003EBB41 /* ModelList.swift */,
 				C93C9ACF2BCF1F0B003EBB41 /* Preview Content */,
 			);
@@ -594,6 +597,7 @@
 				C93C9AED2BCFD186003EBB41 /* ContentsModel.swift in Sources */,
 				C93C9AC82BCF1F0A003EBB41 /* CatCatCatApp.swift in Sources */,
 				C93C9BA12BD27B0A003EBB41 /* ModelList.swift in Sources */,
+				C93C9C042BE5B99D003EBB41 /* PlaneDetectionModel.swift in Sources */,
 				C93C9ACC2BCF1F0A003EBB41 /* ImmersiveView.swift in Sources */,
 				C93C9AEB2BCFD0BF003EBB41 /* Character.swift in Sources */,
 			);

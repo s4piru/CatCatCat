@@ -8,14 +8,14 @@ class Character {
     var material: SimpleMaterial = SimpleMaterial()
     var isEnabled = false
     var shouldResolveCollisionCount: (Bool, Int) = (false, 0)
-    var firstPosition: SIMD3<Float>
+    var firstTransform: SIMD3<Float>
     var audioSource: Entity = Entity()
 
-    init(characterName: String, entities: [String: ModelEntity], material: SimpleMaterial, firstPosition: SIMD3<Float>) {
+    init(characterName: String, entities: [String: ModelEntity], material: SimpleMaterial, firstTransform: SIMD3<Float>) {
         self.characterName = characterName
         self.entities = entities
         self.material = material
-        self.firstPosition = firstPosition
+        self.firstTransform = firstTransform
         self.audioSource.spatialAudio = SpatialAudioComponent(directivity: .beam(focus: 0.75))
         self.audioSource.orientation = .init(angle: .pi, axis: [0, 1, 0])
     }
