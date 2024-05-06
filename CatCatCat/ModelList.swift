@@ -304,7 +304,7 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.jump_place: 1,
         EntityType.eatdrink_start: 6,
     ],
-    /*EntityType.idle: [
+    EntityType.idle: [
         EntityType.idle: 58,
         EntityType.sit_start: 5,
         EntityType.lieside_start: 5,
@@ -314,25 +314,12 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.walk_start: 5,
         EntityType.jump_place: 1,
         EntityType.eatdrink_start: 6,
-    ],*/
-    EntityType.idle: [
-        EntityType.idle: 5,
-        EntityType.turn90: 10,
-        EntityType.walk_start: 78,
-        EntityType.jump_place: 1,
-        EntityType.eatdrink_start: 6,
     ],
-    /*EntityType.walk: [
+    EntityType.walk: [
         EntityType.trot: 2,
         EntityType.run: 0,
         EntityType.walk_end: 91,
         EntityType.walk: 5,
-    ],*/
-    EntityType.walk: [
-        EntityType.trot: 2,
-        EntityType.run: 0,
-        EntityType.walk_end: 5,
-        EntityType.walk: 91,
     ],
     EntityType.walk_start: [
         EntityType.walk: 100,

@@ -31,6 +31,7 @@ struct ImmersiveView: View {
             }
             subscriptions = contentsModel.getSubscriptions()
         }
+        /*
         .task {
             await model.runSession()
         }
@@ -39,7 +40,7 @@ struct ImmersiveView: View {
         }
         .task {
             await model.monitorSessionEvents()
-        }
+        }*/
 
         .onDisappear {
             contentsModel.closeImmersiveView()
