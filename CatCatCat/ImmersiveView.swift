@@ -19,6 +19,7 @@ struct ImmersiveView: View {
     @Binding var isTigerEnabled: Bool
     @Binding var isWhiteBlackEnabled: Bool
     @Binding var availableCatNum: Int
+    @Binding var isInvitingProgress: Bool
     @State var toggleUpdate: Bool = false
     @StateObject var physicsModel: VisionPhysicsViewModel  = VisionPhysicsViewModel()
     
@@ -32,10 +33,12 @@ struct ImmersiveView: View {
             try? await Task.sleep(for: .seconds(10))
             let planeMatrix = physicsModel.getPlaneMatrix()
             self.availableCatNum = contentsModel.getNumCat(planeMatrix: planeMatrix)
+            self.isInvitingProgress = true
             for catNameTexture in catNameTextureList {
                 await contentsModel.showCat(catName: catNameTexture.key)
             }
             subscriptions = contentsModel.getSubscriptions()
+            self.isInvitingProgress = false
         }
         .task {
             await physicsModel.runSession()

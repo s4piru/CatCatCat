@@ -7,17 +7,17 @@ import ARKit
     private let session = ARKitSession()
     private let sceneReconstruction = SceneReconstructionProvider()
     private let planeWidth:Float = 2.4
-    private let planeHeight:Float = 1.0
+    private let planeHeight:Float = 1.5
     private let planeWidth100:Int = 240
-    private let planeHeight100:Int = 100
+    private let planeHeight100:Int = 150
     private var contentEntity = Entity()
     private var meshEntities = [UUID: ModelEntity]()
     private var planeMatrix: [[Bool]] = []
     private var isSupported: Bool = false
-    private let initialMinZ: Float = -1.0
+    private let initialMinZ: Float = -1.5
     private let initialRangeX: Float = 1.2
     private let catSize:Float = 0.48
-    private let minObjHeight: Float = 0.2
+    private let minObjHeight: Float = 0.3
 
     func setUpMatrix() {
         for _ in 0...planeWidth100 {
@@ -93,9 +93,10 @@ import ARKit
                 }
                 
                 if let meshResource {
-                    // Make this mesh occlude virtual objects behind it.
-                    entity.components.set(ModelComponent(mesh: meshResource, materials: [OcclusionMaterial()]))
-                    if /*meshResource.bounds.max.y > 0.05*/ shape.bounds.max.y > minObjHeight  {
+                    if (shape.bounds.max.y - shape.bounds.min.y) > minObjHeight  {
+                        // Make this mesh occlude virtual objects behind it.
+                        entity.components.set(ModelComponent(mesh: meshResource, materials: [OcclusionMaterial()]))
+                        
                         var minX:Int = Int((meshAnchor.originFromAnchorTransform.translation.x + shape.bounds.min.x + initialRangeX) * 100)
                         var maxX:Int = Int((meshAnchor.originFromAnchorTransform.translation.x + shape.bounds.max.x + initialRangeX) * 100)
                         var minZ:Int = Int((meshAnchor.originFromAnchorTransform.translation.z + shape.bounds.min.z + -initialMinZ) * 100)
@@ -113,14 +114,13 @@ import ARKit
                                 }
                             }
                         }
+                        entity.transform = Transform(matrix: meshAnchor.originFromAnchorTransform)
+                        entity.collision = CollisionComponent(shapes: [shape], isStatic: true)
+                        entity.physicsBody = PhysicsBodyComponent()
+                        meshEntities[meshAnchor.id] = entity
+                        contentEntity.addChild(entity)
                     }
                 }
-                
-                entity.transform = Transform(matrix: meshAnchor.originFromAnchorTransform)
-                entity.collision = CollisionComponent(shapes: [shape], isStatic: true)
-                entity.physicsBody = PhysicsBodyComponent()
-                meshEntities[meshAnchor.id] = entity
-                contentEntity.addChild(entity)
             // ignore for now
             case .updated:
                 guard let entity = meshEntities[meshAnchor.id] else { fatalError("...") }

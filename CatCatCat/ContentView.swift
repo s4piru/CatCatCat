@@ -19,6 +19,7 @@ struct ContentView: View {
     @Binding var isTigerEnabled: Bool
     @Binding var isWhiteBlackEnabled: Bool
     @Binding var availableCatNum: Int
+    @Binding var isInvitingProgress: Bool
     
     @AppStorage("blackName") var blackName: String = "Damiano"
     @AppStorage("greyName") var greyName: String = "Sherry"
@@ -54,18 +55,9 @@ struct ContentView: View {
             }
         } else {
             VStack {
-                Text("Name your cats and choose ones you want to invite! (Max 3 cats)")
-                    .font(.system(size: 20))
-                    .bold()
-                    .fontDesign(.monospaced)
-                    .padding(EdgeInsets(
-                        top: 30,
-                        leading: 0,
-                        bottom: 30,
-                        trailing: 0
-                    ))
                 if availableCatNum < 3 {
-                    Text("Up to \(availableCatNum) cats because the floor is not big enough.")
+                    Text("Name your cats and choose ones you want to invite! \nYour floor size allows you to invite \(availableCatNum) cats (Max 3 cats).")
+                        .fixedSize(horizontal: false, vertical: true)
                         .font(.system(size: 20))
                         .bold()
                         .fontDesign(.monospaced)
@@ -75,6 +67,32 @@ struct ContentView: View {
                             bottom: 30,
                             trailing: 0
                         ))
+                } else {
+                    Text("Name your cats and choose ones you want to invite! (Max 3 cats)")
+                        .font(.system(size: 20))
+                        .bold()
+                        .fontDesign(.monospaced)
+                        .padding(EdgeInsets(
+                            top: 30,
+                            leading: 0,
+                            bottom: 30,
+                            trailing: 0
+                        ))
+                }
+                if isInvitingProgress && enabledCount > 0 {
+                    VStack {
+                        Text("Cats are getting ready!")
+                            .font(.system(size: 20))
+                            .bold()
+                            .fontDesign(.monospaced)
+                            .padding(EdgeInsets(
+                                top: 10,
+                                leading: 0,
+                                bottom: 30,
+                                trailing: 0
+                            ))
+                        ProgressView()
+                    }
                 }
                 HStack {
                     Model3D(named: "black_sample") { model in
@@ -317,6 +335,13 @@ struct ContentView: View {
             }
             .onChange(of: isWhiteBlackEnabled) { _, newValue in
                 enabledCount = newValue ? enabledCount + 1 : enabledCount - 1
+            }
+            .onChange(of: availableCatNum) { _, _ in
+                self.isBlackEnabled = false
+                self.isGreyEnabled = false
+                self.isOrangeEnabled = false
+                self.isTigerEnabled = false
+                self.isWhiteBlackEnabled = false
             }
         }
     }

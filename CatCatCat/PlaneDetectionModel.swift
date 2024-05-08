@@ -40,9 +40,6 @@ class PlaneDetectionModel {
             print("[\(type(of: self))] [\(#function)] anchorUpdates")
 
             let planeAnchor = update.anchor
-
-            // Skip planes that are windows.
-            //if planeAnchor.classification == .window { continue }
             
             if planeAnchor.classification != .floor { continue }
 

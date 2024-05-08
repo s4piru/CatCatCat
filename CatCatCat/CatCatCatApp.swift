@@ -23,11 +23,12 @@ struct CatCatCatApp: App {
     @State private var isTigerEnabled = false
     @State private var isWhiteBlackEnabled = false
     @State private var availableCatNum: Int = -1
+    @State private var isInvitingProgress: Bool = false
     private var contentsModel = ContentsModel()
     
     var body: some Scene {
         WindowGroup(id: "FirstWindow") {
-            ContentView(isImmersiveSpaceShown: $isImmersiveSpaceShown, showImmersiveSpaceFromButton: $showImmersiveSpaceFromButton, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled, availableCatNum: $availableCatNum)
+            ContentView(isImmersiveSpaceShown: $isImmersiveSpaceShown, showImmersiveSpaceFromButton: $showImmersiveSpaceFromButton, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled, availableCatNum: $availableCatNum, isInvitingProgress: $isInvitingProgress)
                 .onAppear() {
                     Task {
                         await openImmersiveSpace(id: "ImmersiveSpace")
@@ -44,7 +45,7 @@ struct CatCatCatApp: App {
         }
         
         ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView(contentsModel: contentsModel, isImmersiveSpaceShown: $isImmersiveSpaceShown, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled, availableCatNum: $availableCatNum)
+            ImmersiveView(contentsModel: contentsModel, isImmersiveSpaceShown: $isImmersiveSpaceShown, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled, availableCatNum: $availableCatNum, isInvitingProgress: $isInvitingProgress)
         }
     }
 }

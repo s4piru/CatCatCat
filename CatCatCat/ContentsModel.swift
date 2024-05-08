@@ -10,8 +10,8 @@ class ContentsModel {
     private let planeHeight100:Int = 100
     private let initialRangeX: Float = 1.2
     private let initialRangeZ: Float = 0
-    private let initialMinZ: Float = -1.0
-    private var minZ: Float = -1.0 // check physics model and canputobj if change this
+    private let initialMinZ: Float = -1.5
+    private var minZ: Float = -1.5 // check physics model and canputobj if change this
     private var rangeX: Float = 1.2
     private var rangeZ: Float = 0
     private var yTransform: Float = 0.0
@@ -82,7 +82,7 @@ class ContentsModel {
                         canPut = true
                         break;
                     }
-                    curZ += 0.05
+                    curZ += 0.01
                 }
             } else {
                 while curZ >= (minZ + catSize) {
@@ -90,7 +90,7 @@ class ContentsModel {
                         canPut = true
                         break;
                     }
-                    curZ -= 0.05
+                    curZ -= 0.01
                 }
             }
            
@@ -442,7 +442,26 @@ class ContentsModel {
         return createRandomTransforms()
     }
     
-    func handleCollision(entityA: Entity, entityB: Entity, isCollide: Bool) {
+    func handleCollision(entityA: Entity, entityB: Entity) {
+        if !isCharacter(name: entityA.name) {
+            self.isHandlingCollision = true
+            let modelEntityB = getModelEntityFromEntity(entity: entityB)!
+            let characterB = getCharacterFromName(characterName: modelEntityB.name)!
+            let (_, countB) = characterB.shouldResolveCollisionCount
+            characterB.shouldResolveCollisionCount = (true, countB+1)
+            collisionHandlingCharacter = characterB.characterName
+            return
+        } else if !isCharacter(name: entityB.name) {
+            self.isHandlingCollision = true
+            let modelEntityA = getModelEntityFromEntity(entity: entityA)!
+            let characterA = getCharacterFromName(characterName: modelEntityA.name)!
+            let (_, countA) = characterA.shouldResolveCollisionCount
+            characterA.shouldResolveCollisionCount = (true, countA+1)
+            collisionHandlingCharacter = characterA.characterName
+            return
+        }
+        
+        
         let modelEntityA = getModelEntityFromEntity(entity: entityA)!
         let modelEntityB = getModelEntityFromEntity(entity: entityB)!
         let characterA = getCharacterFromName(characterName: modelEntityA.name)!
@@ -450,18 +469,16 @@ class ContentsModel {
         
         let (_, countA) = characterA.shouldResolveCollisionCount
         let (_, countB) = characterB.shouldResolveCollisionCount
-        if isCollide {
-            self.isHandlingCollision = true
-            if modelEntityA.name == travelingCharacter {
-                characterA.shouldResolveCollisionCount = (true, countA+1)
-                collisionHandlingCharacter = characterA.characterName
-            } else if modelEntityB.name == travelingCharacter {
-                characterB.shouldResolveCollisionCount = (true, countB+1)
-                collisionHandlingCharacter = characterB.characterName
-            } else if self.isHandlingCollision == false {
-                characterB.shouldResolveCollisionCount = (true, 1)
-                collisionHandlingCharacter = characterB.characterName
-            }
+        self.isHandlingCollision = true
+        if modelEntityA.name == travelingCharacter {
+            characterA.shouldResolveCollisionCount = (true, countA+1)
+            collisionHandlingCharacter = characterA.characterName
+        } else if modelEntityB.name == travelingCharacter {
+            characterB.shouldResolveCollisionCount = (true, countB+1)
+            collisionHandlingCharacter = characterB.characterName
+        } else if self.isHandlingCollision == false {
+            characterB.shouldResolveCollisionCount = (true, 1)
+            collisionHandlingCharacter = characterB.characterName
         }
     }
     
@@ -477,9 +494,9 @@ class ContentsModel {
                 print("ContentsModel::registerEntity() processAfterAnimation called: ", characterName, ", usdzName: ", entityName)
             })
             subscriptions.append(content!.subscribe(to: CollisionEvents.Began.self) { e in
-                if self.isCharacter(name: e.entityA.name) && self.isCharacter(name: e.entityB.name) && !self.isHandlingCollision && e.entityA.isEnabled && e.entityB.isEnabled {
+                if (self.isCharacter(name: e.entityA.name) || self.isCharacter(name: e.entityB.name)) && !self.isHandlingCollision && e.entityA.isEnabled && e.entityB.isEnabled {
                     print("====================Collision between \(e.entityA.name) and \(e.entityB.name) is occured====================")
-                    self.handleCollision(entityA: e.entityA, entityB: e.entityB, isCollide: true)
+                    self.handleCollision(entityA: e.entityA, entityB: e.entityB)
                 }
             })
         } else {
