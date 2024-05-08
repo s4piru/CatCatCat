@@ -119,7 +119,6 @@ import ARKit
                 entity.transform = Transform(matrix: meshAnchor.originFromAnchorTransform)
                 entity.collision = CollisionComponent(shapes: [shape], isStatic: true)
                 entity.physicsBody = PhysicsBodyComponent()
-                entity.components.set(InputTargetComponent())
                 meshEntities[meshAnchor.id] = entity
                 contentEntity.addChild(entity)
             // ignore for now

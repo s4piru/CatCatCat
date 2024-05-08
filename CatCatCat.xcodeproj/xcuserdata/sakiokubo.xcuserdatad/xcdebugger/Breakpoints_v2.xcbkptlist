@@ -510,8 +510,8 @@
             filePath = "CatCatCat/VisionPhysicsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "processReconstructionUpdates()"
             landmarkType = "7">
          </BreakpointContent>
@@ -526,10 +526,10 @@
             filePath = "CatCatCat/VisionPhysicsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "VisionPhysicsViewModel"
-            landmarkType = "3">
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "processReconstructionUpdates()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -542,8 +542,8 @@
             filePath = "CatCatCat/VisionPhysicsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "processReconstructionUpdates()"
             landmarkType = "7">
          </BreakpointContent>
