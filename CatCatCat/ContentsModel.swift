@@ -6,13 +6,13 @@ class ContentsModel {
     private let queue = DispatchQueue(label: "com.content.myqueue")
     private var content: RealityViewContent? = nil
     private var characters: [String: Character] = [:]
-    private let planeWidth100:Int = 180
+    private let planeWidth100:Int = 240
     private let planeHeight100:Int = 100
-    private let initialRangeX: Float = 0.9
+    private let initialRangeX: Float = 1.2
     private let initialRangeZ: Float = 0
     private let initialMinZ: Float = -1.0
     private var minZ: Float = -1.0 // check physics model and canputobj if change this
-    private var rangeX: Float = 0.9
+    private var rangeX: Float = 1.2
     private var rangeZ: Float = 0
     private var yTransform: Float = 0.0
     private var isClosing: Bool = false
@@ -41,12 +41,13 @@ class ContentsModel {
         if minZ < 0 {
             addZ = -minZ
         }
-        var minX: Int = Int((x - catSize/2 + rangeX) * 100)
-        var maxX: Int = Int((x + catSize/2 + rangeX) * 100)
-        var minZ: Int = Int((z - catSize/2 + addZ) * 100)
-        var maxZ: Int = Int((z + catSize/2 + addZ) * 100)
+        var minX: Int = Int((x - catSize + rangeX) * 100)
+        var maxX: Int = Int((x + catSize + rangeX) * 100)
+        var minZ: Int = Int((z - catSize + addZ) * 100)
+        var maxZ: Int = Int((z + catSize + addZ) * 100)
         if minX > planeWidth100 || maxX < 0 || minZ > planeHeight100 || maxZ < 0 {
             print("Outside plane")
+            print("canPutObj Outside : x, z, min, max, indZ, indX", x, z, minX, maxX, minZ, maxZ)
             return false
         } else {
             minX = max(minX, 0)
@@ -56,11 +57,13 @@ class ContentsModel {
             for indZ in minZ...maxZ {
                 for indX in minX...maxX {
                     if planeMatrix[indZ][indX] == false {
+                        print("canPutObj false at : x, z, min, max, indZ, indX", x, z, minX, maxX, minZ, maxZ, indX, indZ)
                         return false
                     }
                 }
             }
         }
+        print("canPutObj true at : x, z, min, max, indZ, indX", x, z, minX, maxX, minZ, maxZ)
         return true
     }
     
@@ -71,19 +74,15 @@ class ContentsModel {
         var curX: Float = (rangeX * -1) + (perRange/2)
         var availableNum: Int = 0
         for _ in 1...maxCatCount {
-            /*let minZ:Float = isSmallZ ? minZ : (rangeZ - minZ)/2 + 0.2 + minZ
-            let maxZ:Float = isSmallZ ? (rangeZ - minZ)/2 - 0.2 + minZ : rangeZ
-            let acMinX: Float = ind != 1 ? minX + 0.2 : minX
-            let acMaxX: Float = ind != maxCatCount ? minX+perRange - 0.2 : minX+perRange*/
             var canPut: Bool = false
-            var curZ: Float = isSmallZ ? minZ + catSize/2 : rangeZ - catSize/2
+            var curZ: Float = isSmallZ ? minZ + catSize : rangeZ - catSize
             if isSmallZ {
                 while curZ <= (rangeZ - catSize) {
                     if canPutObj(x: curX, z: curZ) {
                         canPut = true
                         break;
                     }
-                    curZ += 0.1
+                    curZ += 0.05
                 }
             } else {
                 while curZ >= (minZ + catSize) {
@@ -91,7 +90,7 @@ class ContentsModel {
                         canPut = true
                         break;
                     }
-                    curZ -= 0.1
+                    curZ -= 0.05
                 }
             }
            

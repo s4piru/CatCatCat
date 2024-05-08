@@ -22,7 +22,7 @@ struct CatCatCatApp: App {
     @State private var isOrangeEnabled = false
     @State private var isTigerEnabled = false
     @State private var isWhiteBlackEnabled = false
-    @State private var availableCatNum: Int = 3
+    @State private var availableCatNum: Int = -1
     private var contentsModel = ContentsModel()
     
     var body: some Scene {

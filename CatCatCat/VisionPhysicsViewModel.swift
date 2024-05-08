@@ -6,16 +6,18 @@ import ARKit
 @MainActor class VisionPhysicsViewModel: ObservableObject {
     private let session = ARKitSession()
     private let sceneReconstruction = SceneReconstructionProvider()
-    private let planeWidth:Float = 1.8
+    private let planeWidth:Float = 2.4
     private let planeHeight:Float = 1.0
-    private let planeWidth100:Int = 180
+    private let planeWidth100:Int = 240
     private let planeHeight100:Int = 100
     private var contentEntity = Entity()
     private var meshEntities = [UUID: ModelEntity]()
     private var planeMatrix: [[Bool]] = []
     private var isSupported: Bool = false
     private let initialMinZ: Float = -1.0
-    private let initialRangeX: Float = 0.9
+    private let initialRangeX: Float = 1.2
+    private let catSize:Float = 0.48
+    private let minObjHeight: Float = 0.2
 
     func setUpMatrix() {
         for _ in 0...planeWidth100 {
@@ -59,8 +61,6 @@ import ARKit
             }
         }
         
-        setUpMatrix()
-        
         do {
             try await session.run([sceneReconstruction])
         } catch {
@@ -95,11 +95,11 @@ import ARKit
                 if let meshResource {
                     // Make this mesh occlude virtual objects behind it.
                     entity.components.set(ModelComponent(mesh: meshResource, materials: [OcclusionMaterial()]))
-                    if meshResource.bounds.max.y > 0.5 {
-                        var minX:Int = Int((meshResource.bounds.min.x + planeWidth/2 + initialRangeX) * 100)
-                        var maxX:Int = Int((meshResource.bounds.max.x + planeWidth/2 + initialRangeX) * 100)
-                        var minZ:Int = Int((meshResource.bounds.min.z + -initialMinZ) * 100)
-                        var maxZ:Int = Int((meshResource.bounds.max.z + -initialMinZ) * 100)
+                    if /*meshResource.bounds.max.y > 0.05*/ shape.bounds.max.y > minObjHeight  {
+                        var minX:Int = Int((meshAnchor.originFromAnchorTransform.translation.x + shape.bounds.min.x + initialRangeX) * 100)
+                        var maxX:Int = Int((meshAnchor.originFromAnchorTransform.translation.x + shape.bounds.max.x + initialRangeX) * 100)
+                        var minZ:Int = Int((meshAnchor.originFromAnchorTransform.translation.z + shape.bounds.min.z + -initialMinZ) * 100)
+                        var maxZ:Int = Int((meshAnchor.originFromAnchorTransform.translation.z + shape.bounds.max.z + -initialMinZ) * 100)
                         if minX > planeWidth100 || maxX < 0 || minZ > planeHeight100 || maxZ < 0 {
                             print("Outside mesh")
                         } else {

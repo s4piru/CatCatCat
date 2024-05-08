@@ -26,9 +26,10 @@ struct ImmersiveView: View {
         RealityView { content in
             content.add(physicsModel.setupContentEntity())
             contentsModel.registerContent(content: content)
+            physicsModel.setUpMatrix()
         }
         .task {
-            try? await Task.sleep(for: .seconds(5))
+            try? await Task.sleep(for: .seconds(10))
             let planeMatrix = physicsModel.getPlaneMatrix()
             self.availableCatNum = contentsModel.getNumCat(planeMatrix: planeMatrix)
             for catNameTexture in catNameTextureList {
@@ -42,6 +43,7 @@ struct ImmersiveView: View {
         }
         .onAppear {
             isImmersiveSpaceShown = true
+            self.availableCatNum = -1
         }
         .onDisappear {
             contentsModel.closeImmersiveView()
