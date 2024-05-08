@@ -99,6 +99,8 @@
 		C93C9BCA2BE0A063003EBB41 /* umyao_oko.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BC12BE0A063003EBB41 /* umyao_oko.mp3 */; };
 		C93C9BCB2BE0A063003EBB41 /* gorogoronya-n.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C93C9BC22BE0A063003EBB41 /* gorogoronya-n.mp3 */; };
 		C93C9C042BE5B99D003EBB41 /* PlaneDetectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9C032BE5B99D003EBB41 /* PlaneDetectionModel.swift */; };
+		C93C9C062BE9E066003EBB41 /* VisionPhysicsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9C052BE9E066003EBB41 /* VisionPhysicsViewModel.swift */; };
+		C93C9C082BE9E1F8003EBB41 /* GeometryUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93C9C072BE9E1F8003EBB41 /* GeometryUtilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -207,6 +209,8 @@
 		C93C9BC12BE0A063003EBB41 /* umyao_oko.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = umyao_oko.mp3; sourceTree = "<group>"; };
 		C93C9BC22BE0A063003EBB41 /* gorogoronya-n.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "gorogoronya-n.mp3"; sourceTree = "<group>"; };
 		C93C9C032BE5B99D003EBB41 /* PlaneDetectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetectionModel.swift; sourceTree = "<group>"; };
+		C93C9C052BE9E066003EBB41 /* VisionPhysicsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionPhysicsViewModel.swift; sourceTree = "<group>"; };
+		C93C9C072BE9E1F8003EBB41 /* GeometryUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +263,8 @@
 				C93C9AEA2BCFD0BF003EBB41 /* Character.swift */,
 				C93C9AEC2BCFD186003EBB41 /* ContentsModel.swift */,
 				C93C9C032BE5B99D003EBB41 /* PlaneDetectionModel.swift */,
+				C93C9C052BE9E066003EBB41 /* VisionPhysicsViewModel.swift */,
+				C93C9C072BE9E1F8003EBB41 /* GeometryUtilities.swift */,
 				C93C9BA02BD27B0A003EBB41 /* ModelList.swift */,
 				C93C9ACF2BCF1F0B003EBB41 /* Preview Content */,
 			);
@@ -594,11 +600,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C93C9ACA2BCF1F0A003EBB41 /* ContentView.swift in Sources */,
+				C93C9C082BE9E1F8003EBB41 /* GeometryUtilities.swift in Sources */,
 				C93C9AED2BCFD186003EBB41 /* ContentsModel.swift in Sources */,
 				C93C9AC82BCF1F0A003EBB41 /* CatCatCatApp.swift in Sources */,
 				C93C9BA12BD27B0A003EBB41 /* ModelList.swift in Sources */,
 				C93C9C042BE5B99D003EBB41 /* PlaneDetectionModel.swift in Sources */,
 				C93C9ACC2BCF1F0A003EBB41 /* ImmersiveView.swift in Sources */,
+				C93C9C062BE9E066003EBB41 /* VisionPhysicsViewModel.swift in Sources */,
 				C93C9AEB2BCFD0BF003EBB41 /* Character.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

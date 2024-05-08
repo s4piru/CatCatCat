@@ -19,28 +19,35 @@ struct ImmersiveView: View {
     @Binding var isTigerEnabled: Bool
     @Binding var isWhiteBlackEnabled: Bool
     @State var toggleUpdate: Bool = false
-    @Environment(PlaneDetectionModel.self) var model
+    @Environment(PlaneDetectionModel.self) var planeModel
+    @StateObject var physicsModel = VisionPhysicsViewModel()
     
     var body: some View {
         RealityView { content in
             isImmersiveSpaceShown = true
             contentsModel.registerContent(content: content)
-            content.add(model.setupContentEntity())
+            content.add(planeModel.setupContentEntity())
+            content.add(physicsModel.setupContentEntity())
             for catNameTexture in catNameTextureList {
                 await contentsModel.showCat(catName: catNameTexture.key)
             }
             subscriptions = contentsModel.getSubscriptions()
         }
-        /*
         .task {
-            await model.runSession()
+            await physicsModel.runSession()
         }
         .task {
-            await model.processPlaneDetectionUpdates()
+            await physicsModel.processReconstructionUpdates()
         }
         .task {
-            await model.monitorSessionEvents()
-        }*/
+            await planeModel.runSession()
+        }
+        .task {
+            await planeModel.processPlaneDetectionUpdates()
+        }
+        .task {
+            await planeModel.monitorSessionEvents()
+        }
 
         .onDisappear {
             contentsModel.closeImmersiveView()

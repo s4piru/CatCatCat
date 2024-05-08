@@ -7,11 +7,13 @@ class ContentsModel {
     private var content: RealityViewContent? = nil
     private var characters: [String: Character] = [:]
     private let initialRangeX: Float = 0.9
-    private let initialRangeZ: Float = 3.0
-    private var minZ: Float = 2.0
+    private let initialRangeZ: Float = 0.5
+    private let initialMinZ: Float = -0.5
+    private var minZ: Float = -0.5
     private var rangeX: Float = 0.9
-    private var rangeZ: Float = 3.00
+    private var rangeZ: Float = 0.5
     private var yTransform: Float = 0.0
+    private var worldAnchor: AnchorEntity = AnchorEntity()
     private var floorPlaneAnchor: AnchorEntity = AnchorEntity()
     private var isClosing: Bool = false
     private let walkMovement: Float = 0.28289
@@ -281,7 +283,8 @@ class ContentsModel {
                 floorPlaneAnchor.removeChild(entity.value)
             }
         }
-        content?.remove(floorPlaneAnchor)
+        //content?.remove(floorPlaneAnchor)
+        content?.remove(worldAnchor)
     }
     
     func cancelAllSubscriptions() {
@@ -374,17 +377,20 @@ class ContentsModel {
         self.isClosing = false
         self.travelingCharacter = ""
         self.characterTravelInQueue = ""
-        self.minZ = 0.0
+        self.minZ = self.initialMinZ
         self.rangeX = self.initialRangeX
         self.rangeZ = self.initialRangeZ
-        self.floorPlaneAnchor = AnchorEntity(.plane(.horizontal, classification: .floor, minimumBounds: SIMD2<Float>(1.8, 1.0)))
+        self.worldAnchor = AnchorEntity(world: [0,0,0])
+        self.floorPlaneAnchor = AnchorEntity(.plane(.horizontal, classification: .floor, minimumBounds: SIMD2<Float>(1.0, 1.0)))
         self.floorPlaneAnchor.generateCollisionShapes(recursive: false)
-        self.floorPlaneAnchor.position.x = 0.0
-        self.floorPlaneAnchor.position.z = 0.0
+        self.worldAnchor.addChild(floorPlaneAnchor)
+        self.floorPlaneAnchor.transform.translation.x = worldAnchor.transform.translation.x
+        self.floorPlaneAnchor.transform.translation.z = 2.5
         self.isHandlingCollision = false
         self.collisionHandlingCharacter = ""
         createRandomTransforms()
-        content.add(floorPlaneAnchor)
+        //content.add(floorPlaneAnchor)
+        content.add(worldAnchor)
         self.content = content
     }
     
@@ -411,6 +417,10 @@ class ContentsModel {
         }
     }
     
+    func isCharacter(name: String) -> Bool {
+        return catNameTextureList.keys.contains(name)
+    }
+    
     func registerEntity(entity: ModelEntity, characterName: String, entityType: EntityType, entityName: String) {
         if content != nil {
             subscriptions.append(content!.subscribe(to: AnimationEvents.PlaybackCompleted.self, on: entity) { e in
@@ -418,7 +428,7 @@ class ContentsModel {
                 print("ContentsModel::registerEntity() processAfterAnimation called: ", characterName, ", usdzName: ", entityName)
             })
             subscriptions.append(content!.subscribe(to: CollisionEvents.Began.self) { e in
-                if !self.isHandlingCollision && e.entityA.isEnabled && e.entityB.isEnabled {
+                if self.isCharacter(name: e.entityA.name) && self.isCharacter(name: e.entityB.name) && !self.isHandlingCollision && e.entityA.isEnabled && e.entityB.isEnabled {
                     print("====================Collision between \(e.entityA.name) and \(e.entityB.name) is occured====================")
                     self.handleCollision(entityA: e.entityA, entityB: e.entityB, isCollide: true)
                 }

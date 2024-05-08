@@ -42,7 +42,9 @@ class PlaneDetectionModel {
             let planeAnchor = update.anchor
 
             // Skip planes that are windows.
-            if planeAnchor.classification == .window { continue }
+            //if planeAnchor.classification == .window { continue }
+            
+            if planeAnchor.classification != .floor { continue }
 
             switch update.event {
             case .added, .updated:
@@ -90,6 +92,9 @@ class PlaneDetectionModel {
             let planeEntity = ModelEntity(mesh: .generatePlane(width: anchor.geometry.extent.width, depth: anchor.geometry.extent.height), materials: [material])
             planeEntity.name = "plane"
             planeEntity.transform = Transform(matrix: anchor.geometry.extent.anchorFromExtentTransform)
+            print("%%%%%%PlaneDetectionModel transform", planeEntity.transform)
+            print("%%%%%%PlaneDetectionModel position", planeEntity.position)
+            print("%%%%%%PlaneDetectionModel scale", planeEntity.scale)
             entity.addChild(planeEntity)
 
             entityMap[anchor.id] = entity

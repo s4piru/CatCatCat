@@ -12,7 +12,7 @@ import SwiftUI
 struct CatCatCatApp: App {
     @Environment(\.openImmersiveSpace) private var openImmersiveSpace
     @Environment(\.dismissWindow) var dismissWindow
-    @State private var model: PlaneDetectionModel = PlaneDetectionModel()
+    @State private var planeModel: PlaneDetectionModel = PlaneDetectionModel()
     
     @State private var isImmersiveSpaceShown: Bool = false
     @State private var immersionStyle: ImmersionStyle = .mixed
@@ -45,7 +45,7 @@ struct CatCatCatApp: App {
         
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView(contentsModel: contentsModel, isImmersiveSpaceShown: $isImmersiveSpaceShown, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled)
-                .environment(model)
+                .environment(planeModel)
         }
     }
 }
