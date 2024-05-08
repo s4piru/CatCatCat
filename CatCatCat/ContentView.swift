@@ -18,6 +18,7 @@ struct ContentView: View {
     @Binding var isOrangeEnabled: Bool
     @Binding var isTigerEnabled: Bool
     @Binding var isWhiteBlackEnabled: Bool
+    @Binding var availableCatNum: Int
     
     @AppStorage("blackName") var blackName: String = "Damiano"
     @AppStorage("greyName") var greyName: String = "Sherry"
@@ -31,8 +32,8 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("Name your cats and choose ones you want to invite! (up to 3 cats)")
-                .font(.system(size: 28))
+            Text("Name your cats and choose ones you want to invite! (Max 3 cats)")
+                .font(.system(size: 20))
                 .bold()
                 .fontDesign(.monospaced)
                 .padding(EdgeInsets(
@@ -41,6 +42,18 @@ struct ContentView: View {
                     bottom: 30,
                     trailing: 0
                 ))
+            if availableCatNum < 3 {
+                Text("Up to \(availableCatNum) cats because the floor is not big enough.")
+                    .font(.system(size: 20))
+                    .bold()
+                    .fontDesign(.monospaced)
+                    .padding(EdgeInsets(
+                        top: 30,
+                        leading: 0,
+                        bottom: 30,
+                        trailing: 0
+                    ))
+            }
             HStack {
                 Model3D(named: "black_sample") { model in
                     model
@@ -80,7 +93,7 @@ struct ContentView: View {
                         bottom: 0,
                         trailing: 0
                     ))
-                    .disabled(enabledCount >= 3 && !isBlackEnabled)
+                    .disabled(enabledCount >= availableCatNum && !isBlackEnabled)
             }.padding(EdgeInsets(
                 top: 10,
                 leading: 0,
@@ -122,7 +135,7 @@ struct ContentView: View {
                         bottom: 0,
                         trailing: 0
                     ))
-                    .disabled(enabledCount >= 3 && !isGreyEnabled)
+                    .disabled(enabledCount >= availableCatNum && !isGreyEnabled)
             }.padding(EdgeInsets(
                 top: 10,
                 leading: 0,
@@ -166,7 +179,7 @@ struct ContentView: View {
                         bottom: 0,
                         trailing: 0
                     ))
-                    .disabled(enabledCount >= 3 && !isOrangeEnabled)
+                    .disabled(enabledCount >= availableCatNum && !isOrangeEnabled)
             }.padding(EdgeInsets(
                 top: 10,
                 leading: 0,
@@ -210,7 +223,7 @@ struct ContentView: View {
                         bottom: 0,
                         trailing: 0
                     ))
-                    .disabled(enabledCount >= 3 && !isTigerEnabled)
+                    .disabled(enabledCount >= availableCatNum && !isTigerEnabled)
             }.padding(EdgeInsets(
                 top: 10,
                 leading: 0,
@@ -254,7 +267,7 @@ struct ContentView: View {
                         bottom: 0,
                         trailing: 0
                     ))
-                    .disabled(enabledCount >= 3 && !isWhiteBlackEnabled)
+                    .disabled(enabledCount >= availableCatNum && !isWhiteBlackEnabled)
             }.padding(EdgeInsets(
                 top: 10,
                 leading: 0,

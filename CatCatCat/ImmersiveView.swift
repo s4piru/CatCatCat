@@ -18,16 +18,19 @@ struct ImmersiveView: View {
     @Binding var isOrangeEnabled: Bool
     @Binding var isTigerEnabled: Bool
     @Binding var isWhiteBlackEnabled: Bool
+    @Binding var availableCatNum: Int
     @State var toggleUpdate: Bool = false
-    @Environment(PlaneDetectionModel.self) var planeModel
-    @StateObject var physicsModel = VisionPhysicsViewModel()
+    @StateObject var physicsModel: VisionPhysicsViewModel  = VisionPhysicsViewModel()
     
     var body: some View {
         RealityView { content in
-            isImmersiveSpaceShown = true
-            contentsModel.registerContent(content: content)
-            content.add(planeModel.setupContentEntity())
             content.add(physicsModel.setupContentEntity())
+            contentsModel.registerContent(content: content)
+        }
+        .task {
+            try? await Task.sleep(for: .seconds(5))
+            let planeMatrix = physicsModel.getPlaneMatrix()
+            self.availableCatNum = contentsModel.getNumCat(planeMatrix: planeMatrix)
             for catNameTexture in catNameTextureList {
                 await contentsModel.showCat(catName: catNameTexture.key)
             }
@@ -35,20 +38,11 @@ struct ImmersiveView: View {
         }
         .task {
             await physicsModel.runSession()
-        }
-        .task {
             await physicsModel.processReconstructionUpdates()
         }
-        .task {
-            await planeModel.runSession()
+        .onAppear {
+            isImmersiveSpaceShown = true
         }
-        .task {
-            await planeModel.processPlaneDetectionUpdates()
-        }
-        .task {
-            await planeModel.monitorSessionEvents()
-        }
-
         .onDisappear {
             contentsModel.closeImmersiveView()
             isImmersiveSpaceShown = false

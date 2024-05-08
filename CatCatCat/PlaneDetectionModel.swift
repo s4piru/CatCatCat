@@ -75,6 +75,19 @@ class PlaneDetectionModel {
             }
         }
     }
+    
+    func getNearPlanePosition() -> SIMD3<Float> {
+        var tmp: Float = 100
+        var result: SIMD3<Float> = SIMD3<Float>()
+        for entity in entityMap {
+            let planeEntity = entity.value.findEntity(named: "plane") as! ModelEntity
+            if tmp > planeEntity.position.x + planeEntity.position.z {
+                result = planeEntity.position
+                tmp = planeEntity.position.x + planeEntity.position.z
+            }
+        }
+        return result
+    }
 
     // MARK: - Private
 

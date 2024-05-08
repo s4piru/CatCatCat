@@ -1,3 +1,4 @@
+import SwiftUI
 import RealityKit
 import Foundation
 import ARKit
@@ -5,51 +6,79 @@ import ARKit
 @MainActor class VisionPhysicsViewModel: ObservableObject {
     private let session = ARKitSession()
     private let sceneReconstruction = SceneReconstructionProvider()
-
+    private let planeWidth:Float = 1.8
+    private let planeHeight:Float = 1.0
+    private let planeWidth100:Int = 180
+    private let planeHeight100:Int = 100
     private var contentEntity = Entity()
-
     private var meshEntities = [UUID: ModelEntity]()
+    private var planeMatrix: [[Bool]] = []
+    private var isSupported: Bool = false
+    private let initialMinZ: Float = -1.0
+    private let initialRangeX: Float = 0.9
+
+    func setUpMatrix() {
+        for _ in 0...planeWidth100 {
+            var lineX: [Bool] = []
+            for _ in 0...planeWidth100 {
+                lineX.append(true)
+            }
+            planeMatrix.append(lineX)
+        }
+    }
 
     func setupContentEntity() -> Entity {
         return contentEntity
     }
+    
+    func getPlaneMatrix() -> [[Bool]] {
+        print("===============getPlaneMatrix=================")
+        for indZ in 0...planeHeight100 {
+            print(planeMatrix[indZ])
+        }
+        print("===============getPlaneMatrix=================")
+        return planeMatrix
+    }
 
     func runSession() async {
+        let authorizationResult = await session.requestAuthorization(for: [.worldSensing])
+        for (authorizationType, authorizationStatus) in authorizationResult {
+            print("Authorization status for \(authorizationType): \(authorizationStatus)")
+            
+            // Do something for a real app
+            switch authorizationStatus {
+            case .allowed:
+                isSupported = true
+                continue
+            case .denied:
+                return
+            case .notDetermined:
+                return
+            @unknown default:
+                return
+            }
+        }
         
-        let authorizationResult = await session.requestAuthorization(for: [.worldSensing/*, .handTracking*/])
-
-       for (authorizationType, authorizationStatus) in authorizationResult {
-           print("Authorization status for \(authorizationType): \(authorizationStatus)")
-
-           // Do something for a real app
-           switch authorizationStatus {
-           case .allowed:
-               continue
-           case .denied:
-               return
-           case .notDetermined:
-               return
-           @unknown default:
-               return
-           }
-       }
+        setUpMatrix()
         
         do {
-            try await session.run([sceneReconstruction/*, handTracking*/])
+            try await session.run([sceneReconstruction])
         } catch {
             print ("Failed to start session: \(error)")
         }
     }
         
     func processReconstructionUpdates() async {
+        if isSupported == false {
+            return
+        }
+        
         for await update in sceneReconstruction.anchorUpdates {
             let meshAnchor = update.anchor
-            
             guard let shape = try? await ShapeResource.generateStaticMesh(from: meshAnchor) else { continue }
             
             switch update.event {
             case .added:
-
                 let entity = ModelEntity()
                 entity.name = "Plane \(meshAnchor.id)"
                 
@@ -66,15 +95,34 @@ import ARKit
                 if let meshResource {
                     // Make this mesh occlude virtual objects behind it.
                     entity.components.set(ModelComponent(mesh: meshResource, materials: [OcclusionMaterial()]))
+                    if meshResource.bounds.max.y > 0.5 {
+                        var minX:Int = Int((meshResource.bounds.min.x + planeWidth/2 + initialRangeX) * 100)
+                        var maxX:Int = Int((meshResource.bounds.max.x + planeWidth/2 + initialRangeX) * 100)
+                        var minZ:Int = Int((meshResource.bounds.min.z + -initialMinZ) * 100)
+                        var maxZ:Int = Int((meshResource.bounds.max.z + -initialMinZ) * 100)
+                        if minX > planeWidth100 || maxX < 0 || minZ > planeHeight100 || maxZ < 0 {
+                            print("Outside mesh")
+                        } else {
+                            minX = max(minX, 0)
+                            maxX = min(maxX, planeWidth100)
+                            minZ = max(minZ, 0)
+                            maxZ = min(maxZ, planeHeight100)
+                            for indZ in minZ...maxZ {
+                                for indX in minX...maxX {
+                                    planeMatrix[indZ][indX] = false
+                                }
+                            }
+                        }
+                    }
                 }
                 
                 entity.transform = Transform(matrix: meshAnchor.originFromAnchorTransform)
                 entity.collision = CollisionComponent(shapes: [shape], isStatic: true)
                 entity.physicsBody = PhysicsBodyComponent()
                 entity.components.set(InputTargetComponent())
-                
                 meshEntities[meshAnchor.id] = entity
                 contentEntity.addChild(entity)
+            // ignore for now
             case .updated:
                 guard let entity = meshEntities[meshAnchor.id] else { fatalError("...") }
                 entity.transform = Transform(matrix: meshAnchor.originFromAnchorTransform)

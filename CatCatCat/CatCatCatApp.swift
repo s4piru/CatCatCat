@@ -12,7 +12,6 @@ import SwiftUI
 struct CatCatCatApp: App {
     @Environment(\.openImmersiveSpace) private var openImmersiveSpace
     @Environment(\.dismissWindow) var dismissWindow
-    @State private var planeModel: PlaneDetectionModel = PlaneDetectionModel()
     
     @State private var isImmersiveSpaceShown: Bool = false
     @State private var immersionStyle: ImmersionStyle = .mixed
@@ -23,11 +22,12 @@ struct CatCatCatApp: App {
     @State private var isOrangeEnabled = false
     @State private var isTigerEnabled = false
     @State private var isWhiteBlackEnabled = false
+    @State private var availableCatNum: Int = 3
     private var contentsModel = ContentsModel()
     
     var body: some Scene {
         WindowGroup(id: "FirstWindow") {
-            ContentView(isImmersiveSpaceShown: $isImmersiveSpaceShown, showImmersiveSpaceFromButton: $showImmersiveSpaceFromButton, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled)
+            ContentView(isImmersiveSpaceShown: $isImmersiveSpaceShown, showImmersiveSpaceFromButton: $showImmersiveSpaceFromButton, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled, availableCatNum: $availableCatNum)
                 .onAppear() {
                     Task {
                         await openImmersiveSpace(id: "ImmersiveSpace")
@@ -44,8 +44,7 @@ struct CatCatCatApp: App {
         }
         
         ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView(contentsModel: contentsModel, isImmersiveSpaceShown: $isImmersiveSpaceShown, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled)
-                .environment(planeModel)
+            ImmersiveView(contentsModel: contentsModel, isImmersiveSpaceShown: $isImmersiveSpaceShown, isBlackEnabled: $isBlackEnabled, isGreyEnabled: $isGreyEnabled, isOrangeEnabled: $isOrangeEnabled, isTigerEnabled: $isTigerEnabled, isWhiteBlackEnabled: $isWhiteBlackEnabled, availableCatNum: $availableCatNum)
         }
     }
 }

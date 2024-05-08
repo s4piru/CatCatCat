@@ -6,15 +6,15 @@ class ContentsModel {
     private let queue = DispatchQueue(label: "com.content.myqueue")
     private var content: RealityViewContent? = nil
     private var characters: [String: Character] = [:]
+    private let planeWidth100:Int = 180
+    private let planeHeight100:Int = 100
     private let initialRangeX: Float = 0.9
-    private let initialRangeZ: Float = 0.5
-    private let initialMinZ: Float = -0.5
-    private var minZ: Float = -0.5
+    private let initialRangeZ: Float = 0
+    private let initialMinZ: Float = -1.0
+    private var minZ: Float = -1.0 // check physics model and canputobj if change this
     private var rangeX: Float = 0.9
-    private var rangeZ: Float = 0.5
+    private var rangeZ: Float = 0
     private var yTransform: Float = 0.0
-    private var worldAnchor: AnchorEntity = AnchorEntity()
-    private var floorPlaneAnchor: AnchorEntity = AnchorEntity()
     private var isClosing: Bool = false
     private let walkMovement: Float = 0.28289
     private let trotMovement: Float = 0.47015
@@ -27,6 +27,8 @@ class ContentsModel {
     private var collisionHandlingCharacter = ""
     private let maxCatCount = 3
     private var transforms: [(SIMD3<Float>, String)] = []
+    private let catSize:Float = 0.48
+    private var planeMatrix: [[Bool]] = []
     
     // Helper functions
     func createRandomOrientation() -> simd_quatf {
@@ -34,24 +36,78 @@ class ContentsModel {
         return simd_quatf(angle: randomRotation, axis: SIMD3<Float>(0, 1, 0))
     }
     
+    func canPutObj(x: Float, z: Float) -> Bool {
+        var addZ:Float = 0.0
+        if minZ < 0 {
+            addZ = -minZ
+        }
+        var minX: Int = Int((x - catSize/2 + rangeX) * 100)
+        var maxX: Int = Int((x + catSize/2 + rangeX) * 100)
+        var minZ: Int = Int((z - catSize/2 + addZ) * 100)
+        var maxZ: Int = Int((z + catSize/2 + addZ) * 100)
+        if minX > planeWidth100 || maxX < 0 || minZ > planeHeight100 || maxZ < 0 {
+            print("Outside plane")
+            return false
+        } else {
+            minX = max(minX, 0)
+            maxX = min(maxX, planeWidth100)
+            minZ = max(minZ, 0)
+            maxZ = min(maxZ, planeHeight100)
+            for indZ in minZ...maxZ {
+                for indX in minX...maxX {
+                    if planeMatrix[indZ][indX] == false {
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
+    
     // TODO: Need to be updated.
-    func createRandomTransforms() {
+    func createRandomTransforms() -> Int {
         var isSmallZ = true
-        let perRange = (rangeX * 2) / Float(maxCatCount)
-        var minX: Float = rangeX * -1
-        for ind in 1...maxCatCount {
-            let minZ:Float = isSmallZ ? minZ : (rangeZ - minZ)/2 + 0.2 + minZ
+        let perRange: Float = (rangeX * 2) / Float(maxCatCount)
+        var curX: Float = (rangeX * -1) + (perRange/2)
+        var availableNum: Int = 0
+        for _ in 1...maxCatCount {
+            /*let minZ:Float = isSmallZ ? minZ : (rangeZ - minZ)/2 + 0.2 + minZ
             let maxZ:Float = isSmallZ ? (rangeZ - minZ)/2 - 0.2 + minZ : rangeZ
             let acMinX: Float = ind != 1 ? minX + 0.2 : minX
-            let acMaxX: Float = ind != maxCatCount ? minX+perRange - 0.2 : minX+perRange
-            transforms.append((SIMD3<Float>(
-                x: Float.random(in: acMinX...acMaxX),
-                y: yTransform,
-                z: Float.random(in: minZ...maxZ)
-            ), ""))
-            minX += perRange
+            let acMaxX: Float = ind != maxCatCount ? minX+perRange - 0.2 : minX+perRange*/
+            var canPut: Bool = false
+            var curZ: Float = isSmallZ ? minZ + catSize/2 : rangeZ - catSize/2
+            if isSmallZ {
+                while curZ <= (rangeZ - catSize) {
+                    if canPutObj(x: curX, z: curZ) {
+                        canPut = true
+                        break;
+                    }
+                    curZ += 0.1
+                }
+            } else {
+                while curZ >= (minZ + catSize) {
+                    if canPutObj(x: curX, z: curZ) {
+                        canPut = true
+                        break;
+                    }
+                    curZ -= 0.1
+                }
+            }
+           
+            if canPut {
+                transforms.append((SIMD3<Float>(
+                    x: curX,
+                    y: yTransform,
+                    z: curZ
+                ), ""))
+                availableNum += 1
+            }
+            curX += perRange
             isSmallZ = isSmallZ ? false : true
         }
+        print("createRandomTransforms:: availableNum: ", availableNum)
+        return availableNum
     }
     
     func updateTransformFromName(characterName: String, transform: SIMD3<Float>) {
@@ -280,11 +336,9 @@ class ContentsModel {
             for entity in character.entities {
                 entity.value.stopAllAnimations()
                 entity.value.isEnabled = false
-                floorPlaneAnchor.removeChild(entity.value)
+                content!.remove(entity.value)
             }
         }
-        //content?.remove(floorPlaneAnchor)
-        content?.remove(worldAnchor)
     }
     
     func cancelAllSubscriptions() {
@@ -299,7 +353,6 @@ class ContentsModel {
     
     // This is run only when ContentsModel is created.
     init() {
-        createRandomTransforms()
         for catNameTexture in catNameTextureList {
             guard let textureName: String = catNameTextureList[catNameTexture.key] else {
                 print("ContentsModel::init() There is no catName: ", catNameTexture.key)
@@ -380,18 +433,14 @@ class ContentsModel {
         self.minZ = self.initialMinZ
         self.rangeX = self.initialRangeX
         self.rangeZ = self.initialRangeZ
-        self.worldAnchor = AnchorEntity(world: [0,0,0])
-        self.floorPlaneAnchor = AnchorEntity(.plane(.horizontal, classification: .floor, minimumBounds: SIMD2<Float>(1.0, 1.0)))
-        self.floorPlaneAnchor.generateCollisionShapes(recursive: false)
-        self.worldAnchor.addChild(floorPlaneAnchor)
-        self.floorPlaneAnchor.transform.translation.x = worldAnchor.transform.translation.x
-        self.floorPlaneAnchor.transform.translation.z = 2.5
         self.isHandlingCollision = false
         self.collisionHandlingCharacter = ""
-        createRandomTransforms()
-        //content.add(floorPlaneAnchor)
-        content.add(worldAnchor)
         self.content = content
+    }
+    
+    func getNumCat(planeMatrix: [[Bool]]) -> Int {
+        self.planeMatrix = planeMatrix
+        return createRandomTransforms()
     }
     
     func handleCollision(entityA: Entity, entityB: Entity, isCollide: Bool) {
@@ -423,6 +472,7 @@ class ContentsModel {
     
     func registerEntity(entity: ModelEntity, characterName: String, entityType: EntityType, entityName: String) {
         if content != nil {
+            content!.add(entity)
             subscriptions.append(content!.subscribe(to: AnimationEvents.PlaybackCompleted.self, on: entity) { e in
                 self.processAfterAnimation(characterName: characterName, entityType: entityType, entityName: entityName)
                 print("ContentsModel::registerEntity() processAfterAnimation called: ", characterName, ", usdzName: ", entityName)
@@ -451,7 +501,6 @@ class ContentsModel {
         
         for regiterEntity in character.entities {
             DispatchQueue.main.async {
-                self.floorPlaneAnchor.addChild(regiterEntity.value)
                 self.registerEntity(entity: regiterEntity.value, characterName: catName, entityType: usdzEntityTypeList[regiterEntity.key]!, entityName: regiterEntity.key)
             }
         }
@@ -486,14 +535,8 @@ class ContentsModel {
             if !character.entities.keys.contains(usdzEntityType.key) && !firstUsdzEntityTypeList.keys.contains(usdzEntityType.key) {
                 let entity = await self.loadEntity(characterName: character.characterName, entityType:usdzEntityType.value, usdzName: usdzEntityType.key, material: character.material)
                 DispatchQueue.main.async {
-                    self.floorPlaneAnchor.addChild(entity)
                     self.registerEntity(entity: entity, characterName: character.characterName, entityType: usdzEntityType.value, entityName: usdzEntityType.key)
                     character.entities[usdzEntityType.key] = entity
-                }
-            } else if !firstUsdzEntityTypeList.keys.contains(usdzEntityType.key) {
-                DispatchQueue.main.async {
-                    let entity = character.entities[usdzEntityType.key]!
-                    self.floorPlaneAnchor.addChild(entity)
                 }
             }
         }
@@ -515,7 +558,6 @@ class ContentsModel {
             loadedEntity.components.set(InputTargetComponent(allowedInputTypes: .all))
             loadedEntity.isEnabled = false
             self.setCollisionComponent(entity: loadedEntity)
-            
             print("ContentsModel::loadEntity() Succeeded to load entity for characterName: ", characterName, ", usdzName: ", usdzName)
             return loadedEntity
         } catch {
