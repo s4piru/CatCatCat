@@ -109,6 +109,15 @@ class ContentsModel {
         return availableNum
     }
     
+    func getTransformFromName(characterName: String) -> SIMD3<Float> {
+        for (ind, ele) in transforms.enumerated() {
+            if ele.1 == characterName {
+                return self.transforms[ind].0
+            }
+        }
+        return SIMD3<Float>()
+    }
+    
     func updateTransformFromName(characterName: String, transform: SIMD3<Float>) {
         for (ind, ele) in transforms.enumerated() {
             if ele.1 == characterName {
@@ -235,7 +244,22 @@ class ContentsModel {
         }
     }
     
-    func appendRandomActionToQueue(character: Character, newLastForceActivity: ForceActivityType, isNoTurn: Bool, isNoTravel: Bool = false) {
+    func canWalk(character: Character, transform: SIMD3<Float>, orientation: simd_quatf) -> Bool {
+        var travelCount: Int = 0
+        for (name, type) in character.entityNameQueue {
+            if turnEntityNameList.contains(name) {
+                return false
+            }
+            
+            if travelEntityNameList.contains(name) {
+                travelCount += 1
+            }
+        }
+        let distTransform = transform + walkMovement * Float(travelCount) * orientation.act(SIMD3<Float>(0, 0, 1))
+        return canPutObj(x: distTransform.x, z: distTransform.z)
+    }
+    
+    func appendRandomActionToQueue(character: Character, newLastForceActivity: ForceActivityType, isNoTurn: Bool, isNoTravel: Bool, transform: SIMD3<Float> = SIMD3<Float>(), orientation: simd_quatf = simd_quatf()) {
         guard let (lastEntityName, _): (String, ForceActivityType) = character.entityNameQueue.last else {
             print("ContentsModel::appendRandomActionToLastEntity(): No lastEntityName found for: ", character.characterName)
             return
@@ -248,10 +272,10 @@ class ContentsModel {
         
         var newLastEntityName: String
         
-        if isOtherCatTraveling(characterName: character.characterName, shouldInculdeQueue: true) {
+        if isNoTravel || isOtherCatTraveling(characterName: character.characterName, shouldInculdeQueue: true) || !canWalk(character: character, transform: transform, orientation: orientation) {
             newLastEntityName = getNewEntityNameFromlastEntityType(hasModelLoadCompleted: character.hasModelLoadCompleted, lastEntityType: lastEntityType, isNoturn: isNoTurn, isNoTravel: true)
         } else {
-            newLastEntityName = getNewEntityNameFromlastEntityType(hasModelLoadCompleted: character.hasModelLoadCompleted, lastEntityType: lastEntityType, isNoturn: isNoTurn, isNoTravel: isNoTravel)
+            newLastEntityName = getNewEntityNameFromlastEntityType(hasModelLoadCompleted: character.hasModelLoadCompleted, lastEntityType: lastEntityType, isNoturn: isNoTurn, isNoTravel: false)
         }
         
         character.entityNameQueue.append((newLastEntityName, newLastForceActivity))
@@ -363,8 +387,9 @@ class ContentsModel {
             material.color.texture = .init(texture)
             
             let character = Character(characterName: catNameTexture.key, entities: [:], material: material)
-            for _ in 1...3 {
-                character.entityNameQueue.append((firstUsdzEntityTypeList.randomElement()!.key, ForceActivityType.none))
+            let qList = firstQueueList[catNameTexture.key]!
+            for qItem in qList {
+                character.entityNameQueue.append((qItem, ForceActivityType.none))
             }
             self.characters[catNameTexture.key] = character
         }
@@ -443,25 +468,6 @@ class ContentsModel {
     }
     
     func handleCollision(entityA: Entity, entityB: Entity) {
-        if !isCharacter(name: entityA.name) {
-            self.isHandlingCollision = true
-            let modelEntityB = getModelEntityFromEntity(entity: entityB)!
-            let characterB = getCharacterFromName(characterName: modelEntityB.name)!
-            let (_, countB) = characterB.shouldResolveCollisionCount
-            characterB.shouldResolveCollisionCount = (true, countB+1)
-            collisionHandlingCharacter = characterB.characterName
-            return
-        } else if !isCharacter(name: entityB.name) {
-            self.isHandlingCollision = true
-            let modelEntityA = getModelEntityFromEntity(entity: entityA)!
-            let characterA = getCharacterFromName(characterName: modelEntityA.name)!
-            let (_, countA) = characterA.shouldResolveCollisionCount
-            characterA.shouldResolveCollisionCount = (true, countA+1)
-            collisionHandlingCharacter = characterA.characterName
-            return
-        }
-        
-        
         let modelEntityA = getModelEntityFromEntity(entity: entityA)!
         let modelEntityB = getModelEntityFromEntity(entity: entityB)!
         let characterA = getCharacterFromName(characterName: modelEntityA.name)!
@@ -494,7 +500,7 @@ class ContentsModel {
                 print("ContentsModel::registerEntity() processAfterAnimation called: ", characterName, ", usdzName: ", entityName)
             })
             subscriptions.append(content!.subscribe(to: CollisionEvents.Began.self) { e in
-                if (self.isCharacter(name: e.entityA.name) || self.isCharacter(name: e.entityB.name)) && !self.isHandlingCollision && e.entityA.isEnabled && e.entityB.isEnabled {
+                if self.isCharacter(name: e.entityA.name) && self.isCharacter(name: e.entityB.name) && !self.isHandlingCollision && e.entityA.isEnabled && e.entityB.isEnabled {
                     print("====================Collision between \(e.entityA.name) and \(e.entityB.name) is occured====================")
                     self.handleCollision(entityA: e.entityA, entityB: e.entityB)
                 }
@@ -644,8 +650,8 @@ class ContentsModel {
                     character.entityNameQueue.removeAll()
                     character.entityNameQueue.append((turnEntityName, ForceActivityType.collision))
                     character.entityNameQueue.append(("Kitten_Walk_start", ForceActivityType.collision))
-                    character.entityNameQueue.append(("Kitten_Walk_F_RM", ForceActivityType.collision))
-                    character.entityNameQueue.append(("Kitten_Walk_F_RM", ForceActivityType.collision))
+                    //character.entityNameQueue.append(("Kitten_Walk_F_RM", ForceActivityType.collision))
+                    //character.entityNameQueue.append(("Kitten_Walk_F_RM", ForceActivityType.collision))
                     character.entityNameQueue.append(("Kitten_Walk_end", ForceActivityType.collision))
                     character.shouldResolveCollisionCount = (false, count)
                     if self.characterTravelInQueue != "" && self.characterTravelInQueue != character.characterName {
@@ -663,8 +669,8 @@ class ContentsModel {
                     nextEntity = character.entities[nextEntityName]!
                     character.entityNameQueue.removeAll()
                     character.entityNameQueue.append(("Kitten_Walk_start", ForceActivityType.collision))
-                    character.entityNameQueue.append(("Kitten_Walk_F_RM", ForceActivityType.collision))
-                    character.entityNameQueue.append(("Kitten_Walk_F_RM", ForceActivityType.collision))
+                    //character.entityNameQueue.append(("Kitten_Walk_F_RM", ForceActivityType.collision))
+                    //character.entityNameQueue.append(("Kitten_Walk_F_RM", ForceActivityType.collision))
                     character.entityNameQueue.append(("Kitten_Walk_end", ForceActivityType.collision))
                     character.shouldResolveCollisionCount = (false, count)
                     if self.characterTravelInQueue != "" && self.characterTravelInQueue != character.characterName {
@@ -693,7 +699,7 @@ class ContentsModel {
             }
         } else {
             (nextEntityName, _, nextEntity) = getFirstEntityFromQueue(character: character)
-            appendRandomActionToQueue(character: character, newLastForceActivity: ForceActivityType.none, isNoTurn: false)
+            appendRandomActionToQueue(character: character, newLastForceActivity: ForceActivityType.none, isNoTurn: false, isNoTravel: false, transform: transform, orientation: orientation)
         }
         
         nextEntity.transform.translation.x = transform.x

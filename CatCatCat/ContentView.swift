@@ -337,11 +337,11 @@ struct ContentView: View {
                 enabledCount = newValue ? enabledCount + 1 : enabledCount - 1
             }
             .onChange(of: availableCatNum) { _, _ in
-                self.isBlackEnabled = false
-                self.isGreyEnabled = false
-                self.isOrangeEnabled = false
-                self.isTigerEnabled = false
-                self.isWhiteBlackEnabled = false
+                isBlackEnabled = false
+                isGreyEnabled = false
+                isOrangeEnabled = false
+                isTigerEnabled = false
+                isWhiteBlackEnabled = false
             }
         }
     }

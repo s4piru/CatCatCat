@@ -74,12 +74,24 @@ let sampleNameUsdzList: [String: String] =
         "White_Black": "white_black_idle",
     ]
 
+let firstQueueList: [String: [String]] =
+    [
+        "Black"      : ["Kitten_Idle_1", "Kitten_Idle_1", "Kitten_Idle_7"],
+        "Grey"       : ["Kitten_Idle_2", "Kitten_Idle_2", "Kitten_Idle_4"],
+        "Orange"     : ["Kitten_Idle_5", "Kitten_Idle_3", "Kitten_Idle_3"],
+        "Tiger"      : ["Kitten_Idle_7", "Kitten_Idle_6", "Kitten_Idle_1"],
+        "White_Black": ["Kitten_Idle_4", "Kitten_Idle_8", "Kitten_Idle_8"],
+    ]
+
 let firstUsdzEntityTypeList: [String: EntityType] = [
+    "Kitten_Idle_1": EntityType.idle,
     "Kitten_Idle_2": EntityType.idle,
     "Kitten_Idle_3": EntityType.idle,
+    "Kitten_Idle_4": EntityType.idle,
     "Kitten_Idle_5": EntityType.idle,
     "Kitten_Idle_6": EntityType.idle,
     "Kitten_Idle_7": EntityType.idle,
+    "Kitten_Idle_8": EntityType.idle,
 ]
 
 let travelEntityTypeList: [EntityType] = [
@@ -94,6 +106,13 @@ let travelEntityNameList: [String] = [
     "Kitten_Walk_start",
     "Kitten_Run_F_RM",
     "Kitten_Trot_F_RM",
+]
+
+let turnEntityNameList: [String] = [
+    "Kitten_Turn_90_L",
+    "Kitten_Turn_90_R",
+    "Kitten_Turn_180_L",
+    "Kitten_Turn_180_R",
 ]
 
 let usdzEntityTypeList: [String: EntityType] =
@@ -316,13 +335,14 @@ let nextEntityList: [EntityType: [EntityType: Int]] = [
         EntityType.eatdrink_start: 6,
     ],
     EntityType.walk: [
-        EntityType.trot: 2,
+        EntityType.trot: 0,
         EntityType.run: 0,
-        EntityType.walk_end: 91,
-        EntityType.walk: 5,
+        EntityType.walk_end: 100,
+        EntityType.walk: 0,
     ],
     EntityType.walk_start: [
         EntityType.walk: 100,
+        EntityType.walk_end: 0
     ],
     EntityType.walk_end: [
         EntityType.eatdrink_start: 2,

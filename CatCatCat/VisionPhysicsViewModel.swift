@@ -93,7 +93,7 @@ import ARKit
                 }
                 
                 if let meshResource {
-                    if (shape.bounds.max.y - shape.bounds.min.y) > minObjHeight  {
+                    //if (shape.bounds.max.y - shape.bounds.min.y) > minObjHeight  {
                         // Make this mesh occlude virtual objects behind it.
                         entity.components.set(ModelComponent(mesh: meshResource, materials: [OcclusionMaterial()]))
                         
@@ -119,11 +119,11 @@ import ARKit
                         entity.physicsBody = PhysicsBodyComponent()
                         meshEntities[meshAnchor.id] = entity
                         contentEntity.addChild(entity)
-                    }
+                    //}
                 }
             // ignore for now
             case .updated:
-                guard let entity = meshEntities[meshAnchor.id] else { fatalError("...") }
+                guard let entity = meshEntities[meshAnchor.id] else { return }
                 entity.transform = Transform(matrix: meshAnchor.originFromAnchorTransform)
                 entity.collision?.shapes = [shape]
             case .removed:
